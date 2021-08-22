@@ -1,0 +1,86 @@
+{
+    "audio": "pipewire",
+    "bootloader": "systemd-bootctl",
+    "custom-commands": [
+        "cd /home/snow; git clone https://aur.archlinux.org/paru.git",
+        "chown -R snow:snow /home/snow/paru",
+        "npm install -g tldr",
+        "sh -c '$(curl -fsSL https: //raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)'",
+        "git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions",
+        "chsh -s /bin/zsh"
+    ],
+    "filesystem": "exf4",
+    "gfx_driver": "All open-source (default)",
+    "harddrive": {
+        "path": "/dev/sda"
+    },
+    "hostname": "thonkpad",
+    "kernels": [
+        "linux"
+    ],
+    "keyboard-language": "us",
+    "mirror-region": "Worldwide",
+    "nic": {
+        "NetworkManager": true
+    },
+    "ntp": true,
+    "packages": [
+        "bash-completion",
+        "code",
+        "firefox",
+        "firejail",
+        "git",
+        "github-cli",
+        "grub",
+        "micro",
+        "mupdf",
+        "neofetch",
+        "networkmanager",
+        "nnn",
+        "npm",
+        "rofi",
+        "rust",
+        "simplescreenrecorder",
+        "telegram-desktop",
+        "thefuck",
+        "ttf-anonymous-pro",
+        "ttf-bitstream-vera",
+        "ttf-fira-code",
+        "ttf-fira-mono",
+        "ttf-fira-sans",
+        "ttf-font-awesome",
+        "ttf-ibm-plex",
+        "ttf-jetbrains-mono",
+        "ttf-liberations",
+        "ttf-opensans",
+        "ttf-roboto",
+        "ttf-roboto-mono",
+        "vlc",
+        "wget",
+        "zsh",
+        "zsh-syntax-highlighting"
+    ],
+    "packages_aur": [
+        "betterlockscreen",
+        "code-marketplace",
+        "discord_arch_electron",
+        "polybar-git",
+        "ttf-ms-fonts",
+        "yadm-git",
+        "zsh-theme-powerlevel10k-git"
+    ],
+    "plugin": "https://github.com/phisch/archinstall-aur/raw/master/archinstall-aur.py",
+    "profile": "bspwm",
+    "services": [
+        "docker"
+    ],
+    "superusers": {
+        "snow": {
+            "!password": "arch"
+        }
+    },
+    "sys-encoding": "utf-8",
+    "sys-language": "en_US",
+    "timezone": "US/Eastern",
+    "users": {}
+}
