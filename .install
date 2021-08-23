@@ -32,16 +32,13 @@ def install_on(mountpoint):
         # Strap in the base system, add a boot loader and configure
         # some other minor details as specified by this profile and user.
         if installation.minimal_installation():
-            installation.set_hostname(hostname)
-            # installation.set_mirrors(mirror_regions) # haven't tested
+            installation.set_hostname(hostname)  # change 1
             installation.add_bootloader()
 
             # Optionally enable networking:
             if archinstall.arguments.get("network", None):
                 installation.copy_iso_network_config(enable_services=True)
 
-            # installation.arch_chroot(r"sed -i '/\[multilib\]/,/Include/''s/^#//' /etc/pacman.conf")
-            # installation.arch_chroot(r"sed -i 's/#\(Color\)/\1/' /etc/pacman.conf")
             installation.add_additional_packages(["nano", "wget", "git"])
             installation.install_profile("minimal")
 
