@@ -1,84 +1,15 @@
 import archinstall
 
-KEYMAP = "us"
-LOCALE = "en_US"
-ENCODING = "UTF-8"
-TIMEZONE = "US/Eastern"
-DOWNLOAD_REGION = "United States"
-DEFAULT_USER = "snow"
-
-dependencies = [
-    "acpilight",
-    "alacritty",
-    "baobab",
-    "bluez",
-    "bluez-utils",
-    "bspwm",
-    "curl",
-    "discord",
-    "dkms",
-    "docker",
-    "docker-compose",
-    "eog",
-    "evince",
-    "feh",
-    "foliate",
-    "git",
-    "gnome-calculator",
-    "gnome-disk-utility",
-    "iwd",
-    "linux-headers",
-    "maim",
-    "man-db",
-    "mkcert",
-    "nano",
-    "nautilus",
-    "openssh",
-    "pavucontrol",
-    "polkit",
-    "polkit-gnome",
-    "pulseaudio",
-    "pulseaudio-bluetooth",
-    "reflector",
-    "rofi",
-    "sxhkd",
-    "ttf-dejavu",
-    "ttf-jetbrains-mono",
-    "ttf-joypixels",
-    "vlc",
-    "wmname",
-    "xclip",
-    "xdg-user-dirs",
-    "xorg-server",
-    "xorg-xinit",
-    "xorg-xrandr",
-    "xorg-xsetroot",
-    "zsh",
-]
-dependencies_aur = [
-    "figma-linux",
-    "font-manager",
-    "giph",
-    "google-chrome-dev",
-    "jetbrains-toolbox",
-    "phocus-gtk-theme-git",
-    "picom-git",
-    "polybar",
-    "rtl88xxau-aircrack-dkms-git",
-    "ttf-material-design-icons-git",
-    "visual-studio-code-bin",
-]
-
 # Select a harddrive and a disk password
 archinstall.log("Minimal only supports:")
 archinstall.log(" * Being installed to a single disk")
 
-if archinstall.arguments.get("help", None):
-    archinstall.log(" - Optional disk encryption via --!encryption-password=<password>")
-    archinstall.log(" - Optional filesystem type via --filesystem=<fs type>")
-    archinstall.log(" - Optional systemd network via --network")
+if archinstall.arguments.get('help', None):
+	archinstall.log(" - Optional disk encryption via --!encryption-password=<password>")
+	archinstall.log(" - Optional filesystem type via --filesystem=<fs type>")
+	archinstall.log(" - Optional systemd network via --network")
 
-archinstall.arguments["harddrive"] = archinstall.select_disk(archinstall.all_disks())
+archinstall.arguments['harddrive'] = archinstall.select_disk(archinstall.all_disks())
 hostname = archinstall.generic_select(["thonkbox", "thonkpad"], "Select hostname (default: thonkbox):") or "thonkbox"
 root_password = archinstall.get_password("Root password (default: root):") or "root"
 user = input(f"Username (default: {DEFAULT_USER}): ") or DEFAULT_USER
@@ -86,96 +17,61 @@ user_password = archinstall.get_password(f"Password (default: {user}):") or user
 
 
 def install_on(mountpoint):
-    # We kick off the installer by telling it where the
-    with archinstall.Installer(mountpoint) as installation:
-        # Strap in the base system, add a boot loader and configure
-        # some other minor details as specified by this profile and user.
-        if installation.minimal_installation():
-            installation.set_hostname(hostname)
-            installation.add_bootloader()  # dif
+	# We kick off the installer by telling it where the
+	with archinstall.Installer(mountpoint) as installation:
+		# Strap in the base system, add a boot loader and configure
+		# some other minor details as specified by this profile and user.
+		if installation.minimal_installation():
+			installation.set_hostname('minimal-arch')
+			installation.add_bootloader()
 
-            # Optionally enable networking:
-            if archinstall.arguments.get("network", None):
-                installation.copy_iso_network_config(enable_services=True)
+			# Optionally enable networking:
+			if archinstall.arguments.get('network', None):
+				installation.copy_iso_network_config(enable_services=True)
 
-            installation.add_additional_packages(dependencies)
-            installation.install_profile("minimal")
+			installation.add_additional_packages(['nano', 'wget', 'git'])
+			installation.install_profile('minimal')
 
-            installation.user_create("devel", "devel")
-            installation.user_set_pw("root", "airoot")
+			installation.user_create('devel', 'devel')
+			installation.user_set_pw('root', 'airoot')
 
-            # installation.set_locale(LOCALE, ENCODING)
-            # installation.set_keyboard_language(KEYMAP)
-            # installation.set_timezone(TIMEZONE)
-
-            # installation.user_set_pw("root", root_password)
-            # installation.arch_chroot(r"sed -i 's/# \(%wheel ALL=(ALL) ALL\)/\1/' /etc/sudoers")
-
-            # installation.user_create(user, user_password, ["video", "docker"])
-            # installation.arch_chroot(f'chsh -s /usr/bin/zsh "{user}"')
-
-            # installation.arch_chroot(f"su {user} -c 'xdg-user-dirs-update'")
-            # installation.arch_chroot(f"su {user} -c 'mkdir -p ~/Pictures/screenshots && mkdir ~/Videos/recordings'")
-
-            # installation.enable_service("iwd", "systemd-timesyncd", "docker", "bluetooth")
-
-            # installation.arch_chroot(r"sed -i 's/[#]*\(AutoEnable=\)\(true\|false\)/\1true/' /etc/bluetooth/main.conf")
-
-            # installation.arch_chroot(r"sed -i 's/#\(MAKEFLAGS=\).*/\1\"-j$(($(nproc)-2))\"/' /etc/makepkg.conf")
-            # installation.arch_chroot(r"sed -i 's/# \(%wheel ALL=(ALL) NOPASSWD: ALL\)/\1/' /etc/sudoers")
-            # installation.log(
-            #     installation.arch_chroot(
-            #         f"su {user} -c 'cd $(mktemp -d) && git clone https://aur.archlinux.org/paru-bin.git . && makepkg -sim --noconfirm'"
-            #     ),
-            #     level=logging.INFO,
-            # )
-            # installation.log(
-            #     installation.arch_chroot(
-            #         f'su {user} -c "paru -Sy --nosudoloop --needed --noconfirm {" ".join(dependencies_aur)}"'
-            #     ),
-            #     level=logging.INFO,
-            # )
-            # installation.arch_chroot(r"sed -i 's/\(%wheel ALL=(ALL) NOPASSWD: ALL\)/# \1/' /etc/sudoers")
-
-    # Once this is done, we output some useful information to the user
-    # And the installation is complete.
-    archinstall.log("There are two new accounts in your installation after reboot:")
-    archinstall.log(" * root (password: airoot)")
-    archinstall.log(" * devel (password: devel)")
+	# Once this is done, we output some useful information to the user
+	# And the installation is complete.
+	archinstall.log("There are two new accounts in your installation after reboot:")
+	archinstall.log(" * root (password: airoot)")
+	archinstall.log(" * devel (password: devel)")
 
 
-if archinstall.arguments["harddrive"]:
-    archinstall.arguments["harddrive"].keep_partitions = False
+if archinstall.arguments['harddrive']:
+	archinstall.arguments['harddrive'].keep_partitions = False
 
-    print(f" ! Formatting {archinstall.arguments['harddrive']} in ", end="")
-    archinstall.do_countdown()
+	print(f" ! Formatting {archinstall.arguments['harddrive']} in ", end='')
+	archinstall.do_countdown()
 
-    # First, we configure the basic filesystem layout
-    with archinstall.Filesystem(archinstall.arguments["harddrive"], archinstall.GPT) as fs:
-        # We use the entire disk instead of setting up partitions on your own
-        if archinstall.arguments["harddrive"].keep_partitions is False:
-            fs.use_entire_disk(root_filesystem_type=archinstall.arguments.get("filesystem", "btrfs"))
+	# First, we configure the basic filesystem layout
+	with archinstall.Filesystem(archinstall.arguments['harddrive'], archinstall.GPT) as fs:
+		# We use the entire disk instead of setting up partitions on your own
+		if archinstall.arguments['harddrive'].keep_partitions is False:
+			fs.use_entire_disk(root_filesystem_type=archinstall.arguments.get('filesystem', 'btrfs'))
 
-        boot = fs.find_partition("/boot")
-        root = fs.find_partition("/")
+		boot = fs.find_partition('/boot')
+		root = fs.find_partition('/')
 
-        boot.format("vfat")
+		boot.format('vfat')
 
-        # We encrypt the root partition if we got a password to do so with,
-        # Otherwise we just skip straight to formatting and installation
-        if archinstall.arguments.get("!encryption-password", None):
-            root.encrypted = True
-            root.encrypt(password=archinstall.arguments.get("!encryption-password", None))
+		# We encrypt the root partition if we got a password to do so with,
+		# Otherwise we just skip straight to formatting and installation
+		if archinstall.arguments.get('!encryption-password', None):
+			root.encrypted = True
+			root.encrypt(password=archinstall.arguments.get('!encryption-password', None))
 
-            with archinstall.luks2(
-                root, "luksloop", archinstall.arguments.get("!encryption-password", None)
-            ) as unlocked_root:
-                unlocked_root.format(root.filesystem)
-                unlocked_root.mount("/mnt")
-        else:
-            root.format(root.filesystem)
-            root.mount("/mnt")
+			with archinstall.luks2(root, 'luksloop', archinstall.arguments.get('!encryption-password', None)) as unlocked_root:
+				unlocked_root.format(root.filesystem)
+				unlocked_root.mount('/mnt')
+		else:
+			root.format(root.filesystem)
+			root.mount('/mnt')
 
-        boot.mount("/mnt/boot")
+		boot.mount('/mnt/boot')
 
-install_on("/mnt")
+install_on('/mnt')
