@@ -99,18 +99,28 @@ while github_access_token := input("Github Access Token (default: none): "):
 input("No more input required. Press return to start the installation.")
 
 with archinstall.Filesystem(archinstall.arguments["harddrive"], archinstall.GPT) as fs:
+    archinstall.log("0")
     archinstall.arguments["harddrive"].keep_partitions = False
+    archinstall.log("1")
     fs.use_entire_disk(root_filesystem_type=archinstall.arguments.get("filesystem", "btrfs"))
+    archinstall.log("2")
     fs.use_entire_disk("btrfs")
+    archinstall.log("3")
 
     root = fs.find_partition("/")
+    archinstall.log("4")
     boot = fs.find_partition("/boot")
+    archinstall.log("5")
 
     boot.format("vfat")
+    archinstall.log("6")
     root.format("btrfs")
+    archinstall.log("7")
 
     root.mount("/mnt")
+    archinstall.log("8")
     boot.mount("/mnt/boot")
+    archinstall.log("9")
 
 with archinstall.Installer("/mnt") as i:
     mirror_regions = {DOWNLOAD_REGION: archinstall.list_mirrors().get(DOWNLOAD_REGION)}
