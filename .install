@@ -102,8 +102,6 @@ with archinstall.Filesystem(archinstall.arguments["harddrive"], archinstall.GPT)
     archinstall.log("0")
     archinstall.arguments["harddrive"].keep_partitions = False
     archinstall.log("1")
-    fs.use_entire_disk(root_filesystem_type=archinstall.arguments.get("filesystem", "btrfs"))
-    archinstall.log("2")
     fs.use_entire_disk("btrfs")
     archinstall.log("3")
 
