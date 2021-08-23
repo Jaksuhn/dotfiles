@@ -48,14 +48,14 @@ def install_on(mountpoint):
             installation.set_keyboard_language(KEYMAP)
             installation.set_timezone(TIMEZONE)
 
-            installation.user_create("devel", "devel")
-            installation.user_set_pw("root", "airoot")
+            installation.user_create(user, user_password)
+            installation.user_set_pw("root", root_password)
 
     # Once this is done, we output some useful information to the user
     # And the installation is complete.
     archinstall.log("There are two new accounts in your installation after reboot:")
-    archinstall.log(" * root (password: airoot)")
-    archinstall.log(" * devel (password: devel)")
+    archinstall.log(f" * root (password: {root_password})")
+    archinstall.log(f" * {user} (password: {user_password})")
 
 
 if archinstall.arguments["harddrive"]:
