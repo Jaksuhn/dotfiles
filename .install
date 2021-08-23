@@ -12,6 +12,55 @@ TIMEZONE = "US/Eastern"
 DOWNLOAD_REGION = "United States"
 DEFAULT_USER = "snow"
 
+dependencies = [
+    "acpilight",
+    "alacritty",
+    "baobab",
+    "bluez",
+    "bluez-utils",
+    "bspwm",
+    "curl",
+    "discord",
+    "dkms",
+    "docker",
+    "docker-compose",
+    "eog",
+    "evince",
+    "feh",
+    "foliate",
+    "git",
+    "gnome-calculator",
+    "gnome-disk-utility",
+    "iwd",
+    "linux-headers",
+    "maim",
+    "man-db",
+    "mkcert",
+    "nano",
+    "nautilus",
+    "openssh",
+    "pavucontrol",
+    "polkit",
+    "polkit-gnome",
+    "pulseaudio",
+    "pulseaudio-bluetooth",
+    "reflector",
+    "rofi",
+    "sxhkd",
+    "ttf-dejavu",
+    "ttf-jetbrains-mono",
+    "ttf-joypixels",
+    "vlc",
+    "wmname",
+    "xclip",
+    "xdg-user-dirs",
+    "xorg-server",
+    "xorg-xinit",
+    "xorg-xrandr",
+    "xorg-xsetroot",
+    "zsh",
+]
+
 # Select a harddrive and a disk password
 archinstall.log("Minimal only supports:")
 archinstall.log(" * Being installed to a single disk")
@@ -41,7 +90,7 @@ def install_on(mountpoint):
             if archinstall.arguments.get("network", None):
                 installation.copy_iso_network_config(enable_services=True)
 
-            installation.add_additional_packages(["nano", "wget", "git"])
+            installation.add_additional_packages(dependencies)
             installation.install_profile("minimal")
 
             installation.set_locale(LOCALE, ENCODING)
@@ -56,6 +105,17 @@ def install_on(mountpoint):
     archinstall.log("There are two new accounts in your installation after reboot:")
     archinstall.log(f" * root (password: {root_password})")
     archinstall.log(f" * {user} (password: {user_password})")
+
+
+# def chroot_commands(mountpoint):
+#     with archinstall.Installer(mountpoint) as i:
+#         i.arch_chroot(r"sed -i '/\[multilib\]/,/Include/''s/^#//' /etc/pacman.conf")
+#         i.arch_chroot(r"sed -i 's/#\(Color\)/\1/' /etc/pacman.conf")
+#         i.arch_chroot(r"sed -i 's/# \(%wheel ALL=(ALL) ALL\)/\1/' /etc/sudoers")
+#         i.arch_chroot(f'chsh -s /usr/bin/zsh "{user}"')
+#         i.arch_chroot(f"su {user} -c 'xdg-user-dirs-update'")
+#         i.arch_chroot(f"su {user} -c 'mkdir -p ~/Pictures/screenshots && mkdir ~/Videos/recordings'")
+#         i.arch_chroot(r"sed -i 's/[#]*\(AutoEnable=\)\(true\|false\)/\1true/' /etc/bluetooth/main.conf")
 
 
 if archinstall.arguments["harddrive"]:
