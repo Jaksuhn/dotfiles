@@ -40,8 +40,8 @@ def install_on(mountpoint):
             if archinstall.arguments.get("network", None):
                 installation.copy_iso_network_config(enable_services=True)
 
-            installation.arch_chroot(r"sed -i '/\[multilib\]/,/Include/''s/^#//' /etc/pacman.conf")
-            installation.arch_chroot(r"sed -i 's/#\(Color\)/\1/' /etc/pacman.conf")
+            # installation.arch_chroot(r"sed -i '/\[multilib\]/,/Include/''s/^#//' /etc/pacman.conf")
+            # installation.arch_chroot(r"sed -i 's/#\(Color\)/\1/' /etc/pacman.conf")
             installation.add_additional_packages(["nano", "wget", "git"])
             installation.install_profile("minimal")
 
