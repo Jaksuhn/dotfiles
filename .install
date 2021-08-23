@@ -32,7 +32,7 @@ def install_on(mountpoint):
         # Strap in the base system, add a boot loader and configure
         # some other minor details as specified by this profile and user.
         if installation.minimal_installation():
-            installation.set_hostname(hostname)  # change 1
+            installation.set_hostname(hostname)
             # installation.set_mirrors(mirror_regions) # haven't tested
             installation.add_bootloader()
 
@@ -45,18 +45,18 @@ def install_on(mountpoint):
             installation.add_additional_packages(["nano", "wget", "git"])
             installation.install_profile("minimal")
 
-            installation.set_locale(LOCALE, ENCODING)  # change 2
-            installation.set_keyboard_language(KEYMAP)  # change 2
-            installation.set_timezone(TIMEZONE)  # change 2
+            installation.set_locale(LOCALE, ENCODING)
+            installation.set_keyboard_language(KEYMAP)
+            installation.set_timezone(TIMEZONE)
 
-            installation.user_create(user, user_password)
-            installation.user_set_pw("root", root_password)
+            installation.user_create("devel", "devel")
+            installation.user_set_pw("root", "airoot")
 
     # Once this is done, we output some useful information to the user
     # And the installation is complete.
     archinstall.log("There are two new accounts in your installation after reboot:")
-    archinstall.log(f" * root (password: {root_password})")
-    archinstall.log(f" * {user} (password: {user_password})")
+    archinstall.log(" * root (password: airoot)")
+    archinstall.log(" * devel (password: devel)")
 
 
 if archinstall.arguments["harddrive"]:
