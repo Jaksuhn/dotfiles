@@ -98,8 +98,8 @@ def install_on(mountpoint):
             if archinstall.arguments.get("network", None):
                 installation.copy_iso_network_config(enable_services=True)
 
-            installation.add_additional_packages(["nano", "wget", "git"])
-            installation.install_profile("minimal")
+            installation.add_additional_packages(dependencies)
+            # installation.install_profile("minimal")
 
             installation.set_locale(LOCALE, ENCODING)
             installation.set_keyboard_language(KEYMAP)
