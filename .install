@@ -1,9 +1,4 @@
-#!/usr/bin/env python3
-import os
-
 import archinstall
-import requests
-import logging
 
 KEYMAP = "us"
 LOCALE = "en_US"
@@ -73,127 +68,111 @@ dependencies_aur = [
     "ttf-material-design-icons-git",
     "visual-studio-code-bin",
 ]
-commands = [
-    "npm install -g tldr",
-    "sh -c '$(curl -fsSL https: //raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)'",
-    "git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions",
-    "chsh -s /bin/zsh",
-]
 
-archinstall.set_keyboard_language(KEYMAP)
+# Select a harddrive and a disk password
+archinstall.log("Minimal only supports:")
+archinstall.log(" * Being installed to a single disk")
 
-disk = archinstall.select_disk(archinstall.all_disks())
-archinstall.arguments["harddrive"] = disk
+if archinstall.arguments.get("help", None):
+    archinstall.log(" - Optional disk encryption via --!encryption-password=<password>")
+    archinstall.log(" - Optional filesystem type via --filesystem=<fs type>")
+    archinstall.log(" - Optional systemd network via --network")
+
+archinstall.arguments["harddrive"] = archinstall.select_disk(archinstall.all_disks())
 hostname = archinstall.generic_select(["thonkbox", "thonkpad"], "Select hostname (default: thonkbox):") or "thonkbox"
 root_password = archinstall.get_password("Root password (default: root):") or "root"
 user = input(f"Username (default: {DEFAULT_USER}): ") or DEFAULT_USER
 user_password = archinstall.get_password(f"Password (default: {user}):") or user
 
-while github_access_token := input("Github Access Token (default: none): "):
-    response = requests.post(url="https://api.github.com/", headers={"Authorization": f"token {github_access_token}"})
-    if response.status_code == 401 or "admin:public_key" not in response.headers.get("X-OAuth-Scopes"):
-        archinstall.log("Token invalid or doesn't have the 'admin:public_key' scope. Try again!", fg="red")
-        continue
-    break
 
-input("No more input required. Press return to start the installation.")
+def install_on(mountpoint):
+    # We kick off the installer by telling it where the
+    with archinstall.Installer(mountpoint) as installation:
+        # Strap in the base system, add a boot loader and configure
+        # some other minor details as specified by this profile and user.
+        if installation.minimal_installation():
+            installation.set_hostname(hostname)
+            installation.add_bootloader()  # dif
 
-with archinstall.Filesystem(archinstall.arguments["harddrive"], archinstall.GPT) as fs:
-    archinstall.log("0")
-    archinstall.arguments["harddrive"].keep_partitions = False
-    archinstall.log("1")
-    fs.use_entire_disk("btrfs")
-    archinstall.log("3")
+            # Optionally enable networking:
+            if archinstall.arguments.get("network", None):
+                installation.copy_iso_network_config(enable_services=True)
 
-    root = fs.find_partition("/")
-    archinstall.log("4")
-    boot = fs.find_partition("/boot")
-    archinstall.log("5")
+            installation.add_additional_packages(["nano", "wget", "git"])
+            installation.install_profile("minimal")
 
-    boot.format("vfat")
-    archinstall.log("6")
-    root.format("btrfs")
-    archinstall.log("7")
+            installation.set_locale(LOCALE, ENCODING)
+            installation.set_keyboard_language(KEYMAP)
+            installation.set_timezone(TIMEZONE)
 
-    root.mount("/mnt")
-    archinstall.log("8")
-    boot.mount("/mnt/boot")
-    archinstall.log("9")
+            installation.user_set_pw("root", root_password)
+            installation.arch_chroot(r"sed -i 's/# \(%wheel ALL=(ALL) ALL\)/\1/' /etc/sudoers")
 
-with archinstall.Installer("/mnt") as i:
-    mirror_regions = {DOWNLOAD_REGION: archinstall.list_mirrors().get(DOWNLOAD_REGION)}
-    archinstall.use_mirrors(mirror_regions)
+            installation.user_create(user, user_password, ["video", "docker"])
+            installation.arch_chroot(f'chsh -s /usr/bin/zsh "{user}"')
 
-    if hostname == "thonkpad":
-        i.MODULES.append("i915")
+            installation.arch_chroot(f"su {user} -c 'xdg-user-dirs-update'")
+            installation.arch_chroot(f"su {user} -c 'mkdir -p ~/Pictures/screenshots && mkdir ~/Videos/recordings'")
 
-    i.minimal_installation()
+            installation.enable_service("iwd", "systemd-timesyncd", "docker", "bluetooth")
 
-    i.set_hostname(hostname)
-    i.set_mirrors(mirror_regions)
-    i.add_bootloader("systemd-bootctl")
-    i.copy_iso_network_config(True)
+            installation.arch_chroot(r"sed -i 's/[#]*\(AutoEnable=\)\(true\|false\)/\1true/' /etc/bluetooth/main.conf")
 
-    i.arch_chroot(r"sed -i '/\[multilib\]/,/Include/''s/^#//' /etc/pacman.conf")
-    i.arch_chroot(r"sed -i 's/#\(Color\)/\1/' /etc/pacman.conf")
-    i.add_additional_packages(dependencies)
-
-    i.set_locale(LOCALE, ENCODING)
-    i.set_keyboard_language(KEYMAP)
-    i.set_timezone(TIMEZONE)
-
-    i.user_set_pw("root", root_password)
-    i.arch_chroot(r"sed -i 's/# \(%wheel ALL=(ALL) ALL\)/\1/' /etc/sudoers")
-
-    i.user_create(user, user_password, ["video", "docker"])
-    i.arch_chroot(f'chsh -s /usr/bin/zsh "{user}"')
-
-    i.arch_chroot(f"su {user} -c 'xdg-user-dirs-update'")
-    i.arch_chroot(f"su {user} -c 'mkdir -p ~/Pictures/screenshots && mkdir ~/Videos/recordings'")
-
-    i.enable_service("iwd", "systemd-timesyncd", "docker", "bluetooth")
-
-    i.arch_chroot(r"sed -i 's/[#]*\(AutoEnable=\)\(true\|false\)/\1true/' /etc/bluetooth/main.conf")
-
-    backlight_rule_file_name = f"{i.target}/etc/udev/rules.d/backlight.rules"
-    with open(backlight_rule_file_name, "w+") as file:
-        file.write('ACTION=="add", SUBSYSTEM=="backlight", GROUP="video"')
-        os.chmod(backlight_rule_file_name, 0o664)
-
-    autologin_file_name = f"{i.target}/etc/systemd/system/getty@tty1.service.d/autologin.conf"
-    os.makedirs(os.path.dirname(autologin_file_name), exist_ok=True)
-    with open(autologin_file_name, "w") as file:
-        file.write(f"[Service]\nExecStart=\nExecStart=-/usr/bin/agetty --autologin {user} --noclear %I $TERM")
-
-    if hostname == "thonkpad":
-        i.arch_chroot(r"sed -i 's/\(FONT=\).*/\1TER16x32/' /etc/vconsole.conf")
-
-    i.arch_chroot(f'su {user} -c \'ssh-keygen -t ed25519 -C "{user}@{hostname}" -f ~/.ssh/id_ed25519 -N ""\'')
-    i.arch_chroot(f"su {user} -c 'ssh-keyscan github.com >> ~/.ssh/known_hosts'")
-
-    if github_access_token:
-        with open(f"{i.target}/home/{user}/.ssh/id_ed25519.pub", "r") as key:
-            requests.post(
-                url="https://api.github.com/user/keys",
-                json={"title": f"{user}@{hostname}", "key": f"{key.read().strip()}"},
-                headers={"Authorization": f"token {github_access_token}"},
+            installation.arch_chroot(r"sed -i 's/#\(MAKEFLAGS=\).*/\1\"-j$(($(nproc)-2))\"/' /etc/makepkg.conf")
+            installation.arch_chroot(r"sed -i 's/# \(%wheel ALL=(ALL) NOPASSWD: ALL\)/\1/' /etc/sudoers")
+            installation.log(
+                installation.arch_chroot(
+                    f"su {user} -c 'cd $(mktemp -d) && git clone https://aur.archlinux.org/paru-bin.git . && makepkg -sim --noconfirm'"
+                ),
+                level=logging.INFO,
             )
+            installation.log(
+                installation.arch_chroot(
+                    f'su {user} -c "paru -Sy --nosudoloop --needed --noconfirm {" ".join(dependencies_aur)}"'
+                ),
+                level=logging.INFO,
+            )
+            installation.arch_chroot(r"sed -i 's/\(%wheel ALL=(ALL) NOPASSWD: ALL\)/# \1/' /etc/sudoers")
 
-    i.arch_chroot(
-        f"su {user} -c 'cd $(mktemp -d) && git clone {'git@github.com:jaksuhn/dotfiles.git' if github_access_token else 'https://github.com/jaksuhn/dotfiles.git'} . && cp -rb . ~'"
-    )
+    # Once this is done, we output some useful information to the user
+    # And the installation is complete.
+    archinstall.log("There are two new accounts in your installation after reboot:")
+    archinstall.log(" * root (password: airoot)")
+    archinstall.log(" * devel (password: devel)")
 
-    i.arch_chroot(r"sed -i 's/#\(MAKEFLAGS=\).*/\1\"-j$(($(nproc)-2))\"/' /etc/makepkg.conf")
-    i.arch_chroot(r"sed -i 's/# \(%wheel ALL=(ALL) NOPASSWD: ALL\)/\1/' /etc/sudoers")
-    i.log(
-        i.arch_chroot(
-            f"su {user} -c 'cd $(mktemp -d) && git clone https://aur.archlinux.org/paru-bin.git . && makepkg -sim --noconfirm'"
-        ),
-        level=logging.INFO,
-    )
-    i.log(
-        i.arch_chroot(f'su {user} -c "paru -Sy --nosudoloop --needed --noconfirm {" ".join(dependencies_aur)}"'),
-        level=logging.INFO,
-    )
-    i.arch_chroot(r"sed -i 's/\(%wheel ALL=(ALL) NOPASSWD: ALL\)/# \1/' /etc/sudoers")
-    run_custom_user_commands(commands, i)
+
+if archinstall.arguments["harddrive"]:
+    archinstall.arguments["harddrive"].keep_partitions = False
+
+    print(f" ! Formatting {archinstall.arguments['harddrive']} in ", end="")
+    archinstall.do_countdown()
+
+    # First, we configure the basic filesystem layout
+    with archinstall.Filesystem(archinstall.arguments["harddrive"], archinstall.GPT) as fs:
+        # We use the entire disk instead of setting up partitions on your own
+        if archinstall.arguments["harddrive"].keep_partitions is False:
+            fs.use_entire_disk(root_filesystem_type=archinstall.arguments.get("filesystem", "btrfs"))
+
+        boot = fs.find_partition("/boot")
+        root = fs.find_partition("/")
+
+        boot.format("vfat")
+
+        # We encrypt the root partition if we got a password to do so with,
+        # Otherwise we just skip straight to formatting and installation
+        if archinstall.arguments.get("!encryption-password", None):
+            root.encrypted = True
+            root.encrypt(password=archinstall.arguments.get("!encryption-password", None))
+
+            with archinstall.luks2(
+                root, "luksloop", archinstall.arguments.get("!encryption-password", None)
+            ) as unlocked_root:
+                unlocked_root.format(root.filesystem)
+                unlocked_root.mount("/mnt")
+        else:
+            root.format(root.filesystem)
+            root.mount("/mnt")
+
+        boot.mount("/mnt/boot")
+
+install_on("/mnt")
