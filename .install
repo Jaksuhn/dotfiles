@@ -1,4 +1,75 @@
 import archinstall
+import logging
+import requests
+import os
+
+KEYMAP = "de"
+LOCALE = "en_US"
+ENCODING = "UTF-8"
+TIMEZONE = "Europe/Berlin"
+DEFAULT_USER = "phisch"
+
+dependencies = [
+    "acpilight",
+    "alacritty",
+    "baobab",
+    "bluez",
+    "bluez-utils",
+    "bspwm",
+    "curl",
+    "discord",
+    "dkms",
+    "docker",
+    "docker-compose",
+    "eog",
+    "evince",
+    "feh",
+    "foliate",
+    "git",
+    "gnome-calculator",
+    "gnome-disk-utility",
+    "iwd",
+    "linux-headers",
+    "maim",
+    "man-db",
+    "mkcert",
+    "nano",
+    "nautilus",
+    "openssh",
+    "pavucontrol",
+    "polkit",
+    "polkit-gnome",
+    "pulseaudio",
+    "pulseaudio-bluetooth",
+    "reflector",
+    "rofi",
+    "sxhkd",
+    "ttf-dejavu",
+    "ttf-jetbrains-mono",
+    "ttf-joypixels",
+    "vlc",
+    "wmname",
+    "xclip",
+    "xdg-user-dirs",
+    "xorg-server",
+    "xorg-xinit",
+    "xorg-xrandr",
+    "xorg-xsetroot",
+    "zsh",
+]
+dependencies_aur = [
+    "figma-linux",
+    "font-manager",
+    "giph",
+    "google-chrome-dev",
+    "jetbrains-toolbox",
+    "phocus-gtk-theme-git",
+    "picom-git",
+    "polybar",
+    "rtl88xxau-aircrack-dkms-git",
+    "ttf-material-design-icons-git",
+    "visual-studio-code-bin",
+]
 
 # Select a harddrive and a disk password
 archinstall.log("Minimal only supports:")
@@ -10,6 +81,10 @@ if archinstall.arguments.get("help", None):
     archinstall.log(" - Optional systemd network via --network")
 
 archinstall.arguments["harddrive"] = archinstall.select_disk(archinstall.all_disks())
+hostname = archinstall.generic_select(["tower", "laptop"], "Select hostname (default: tower):") or "tower"
+root_password = archinstall.get_password("Root password (default: root):") or "root"
+user = input(f"Username (default: {DEFAULT_USER}): ") or DEFAULT_USER
+user_password = archinstall.get_password(f"Password (default: {user}):") or user
 
 
 def install_on(mountpoint):
@@ -18,24 +93,24 @@ def install_on(mountpoint):
         # Strap in the base system, add a boot loader and configure
         # some other minor details as specified by this profile and user.
         if installation.minimal_installation():
-            installation.set_hostname("minimal-arch")
+            installation.set_hostname(hostname)
             installation.add_bootloader()
 
             # Optionally enable networking:
             if archinstall.arguments.get("network", None):
                 installation.copy_iso_network_config(enable_services=True)
 
-            installation.add_additional_packages(["nano", "wget", "git"])
+            installation.add_additional_packages(dependencies)
             installation.install_profile("minimal")
 
-            installation.user_create("devel", "devel")
-            installation.user_set_pw("root", "airoot")
+            installation.user_create(user, user_password)
+            installation.user_set_pw("root", root_password)
 
     # Once this is done, we output some useful information to the user
     # And the installation is complete.
     archinstall.log("There are two new accounts in your installation after reboot:")
-    archinstall.log(" * root (password: airoot)")
-    archinstall.log(" * devel (password: devel)")
+    archinstall.log(f" * root (password: {root_password})")
+    archinstall.log(f" * {user} (password: {user_password})")
 
 
 if archinstall.arguments["harddrive"]:
