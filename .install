@@ -1,12 +1,5 @@
 import archinstall
 
-KEYMAP = "us"
-LOCALE = "en_US"
-ENCODING = "UTF-8"
-TIMEZONE = "US/Eastern"
-DOWNLOAD_REGION = "United States"
-DEFAULT_USER = "snow"
-
 # Select a harddrive and a disk password
 archinstall.log("Minimal only supports:")
 archinstall.log(" * Being installed to a single disk")
@@ -17,10 +10,6 @@ if archinstall.arguments.get("help", None):
     archinstall.log(" - Optional systemd network via --network")
 
 archinstall.arguments["harddrive"] = archinstall.select_disk(archinstall.all_disks())
-hostname = archinstall.generic_select(["thonkbox", "thonkpad"], "Select hostname (default: thonkbox):") or "thonkbox"
-root_password = archinstall.get_password("Root password (default: root):") or "root"
-user = input(f"Username (default: {DEFAULT_USER}): ") or DEFAULT_USER
-user_password = archinstall.get_password(f"Password (default: {user}):") or user
 
 
 def install_on(mountpoint):
