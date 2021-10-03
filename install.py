@@ -10,7 +10,7 @@ ENCODING = "UTF-8"
 TIMEZONE = "US/Eastern"
 DOWNLOAD_REGION = "United States"
 DEFAULT_USER = "snow"
-PROFILE = "kde"
+PROFILE = "bspwm"
 
 dependencies = [
     "bash-completion",
@@ -59,11 +59,13 @@ dependencies_aur = [
     "betterlockscreen",
     "code-marketplace",
     "discord_arch_electron",
-    "polybar-git",
+    "polybar",
     "ttf-ms-fonts",
     "yadm-git",
     "zsh-theme-powerlevel10k-git",
 ]
+
+bspwm_packages = ["bspwm", "sxhkd", "xdo", "rxvt-unicode", "lightdm-gtk-greeter", "lightdm"]
 
 if archinstall.arguments.get("help", None):
     archinstall.log(" - Optional disk encryption via --!encryption-password=<password>")
@@ -107,16 +109,26 @@ def install_on(mountpoint):
         installation.arch_chroot(r"sed -i 's/#\(Color\)/\1/' /etc/pacman.conf")
 
         installation.add_additional_packages(dependencies)
-        installation.install_profile(PROFILE)
+
+        # bspwm profile not fully tested
+        if PROFILE == "bspwm":
+            installation.install_profile("xorg")
+            installation.add_additional_packages(bspwm_packages)
+            installation.enable_service("lightdm")
+            installation.arch_chroot(r"mkdir ~/.config/bspwm")
+            installation.arch_chroot(r"mkdir ~/.config/sxhkd")
+            installation.arch_chroot(r"install -Dm755 /usr/share/doc/bspwm/examples/bspwmrc ~/.config/bspwm/bspwmrc")
+            installation.arch_chroot(r"install -Dm644 /usr/share/doc/bspwm/examples/sxhkdrc ~/.config/sxhkd/sxhkdrc")
+            installation.arch_chroot(r"cd .config/sxhkd/")
+        else:
+            installation.install_profile(PROFILE)
 
         installation.user_create(str(user), str(user_password))
-        # new
         installation.arch_chroot(f'chsh -s /usr/bin/zsh "{user}"')
 
         installation.user_set_pw("root", str(root_password))
         installation.arch_chroot(r"sed -i 's/# \(%wheel ALL=(ALL) ALL\)/\1/' /etc/sudoers")
 
-        # all new
         installation.enable_service("iwd", "systemd-timesyncd", "docker", "bluetooth")
         installation.arch_chroot(r"sed -i 's/[#]*\(AutoEnable=\)\(true\|false\)/\1true/' /etc/bluetooth/main.conf")
 
@@ -130,7 +142,6 @@ def install_on(mountpoint):
         )
         installation.arch_chroot(f"su {user} -c 'ssh-keyscan github.com >> ~/.ssh/known_hosts'")
 
-        # new
         if github_access_token:
             with open(f"{installation.target}/home/{user}/.ssh/id_ed25519.pub", "r") as key:
                 requests.post(
@@ -140,8 +151,8 @@ def install_on(mountpoint):
                 )
 
         installation.arch_chroot(
-            f"su {user} -c 'cd $(mktemp -d) && git clone {'git@github.com:phisch/dotfiles.git' if github_access_token else 'https://github.com/phisch/dotfiles.git'} . && cp -rb . ~'"
-        )  # new
+            f"su {user} -c 'cd $(mktemp -d) && git clone {'git@github.com:jaksuhn/dotfiles.git' if github_access_token else 'https://github.com/jaksuhn/dotfiles.git'} . && cp -rb . ~'"
+        )
         installation.arch_chroot(r"sed -i 's/#\(MAKEFLAGS=\).*/\1\"-j$(($(nproc)-2))\"/' /etc/makepkg.conf")
         installation.arch_chroot(r"sed -i 's/# \(%wheel ALL=(ALL) NOPASSWD: ALL\)/\1/' /etc/sudoers")
         installation.log(

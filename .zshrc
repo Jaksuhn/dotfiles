@@ -17,17 +17,30 @@ source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 source $HOME/.config/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 ZSH_THEME="powerlevel10k/powerlevel10k"
 
+# Tab completion
+autoload -U  compinit
+zstyle 'completion:*' menu select
+
 # Aliases
-
-alias show_colours='for i in {0..255}; do print -Pn "%K{$i}  %k%F{$i}${(l:3::0:)i}%f " ${${(M)$((i%6)):#3}:+$'\n'}; done'
-
-
-alias sc="source $ZSH/oh-my-zsh.sh"
+alias colours='for i in {0..255}; do print -Pn "%K{$i}  %k%F{$i}${(l:3::0:)i}%f " ${${(M)$((i%6)):#3}:+$'\n'}; done'
 alias rec="simplescreenrecorder"
+
+# Quick Editing
+alias e-bashrc='micro ~/.bashrc'
+alias e-bspwmrc='micro ~/.config/bspwm/bspwmrc'
+alias e-polybar='micro ~/.config/polybar/config.ini'
+alias e-sxhkdrc='micro ~/.config/sxhkd/sxhkdrc'
+alias e-zshrc='micro ~/.zshrc'
+
+# Quick Sourcing
+alias s-omz="source $ZSH/oh-my-zsh.sh"
 
 # Functions
 colour() {
     perl -e 'foreach $a(@ARGV){print "\e[48:2::".join(":",unpack("C*",pack("H*",$a)))."m \e[49m "};print "\n"' "$@"
+}
+pm() {
+    sudo pacman "$@"
 }
 pdf() {
     firejail mupdf "$@"
