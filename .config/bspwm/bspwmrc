@@ -18,11 +18,4 @@ bspc config gapless_monocle      true
 
 bspc rule -a Screenkey manage=off
 
-dunst
-nm-applet # Internet selector
-xset r rate 300 50 # making keys feel smoother
-xrandr --output eDP --set TearFree on # Turning "VSYNC" on
-picom -b # Compositor
-$HOME/.screenlayout/dualmonitors.sh # Setting screens up
-nitrogen --restore # Wallpaper setter
 $HOME/.config/polybar/launch.sh # Bar

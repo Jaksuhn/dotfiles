@@ -10,7 +10,7 @@ ENCODING = "UTF-8"
 TIMEZONE = "US/Eastern"
 DOWNLOAD_REGION = "United States"
 DEFAULT_USER = "snow"
-PROFILE = "bspwm"
+_PROFILE = "bspwm"
 
 dependencies = [
     "bash-completion",
@@ -74,11 +74,11 @@ if archinstall.arguments.get("help", None):
 
 archinstall.arguments["harddrive"] = archinstall.select_disk(archinstall.all_disks())
 hostname = archinstall.generic_select(["desktop", "laptop"], "Select hostname (default: desktop):") or "desktop"
+profile = input(f"Profile (default: bspwm): ") or _PROFILE
 root_password = archinstall.get_password("Root password (default: root):") or "root"
 user = input(f"Username (default: {DEFAULT_USER}): ") or DEFAULT_USER
 user_password = archinstall.get_password(f"Password (default: {user}):") or user
 
-# new
 while github_access_token := input("Github Access Token (default: none): "):
     response = requests.post(url="https://api.github.com/", headers={"Authorization": f"token {github_access_token}"})
     if response.status_code == 401 or "admin:public_key" not in response.headers.get("X-OAuth-Scopes"):
@@ -88,7 +88,6 @@ while github_access_token := input("Github Access Token (default: none): "):
 
 
 def install_on(mountpoint):
-    # We kick off the installer by telling it where the
     with archinstall.Installer(mountpoint) as installation:
         # Strap in the base system, add a boot loader and configure
         # some other minor details as specified by this profile and user.
@@ -110,8 +109,8 @@ def install_on(mountpoint):
 
         installation.add_additional_packages(dependencies)
 
-        # bspwm profile not fully tested
-        if PROFILE == "bspwm":
+        # bspwm profile not fully tested and config import isn't done
+        if profile == "bspwm":
             installation.install_profile("xorg")
             installation.add_additional_packages(bspwm_packages)
             installation.enable_service("lightdm")
@@ -121,7 +120,7 @@ def install_on(mountpoint):
             installation.arch_chroot(r"install -Dm644 /usr/share/doc/bspwm/examples/sxhkdrc ~/.config/sxhkd/sxhkdrc")
             installation.arch_chroot(r"cd .config/sxhkd/")
         else:
-            installation.install_profile(PROFILE)
+            installation.install_profile(profile)
 
         installation.user_create(str(user), str(user_password))
         installation.arch_chroot(f'chsh -s /usr/bin/zsh "{user}"')
