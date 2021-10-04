@@ -25,7 +25,6 @@ dependencies = [
     "git",
     "github-cli",
     "grub",
-    "iwd",
     "micro",
     "mupdf",
     "neofetch",
@@ -102,8 +101,8 @@ def install_on(mountpoint):
         installation.add_bootloader()
 
         # Optionally enable networking:
-        if archinstall.arguments.get("network", None):
-            installation.copy_iso_network_config(enable_services=True)
+        # if archinstall.arguments.get("network", None):
+        installation.copy_iso_network_config(enable_services=True)
 
         installation.arch_chroot(r"sed -i '/\[multilib\]/,/Include/''s/^#//' /etc/pacman.conf")
         installation.arch_chroot(r"sed -i 's/#\(Color\)/\1/' /etc/pacman.conf")
@@ -129,7 +128,7 @@ def install_on(mountpoint):
         installation.user_set_pw("root", str(root_password))
         installation.arch_chroot(r"sed -i 's/# \(%wheel ALL=(ALL) ALL\)/\1/' /etc/sudoers")
 
-        installation.enable_service("iwd", "systemd-timesyncd", "docker", "bluetooth")
+        installation.enable_service("systemd-timesyncd", "docker", "bluetooth")
         installation.arch_chroot(r"sed -i 's/[#]*\(AutoEnable=\)\(true\|false\)/\1true/' /etc/bluetooth/main.conf")
 
         autologin_file_name = f"{installation.target}/etc/systemd/system/getty@tty1.service.d/autologin.conf"
@@ -177,12 +176,6 @@ def install_on(mountpoint):
         installation.arch_chroot(
             r"git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
         )
-
-    # Once this is done, we output some useful information to the user
-    # And the installation is complete.
-    archinstall.log("There are two new accounts in your installation after reboot:")
-    archinstall.log(" * root (password: airoot)")
-    archinstall.log(" * devel (password: devel)")
 
 
 if archinstall.arguments["harddrive"]:
