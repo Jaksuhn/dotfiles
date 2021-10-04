@@ -32,6 +32,7 @@ dependencies = [
     "networkmanager",
     "nnn",
     "npm",
+    "p7zip",
     "rofi",
     "rust",
     "simplescreenrecorder",
