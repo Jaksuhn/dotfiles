@@ -28,7 +28,6 @@ dependencies = [
     "micro",
     "mupdf",
     "neofetch",
-    "networkmanager",
     "nnn",
     "npm",
     "p7zip",
