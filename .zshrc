@@ -23,6 +23,7 @@ zstyle 'completion:*' menu select
 
 # Aliases
 alias colours='for i in {0..255}; do print -Pn "%K{$i}  %k%F{$i}${(l:3::0:)i}%f " ${${(M)$((i%6)):#3}:+$'\n'}; done'
+alias ls='ls -a'
 alias rec="simplescreenrecorder"
 
 # Quick Editing
