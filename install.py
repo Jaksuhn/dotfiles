@@ -113,11 +113,14 @@ def install_on(mountpoint):
             installation.install_profile("xorg")
             installation.add_additional_packages(bspwm_packages)
             installation.enable_service("lightdm")
-            installation.arch_chroot(r"mkdir ~/.config/bspwm")
-            installation.arch_chroot(r"mkdir ~/.config/sxhkd")
-            installation.arch_chroot(r"install -Dm755 /usr/share/doc/bspwm/examples/bspwmrc ~/.config/bspwm/bspwmrc")
-            installation.arch_chroot(r"install -Dm644 /usr/share/doc/bspwm/examples/sxhkdrc ~/.config/sxhkd/sxhkdrc")
-            installation.arch_chroot(r"cd .config/sxhkd/")
+            installation.arch_chroot(
+                f"su {user} -c 'cd $(mktemp -d) && git clone https://joni22u/dotfiles . && cp -rb . ~/.config'"
+            )
+            # installation.arch_chroot(r"mkdir ~/.config/bspwm")
+            # installation.arch_chroot(r"mkdir ~/.config/sxhkd")
+            # installation.arch_chroot(r"install -Dm755 /usr/share/doc/bspwm/examples/bspwmrc ~/.config/bspwm/bspwmrc")
+            # installation.arch_chroot(r"install -Dm644 /usr/share/doc/bspwm/examples/sxhkdrc ~/.config/sxhkd/sxhkdrc")
+            # installation.arch_chroot(r"cd .config/sxhkd/")
         else:
             installation.install_profile(profile)
 
