@@ -114,7 +114,7 @@ def install_on(mountpoint):
             installation.add_additional_packages(bspwm_packages)
             installation.enable_service("lightdm")
             installation.arch_chroot(
-                f"su {user} -c 'cd $(mktemp -d) && git clone https://joni22u/dotfiles . && cp -rb . ~/.config'"
+                f"su {user} -c 'cd $(mktemp -d) && git clone https://github.com/joni22u/dotfiles . && cp -rb . ~/.config'"
             )
             # installation.arch_chroot(r"mkdir ~/.config/bspwm")
             # installation.arch_chroot(r"mkdir ~/.config/sxhkd")
