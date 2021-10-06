@@ -24,7 +24,7 @@ dependencies = [
     "firejail",
     "git",
     "github-cli",
-    "grub",
+    "kitty",
     "micro",
     "mupdf",
     "neofetch",
@@ -121,6 +121,9 @@ def install_on(mountpoint):
             # installation.arch_chroot(r"install -Dm755 /usr/share/doc/bspwm/examples/bspwmrc ~/.config/bspwm/bspwmrc")
             # installation.arch_chroot(r"install -Dm644 /usr/share/doc/bspwm/examples/sxhkdrc ~/.config/sxhkd/sxhkdrc")
             # installation.arch_chroot(r"cd .config/sxhkd/")
+        elif profile == "kde":
+            installation.install_profile(profile)
+            installation.arch_chroot("lookandfeeltool -a GruvboxPlasma")
         else:
             installation.install_profile(profile)
 
