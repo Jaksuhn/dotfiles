@@ -36,6 +36,7 @@ dependencies = [
     "simplescreenrecorder",
     "telegram-desktop",
     "thefuck",
+    "tree",
     "ttf-anonymous-pro",
     "ttf-bitstream-vera",
     "ttf-fira-code",
@@ -108,22 +109,24 @@ def install_on(mountpoint):
 
         installation.add_additional_packages(dependencies)
 
-        # bspwm profile not fully tested and config import isn't done
         if profile == "bspwm":
+            # not finished
             installation.install_profile("xorg")
             installation.add_additional_packages(bspwm_packages)
             installation.enable_service("lightdm")
             installation.arch_chroot(
                 f"su {user} -c 'mkdir ~/temp_configs && cd ~/temp_configs && git clone https://github.com/joni22u/dotfiles . && cp -rb . ~/.config && rm -rf ~/temp_configs'"
             )
-            # installation.arch_chroot(r"mkdir ~/.config/bspwm")
-            # installation.arch_chroot(r"mkdir ~/.config/sxhkd")
-            # installation.arch_chroot(r"install -Dm755 /usr/share/doc/bspwm/examples/bspwmrc ~/.config/bspwm/bspwmrc")
-            # installation.arch_chroot(r"install -Dm644 /usr/share/doc/bspwm/examples/sxhkdrc ~/.config/sxhkd/sxhkdrc")
-            # installation.arch_chroot(r"cd .config/sxhkd/")
         elif profile == "kde":
+            # not finished
             installation.install_profile(profile)
             installation.arch_chroot("lookandfeeltool -a GruvboxPlasma")
+        elif profile == "gnome":
+            installation.install_profile(profile)
+            installation.arch_chroot(
+                f'su {user} -c "paru -Sy --nosudoloop --needed --noconfirm gnome-shell-extension-material-shell"'
+            )
+            installation.arch_chroot(r"gnome-extensions enable material-shell@papyelgringo")
         else:
             installation.install_profile(profile)
 
