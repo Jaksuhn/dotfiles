@@ -52,7 +52,6 @@ dependencies = [
     "vlc",
     "wget",
     "zsh",
-    "zsh-syntax-highlighting",
 ]
 
 dependencies_aur = [
@@ -178,11 +177,16 @@ def install_on(mountpoint):
 
         installation.arch_chroot(f"chown -R {user}:{user} /home/{user}/paru")
         installation.arch_chroot(r"npm install -g tldr")
+
+        # zsh setup
         installation.arch_chroot(
             r'sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"'
         )
         installation.arch_chroot(
             r"git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
+        )
+        installation.arch_chroot(
+            r"git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting"
         )
 
 

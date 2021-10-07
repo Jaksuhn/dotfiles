@@ -12,9 +12,11 @@ export ZSH="/home/snow/.oh-my-zsh"
 source $ZSH/oh-my-zsh.sh
 
 # Plugins
-source $HOME/.config/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+plugins=(
+    zsh-autosuggestions,
+    zsh-syntax-highlighting
+)
 source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
-source $HOME/.config/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 ZSH_THEME="powerlevel10k/powerlevel10k"
 
 # Tab completion
