@@ -122,10 +122,7 @@ def install_on(mountpoint):
             installation.arch_chroot("lookandfeeltool -a GruvboxPlasma")
         elif profile == "gnome":
             installation.install_profile(profile)
-            installation.arch_chroot(
-                f'su {user} -c "paru -Sy --nosudoloop --needed --noconfirm gnome-shell-extension-material-shell-git"'
-            )
-            installation.arch_chroot(r"gnome-extensions enable material-shell@papyelgringo")
+            dependencies_aur.append("gnome-shell-extension-material-shell-git")
         else:
             installation.install_profile(profile)
 
@@ -177,6 +174,8 @@ def install_on(mountpoint):
 
         installation.arch_chroot(f"chown -R {user}:{user} /home/{user}/paru")
         installation.arch_chroot(r"npm install -g tldr")
+        if profile == "gnome":
+            installation.arch_chroot(r"gnome-extensions enable material-shell@papyelgringo")
 
         # zsh setup
         installation.arch_chroot(
