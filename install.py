@@ -123,7 +123,7 @@ def install_on(mountpoint):
         elif profile == "gnome":
             installation.install_profile(profile)
             installation.arch_chroot(
-                f'su {user} -c "paru -Sy --nosudoloop --needed --noconfirm gnome-shell-extension-material-shell"'
+                f'su {user} -c "paru -Sy --nosudoloop --needed --noconfirm gnome-shell-extension-material-shell-git"'
             )
             installation.arch_chroot(r"gnome-extensions enable material-shell@papyelgringo")
         else:
