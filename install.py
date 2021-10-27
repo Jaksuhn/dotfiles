@@ -122,7 +122,7 @@ def install_on(mountpoint):
             installation.arch_chroot("lookandfeeltool -a GruvboxPlasma")
         elif profile == "gnome":
             installation.install_profile(profile)
-            dependencies_aur.append("gnome-shell-extension-material-shell-git")
+            dependencies_aur.append("gnome-shell-extension-material-shell")
         else:
             installation.install_profile(profile)
 
