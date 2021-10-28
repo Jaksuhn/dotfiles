@@ -71,6 +71,7 @@ if archinstall.arguments.get("help", None):
     archinstall.log(" - Optional filesystem type via --filesystem=<fs type>")
     archinstall.log(" - Optional systemd network via --network")
 
+# user provided arguments
 archinstall.arguments["harddrive"] = archinstall.select_disk(archinstall.all_disks())
 hostname = archinstall.generic_select(["desktop", "laptop"], "Select hostname (default: desktop):") or "desktop"
 profile = input(f"Profile (default: bspwm): ") or _PROFILE
@@ -99,8 +100,7 @@ def install_on(mountpoint):
         installation.set_mirrors(mirror_regions)
         installation.add_bootloader()
 
-        # Optionally enable networking:
-        # if archinstall.arguments.get("network", None):
+        # enable networking
         installation.copy_iso_network_config(enable_services=True)
 
         installation.arch_chroot(r"sed -i '/\[multilib\]/,/Include/''s/^#//' /etc/pacman.conf")
@@ -108,8 +108,8 @@ def install_on(mountpoint):
 
         installation.add_additional_packages(dependencies)
 
+        # the profiles are tricky to customise from chroot. May remove and place in a post-install .sh file
         if profile == "bspwm":
-            # not finished
             installation.install_profile("xorg")
             installation.add_additional_packages(bspwm_packages)
             installation.enable_service("lightdm")
@@ -117,7 +117,6 @@ def install_on(mountpoint):
                 f"su {user} -c 'mkdir ~/temp_configs && cd ~/temp_configs && git clone https://github.com/joni22u/dotfiles . && cp -rb . ~/.config && rm -rf ~/temp_configs'"
             )
         elif profile == "kde":
-            # not finished
             installation.install_profile(profile)
             installation.arch_chroot("lookandfeeltool -a GruvboxPlasma")
         elif profile == "gnome":
@@ -126,6 +125,7 @@ def install_on(mountpoint):
         else:
             installation.install_profile(profile)
 
+        # create user, change login shell
         installation.user_create(str(user), str(user_password))
         installation.arch_chroot(f'chsh -s /usr/bin/zsh "{user}"')
 
@@ -134,11 +134,6 @@ def install_on(mountpoint):
 
         installation.enable_service("systemd-timesyncd", "docker", "bluetooth")
         installation.arch_chroot(r"sed -i 's/[#]*\(AutoEnable=\)\(true\|false\)/\1true/' /etc/bluetooth/main.conf")
-
-        autologin_file_name = f"{installation.target}/etc/systemd/system/getty@tty1.service.d/autologin.conf"
-        os.makedirs(os.path.dirname(autologin_file_name), exist_ok=True)
-        with open(autologin_file_name, "w") as file:
-            file.write(f"[Service]\nExecStart=\nExecStart=-/usr/bin/agetty --autologin {user} --noclear %I $TERM")
 
         installation.arch_chroot(
             f'su {user} -c \'ssh-keygen -t ed25519 -C "{user}@{hostname}" -f ~/.ssh/id_ed25519 -N ""\''
@@ -158,6 +153,8 @@ def install_on(mountpoint):
         )
         installation.arch_chroot(r"sed -i 's/#\(MAKEFLAGS=\).*/\1\"-j$(($(nproc)-2))\"/' /etc/makepkg.conf")
         installation.arch_chroot(r"sed -i 's/# \(%wheel ALL=(ALL) NOPASSWD: ALL\)/\1/' /etc/sudoers")
+
+        # install paru and aur packages
         installation.log(
             installation.arch_chroot(
                 f"su {user} -c 'cd $(mktemp -d) && git clone https://aur.archlinux.org/paru-bin.git . && makepkg -sim --noconfirm'"
