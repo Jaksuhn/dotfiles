@@ -11,4 +11,4 @@ alias e-sxhkdrc='micro ~/.config/sxhkd/sxhkdrc'
 alias e-zshrc='micro ~/.zshrc'
 
 # Quick Sourcing
-alias s-omz="source $ZSH/oh-my-zsh.sh"
+alias s-zsh="source ~/.zshrc"
