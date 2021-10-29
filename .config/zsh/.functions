@@ -1,0 +1,49 @@
+# make a backup of a file
+# https://github.com/grml/grml-etc-core/blob/master/etc/zsh/zshrc
+backupx() {
+	cp -a "$1" "${1}_$(date --iso-8601=seconds)"
+}
+# gets colour
+colour() {
+    perl -e 'foreach $a(@ARGV){print "\e[48:2::".join(":",unpack("C*",pack("H*",$a)))."m \e[49m "};print "\n"' "$@"
+}
+# get public ip
+function getip {
+	local api
+	case "$1" in
+		"-4")
+			api="http://v4.ipv6-test.com/api/myip.php"
+			;;
+		"-6")
+			api="http://v6.ipv6-test.com/api/myip.php"
+			;;
+		*)
+			api="http://ipv6-test.com/api/myip.php"
+			;;
+	esac
+	curl -s "$api"
+	echo # Newline.
+}
+pm() {
+    sudo pacman "$@"
+}
+# open pdf
+pdf() {
+    firejail mupdf "$@"
+}
+# upload files
+transfer() {
+    curl -F"file=@"${@}"" https://ttm.sh;
+}
+# url encode
+function urlencode {
+	python -c "import sys; from urllib.parse import quote_plus; print(quote_plus(sys.stdin.read()))"
+}
+# url decode
+function urldecode {
+	python -c "import sys; from urllib.parse import unquote; print(unquote(sys.stdin.read()), end='')"
+}
+# get weather; takes in location
+weather() {
+    curl wttr.in/"$@";
+}

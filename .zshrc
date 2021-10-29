@@ -1,62 +1,45 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
+# plugin manager
+source ~/antigen/antigen.zsh
 
-# Defaults
+# oh my zsh plugins
+antigen use oh-my-zsh
+
+# plugins
+antigen bundles <<EOBUNDLES
+# oh my zsh plugins
+command-not-found
+colored-man-pages
+extract
+git
+git-extras
+universalarchive
+virtualenv
+
+# third party plugins
+zsh-users/zsh-completions
+zsh-users/zsh-autosuggestions
+zsh-users/zsh-syntax-highlighting
+
+EOBUNDLES
+
+# theme
+antigen theme romkatv/powerlevel10k
+antigen apply
+
+# defaults
 export EDITOR=/usr/bin/micro
 export PATH=$PATH:/home/snow/.cargo/bin/tectonic
 export ZSH="/home/snow/.oh-my-zsh"
-source $ZSH/oh-my-zsh.sh
-
-# Plugins
-plugins=(
-    zsh-autosuggestions,
-    zsh-syntax-highlighting
-)
-source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
-ZSH_THEME="powerlevel10k/powerlevel10k"
 
 # Tab completion
 autoload -U  compinit
 zstyle 'completion:*' menu select
 
-# Aliases
-alias colours='for i in {0..255}; do print -Pn "%K{$i}  %k%F{$i}${(l:3::0:)i}%f " ${${(M)$((i%6)):#3}:+$'\n'}; done'
-alias ls='ls -a'
-alias rec="simplescreenrecorder"
+# aliases
+source ~/.config/zsh/.aliases
 
-# Quick Editing
-alias e-bashrc='micro ~/.bashrc'
-alias e-bspwmrc='micro ~/.config/bspwm/bspwmrc'
-alias e-polybar='micro ~/.config/polybar/config.ini'
-alias e-sxhkdrc='micro ~/.config/sxhkd/sxhkdrc'
-alias e-zshrc='micro ~/.zshrc'
-
-# Quick Sourcing
-alias s-omz="source $ZSH/oh-my-zsh.sh"
-
-# Functions
-colour() {
-    perl -e 'foreach $a(@ARGV){print "\e[48:2::".join(":",unpack("C*",pack("H*",$a)))."m \e[49m "};print "\n"' "$@"
-}
-pm() {
-    sudo pacman "$@"
-}
-pdf() {
-    firejail mupdf "$@"
-}
-transfer() {
-    curl -F"file=@"${@}"" https://ttm.sh;
-}
-weather() {
-    curl wttr.in/"$@";
-}
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+# functions
+source ~/.config/zsh/.functions
 
 # Startup operations
 eval $(thefuck --alias)
