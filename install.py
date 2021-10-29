@@ -171,19 +171,13 @@ def install_on(mountpoint):
 
         installation.arch_chroot(f"chown -R {user}:{user} /home/{user}/paru")
         installation.arch_chroot(r"npm install -g tldr")
+
+        ### TODO: the enabling of gnome extensions via chroot isn't working properly. Must be done manually post-install
         if profile == "gnome":
             installation.arch_chroot(r"gnome-extensions enable material-shell@papyelgringo")
 
         # zsh setup
-        installation.arch_chroot(
-            r'sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"'
-        )
-        installation.arch_chroot(
-            r"git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
-        )
-        installation.arch_chroot(
-            r"git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting"
-        )
+        installation.arch_chroot(r'sh -c "$(curl -L --create-dirs git.io/antigen > ~/.config/antigen/antigen.zsh)"')
 
 
 if archinstall.arguments["harddrive"]:
