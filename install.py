@@ -66,6 +66,30 @@ dependencies_aur = [
 
 bspwm_packages = ["bspwm", "sxhkd", "xdo", "rxvt-unicode", "lightdm-gtk-greeter", "lightdm"]
 
+vscode_extensions = [
+    "danielpinto8zz6.c-cpp-compile-run",
+    "formulahendry.code-runner",
+    "github.copilot",
+    "grapecity.gc-excelviewer",
+    "konstantin.wrapselection",
+    "ms-python.python",
+    "ms-python.vscode-pylance",
+    "ms-vscode.cpptools",
+    "ms-vscode.wordcount",
+    "onlylys.leaper",
+    "qcz.text-power-tools",
+    "redhat.java",
+    "rubymaniac.vscode-paste-and-indent",
+    "sainnhe.gruvbox-material",
+    "tyriar.sort-lines",
+    "visualstudioexptteam.vscode",
+    "vscjava.vscode-java-debug",
+    "vscjava.vscode-java-dependency",
+    "vscjava.vscode-java-pack",
+    "vscjava.vscode-java-test",
+    "wwm.better-align",
+]
+
 if archinstall.arguments.get("help", None):
     archinstall.log(" - Optional disk encryption via --!encryption-password=<password>")
     archinstall.log(" - Optional filesystem type via --filesystem=<fs type>")
@@ -175,6 +199,10 @@ def install_on(mountpoint):
         ### TODO: the enabling of gnome extensions via chroot isn't working properly. Must be done manually post-install
         if profile == "gnome":
             installation.arch_chroot(r"gnome-extensions enable material-shell@papyelgringo")
+
+        # vscode extensions
+        for extension in vscode_extensions:
+            installation.arch_chroot(f"code --install-extension {extension}")
 
 
 if archinstall.arguments["harddrive"]:

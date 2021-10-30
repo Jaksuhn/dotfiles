@@ -1,0 +1,100 @@
+{
+    "code-runner.clearPreviousOutput": true,
+    "code-runner.executorMap": {
+        "python": "python -u $fullFileName"
+    },
+    "code-runner.runInTerminal": true,
+    "code-runner.saveFileBeforeRun": true,
+    "code-runner.showExecutionMessage": false,
+    "C_Cpp.clang_format_fallbackStyle": "{ BasedOnStyle: Google, IndentWidth: 4 }",
+    "editor.dragAndDrop": false,
+    "editor.emptySelectionClipboard": false,
+    "editor.fontFamily": "JetBrains Mono",
+    "editor.fontSize": 11,
+    "editor.formatOnPaste": true,
+    "editor.formatOnSave": true,
+    "editor.mouseWheelScrollSensitivity": 5,
+    "editor.multiCursorModifier": "ctrlCmd",
+    "editor.renderWhitespace": "none",
+    "editor.scrollBeyondLastLine": true,
+    "editor.selectionHighlight": false,
+    "editor.snippetSuggestions": "top",
+    "editor.wordWrap": "on",
+    "files.trimTrailingWhitespace": true,
+    "git.enableSmartCommit": true,
+    "python.autoComplete.addBrackets": true,
+    "python.formatting.provider": "black",
+    "telemetry.enableTelemetry": false,
+    "terminal.integrated.shellArgs.windows": [
+        "-ExecutionPolicy",
+        "Bypass"
+    ],
+    "window.closeWhenEmpty": false,
+    "window.openFilesInNewWindow": "off",
+    "window.title": "${activeEditorShort}${separator}${rootName}",
+    "workbench.colorTheme": "Gruvbox Material Dark",
+    "workbench.editor.enablePreview": false,
+    "workbench.settings.editor": "json",
+    "workbench.settings.openDefaultSettings": true,
+    "C_Cpp.updateChannel": "Insiders",
+    "jupyter.askForKernelRestart": false,
+    "files.autoSave": "off",
+    "editor.suggestSelection": "first",
+    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+    "files.exclude": {
+        "**/.classpath": true,
+        "**/.project": true,
+        "**/.settings": true,
+        "**/.factorypath": true
+    },
+    "sonarlint.rules": {
+        "java:S116": {
+            "level": "off"
+        },
+        "java:S117": {
+            "level": "off"
+        },
+        "java:S3358": {
+            "level": "off"
+        },
+        "java:S115": {
+            "level": "off"
+        },
+        "java:S2189": {
+            "level": "off"
+        },
+        "java:S106": {
+            "level": "off"
+        },
+        "java:S2274": {
+            "level": "off"
+        }
+    },
+    "java.refactor.renameFromFileExplorer": "autoApply",
+    "python.languageServer": "Jedi",
+    "jupyter.interactiveWindowMode": "perFile",
+    "workbench.editorAssociations": {
+        "*.ipynb": "jupyter-notebook"
+    },
+    "[c]": {
+        "editor.defaultFormatter": "ms-vscode.cpptools"
+    },
+    "C_Cpp.autocompleteAddParentheses": true,
+    "python.venvPath": "~/.venv",
+    "code-runner.saveAllFilesBeforeRun": true,
+    "editor.largeFileOptimizations": false,
+    "python.formatting.blackArgs": [
+        "--line-length",
+        "120"
+    ],
+    "security.workspace.trust.untrustedFiles": "open",
+    "notebook.cellToolbarLocation": {
+        "default": "right",
+        "jupyter-notebook": "left"
+    },
+    "python.linting.pylintEnabled": true,
+    "python.linting.enabled": true,
+    "explorer.confirmDelete": false,
+    "git.confirmSync": false,
+    "explorer.confirmDragAndDrop": false,
+}
