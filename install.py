@@ -176,9 +176,6 @@ def install_on(mountpoint):
         if profile == "gnome":
             installation.arch_chroot(r"gnome-extensions enable material-shell@papyelgringo")
 
-        # zsh setup
-        installation.arch_chroot(r'sh -c "$(curl -L --create-dirs git.io/antigen > ~/.config/antigen/antigen.zsh)"')
-
 
 if archinstall.arguments["harddrive"]:
     archinstall.arguments["harddrive"].keep_partitions = False
