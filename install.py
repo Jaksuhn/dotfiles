@@ -3,6 +3,7 @@ import os
 import archinstall
 import requests
 import logging
+from archinstall.lib.general import run_custom_user_commands
 
 KEYMAP = "us"
 LOCALE = "en_US"
