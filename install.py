@@ -90,6 +90,8 @@ vscode_extensions = [
     "wwm.better-align",
 ]
 
+custom_commands = list()
+
 if archinstall.arguments.get("help", None):
     archinstall.log(" - Optional disk encryption via --!encryption-password=<password>")
     archinstall.log(" - Optional filesystem type via --filesystem=<fs type>")
@@ -196,14 +198,14 @@ def install_on(mountpoint):
         installation.arch_chroot(f"chown -R {user}:{user} /home/{user}/paru")
         installation.arch_chroot(r"npm install -g tldr")
 
-        ### TODO: the enabling of gnome extensions via chroot isn't working properly. Must be done manually post-install
         if profile == "gnome":
-            installation.arch_chroot(r"gnome-extensions enable material-shell@papyelgringo")
+            custom_commands.append(r"gnome-extensions enable material-shell@papyelgringo")
 
         # vscode extensions
         for extension in vscode_extensions:
-            installation.arch_chroot(f"code --install-extension {extension}")
+            custom_commands.append(f"code --install-extension {extension}")
 
+        run_custom_user_commands(custom_commands, installation)
 
 if archinstall.arguments["harddrive"]:
     archinstall.arguments["harddrive"].keep_partitions = False
