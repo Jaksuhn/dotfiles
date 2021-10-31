@@ -1,4 +1,4 @@
-# vscode extensions
+### vscode extensions
 extensions=(
     danielpinto8zz6.c-cpp-compile-run
     formulahendry.code-runner
@@ -26,10 +26,12 @@ for ext in "${extensions[@]}"; do
     code --install-extension "$ext"
 done
 
-# material shell
+### material shell
 gnome-extensions enable material-shell@papyelgringo
 
-# firefox setup
+### firefox setup
+# the .mozilla directory is not created until firefox is launched for the first time
+mkdir -p ~/.mozilla/firefox/*.default-release/chrome
 echo "Linking userChrome.css & userContent.css to $HOME/.mozilla/firefox/*.default-release/chrome"
 ln -sf $HOME/.config/firefox/userChrome.css to $HOME/.mozilla/firefox/*.default-release/chrome
 ln -sf $HOME/.config/firefox/userContent.css to $HOME/.mozilla/firefox/*.default-release/chrome
