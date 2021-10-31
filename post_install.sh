@@ -26,7 +26,15 @@ for ext in "${extensions[@]}"; do
     code --install-extension "$ext"
 done
 
+# material shell
 gnome-extensions enable material-shell@papyelgringo
+
+# firefox setup
+echo "Linking userChrome.css & userContent.css to $HOME/.mozilla/firefox/*.default-release/chrome"
+ln -sf $HOME/.config/firefox/userChrome.css to $HOME/.mozilla/firefox/*.default-release/chrome
+ln -sf $HOME/.config/firefox/userContent.css to $HOME/.mozilla/firefox/*.default-release/chrome
+echo "set 'about:config?filter=toolkit.legacyUserProfileCustomizations.stylesheets' to true for the styles to take effect"
+echo "and don't forget to load treestyletabs.css"
 
 # https://brakertech.com/self-deleting-bash-script/
 currentscript=$0

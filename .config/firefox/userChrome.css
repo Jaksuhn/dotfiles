@@ -1,0 +1,142 @@
+/* userChrome.css */
+
+/* ##### TABS TOOLBAR ##################################### */
+
+/* Hide main tabs toolbar*/
+
+/* IMPORTANT */
+/*
+Get window_control_placeholder_support.css
+Window controls will be all wrong without it
+*/
+:root[tabsintitlebar]{
+  --uc-window-control-width: 138px; /* Space reserved for window controls */
+  --uc-window-drag-space-width: 24px; /* Extra space reserved on both sides of the nav-bar to be able to drag the window */
+}
+
+#nav-bar{
+  border-inline: var(--uc-window-drag-space-width,0px) solid var(--toolbar-bgcolor);
+  border-inline-style: solid !important;
+  border-right-width: calc(var(--uc-window-control-width,0px) + var(--uc-window-drag-space-width,0px));
+}
+
+:root{ --uc-toolbar-height: 32px; }
+
+:root:not([uidensity="compact"]){--uc-toolbar-height: 38px}
+
+#TabsToolbar{ visibility: collapse !important }
+
+:root:not([inFullscreen]) #nav-bar{
+  margin-top: calc(0px - var(--uc-toolbar-height));
+}
+
+#toolbar-menubar{
+  min-height:unset !important;
+  height:var(--uc-toolbar-height) !important;
+  position: relative;
+}
+
+#main-menubar{
+  -moz-box-flex: 1;
+  background-color: var(--toolbar-bgcolor,--toolbar-non-lwt-bgcolor);
+  background-clip: padding-box;
+  border-right: 30px solid transparent;
+  border-image: linear-gradient(to left, transparent, var(--toolbar-bgcolor,--toolbar-non-lwt-bgcolor) 30px) 20 / 30px
+}
+
+#toolbar-menubar:not([inactive]){ z-index: 2 }
+#toolbar-menubar[inactive] > #menubar-items {
+	opacity: 0;
+	pointer-events: none;
+	margin-left: var(--uc-window-drag-space-width,0px)
+}
+
+
+/* ##### URL BAR ########################################## */
+
+/* Hide (i) in URL bar */
+#identity-icon {
+    width: 0 !important;
+}
+/* Adjust lock icon to be closer to edge */
+#identity-box {
+    padding-inline-start: 2px !important;
+}
+/* Custom bindings.xml in same folder as userChrome, for simple URL */
+/* CURRENTLY DOES NOT WORK, so commented-out. */
+/*
+#urlbar {
+    -moz-binding: url("bindings.xml#urlbar") !important;
+}
+*/
+
+/* Center URL */
+#urlbar-input {
+    text-align: left;
+    margin-bottom: 1px;
+}
+/* Bookmark padding */
+toolbarbutton.bookmark-item:not(.subviewbutton) {
+    padding: 1px 6px !important;
+}
+/* Get rid of bookmark icon */
+.bookmark-item .toolbarbutton-icon {
+    display: none;
+}
+
+
+
+/* ##### SIDEBAR ########################################## */
+
+/* Sidebar min and max width removal */
+#sidebar {
+    max-width: none !important;
+    min-width: 0px !important;
+}
+
+
+
+/* Remove below if not using TreeStyleTab extension */
+/* replace "treestyletab_piro_sakura_ne_jp-sidebar-action"
+    with "_0ad88674-2b41-4cfb-99e3-e206c74a0076_-sidebar-action"
+    if using Tab Center Redux */
+
+/* Hide splitter */
+#sidebar-box[sidebarcommand="treestyletab_piro_sakura_ne_jp-sidebar-action"] + #sidebar-splitter {
+    display: none !important;
+}
+/* Hide sidebar header */
+#sidebar-box[sidebarcommand="treestyletab_piro_sakura_ne_jp-sidebar-action"] #sidebar-header {
+    visibility: collapse;
+}
+
+/* Shrink sidebar until hovered */
+:root {
+    --thin-tab-width: 30px;
+    --wide-tab-width: 300px;
+    z-index: 9999 !important;
+}
+#sidebar-box:not([sidebarcommand="treestyletab_piro_sakura_ne_jp-sidebar-action"]) {
+    min-width: var(--wide-tab-width) !important;
+    max-width: none !important;
+    z-index: 9999 !important;
+}
+#sidebar-box[sidebarcommand="treestyletab_piro_sakura_ne_jp-sidebar-action"] {
+    overflow: hidden !important;
+    position: relative !important;
+    transition: all 200ms !important;
+    min-width: var(--thin-tab-width) !important;
+    max-width: var(--thin-tab-width) !important;
+    z-index: 9999 !important;
+}
+#sidebar-box[sidebarcommand="treestyletab_piro_sakura_ne_jp-sidebar-action"]:hover,
+#sidebar-box[sidebarcommand="treestyletab_piro_sakura_ne_jp-sidebar-action"] #sidebar {
+    transition: all 200ms !important;
+    min-width: var(--wide-tab-width) !important;
+    max-width: var(--wide-tab-width) !important;
+    z-index: 9999 !important;
+}
+#sidebar-box[sidebarcommand="treestyletab_piro_sakura_ne_jp-sidebar-action"]:hover {
+    margin-right: calc((var(--wide-tab-width) - var(--thin-tab-width)) * -1) !important;
+    z-index: 9999 !important;
+}
