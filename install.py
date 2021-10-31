@@ -26,6 +26,7 @@ dependencies = [
     "git",
     "github-cli",
     "kitty",
+    "man-db",
     "micro",
     "mupdf",
     "neofetch",
