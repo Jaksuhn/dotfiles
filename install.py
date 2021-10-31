@@ -67,32 +67,6 @@ dependencies_aur = [
 
 bspwm_packages = ["bspwm", "sxhkd", "xdo", "rxvt-unicode", "lightdm-gtk-greeter", "lightdm"]
 
-vscode_extensions = [
-    "danielpinto8zz6.c-cpp-compile-run",
-    "formulahendry.code-runner",
-    "github.copilot",
-    "grapecity.gc-excelviewer",
-    "konstantin.wrapselection",
-    "ms-python.python",
-    "ms-python.vscode-pylance",
-    "ms-vscode.cpptools",
-    "ms-vscode.wordcount",
-    "onlylys.leaper",
-    "qcz.text-power-tools",
-    "redhat.java",
-    "rubymaniac.vscode-paste-and-indent",
-    "sainnhe.gruvbox-material",
-    "tyriar.sort-lines",
-    "visualstudioexptteam.vscode",
-    "vscjava.vscode-java-debug",
-    "vscjava.vscode-java-dependency",
-    "vscjava.vscode-java-pack",
-    "vscjava.vscode-java-test",
-    "wwm.better-align",
-]
-
-custom_commands = list()
-
 if archinstall.arguments.get("help", None):
     archinstall.log(" - Optional disk encryption via --!encryption-password=<password>")
     archinstall.log(" - Optional filesystem type via --filesystem=<fs type>")
@@ -198,15 +172,6 @@ def install_on(mountpoint):
 
         installation.arch_chroot(f"chown -R {user}:{user} /home/{user}/paru")
         installation.arch_chroot(r"npm install -g tldr")
-
-        if profile == "gnome":
-            custom_commands.append(r"gnome-extensions enable material-shell@papyelgringo")
-
-        # vscode extensions
-        for extension in vscode_extensions:
-            custom_commands.append(f"code --install-extension {extension}")
-
-        run_custom_user_commands(custom_commands, installation)
 
 if archinstall.arguments["harddrive"]:
     archinstall.arguments["harddrive"].keep_partitions = False
