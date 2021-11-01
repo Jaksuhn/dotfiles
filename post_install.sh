@@ -31,12 +31,20 @@ gnome-extensions enable material-shell@papyelgringo
 
 ### firefox setup
 # the .mozilla directory is not created until firefox is launched for the first time
-mkdir -p ~/.mozilla/firefox/*.default-release/chrome
+firefox --headless
+pkill -f firefox
+# https://unix.stackexchange.com/questions/374852/create-file-using-wildcard-in-absolute-path
+for d in /root/.mozilla/firefox/*.default-release/ ; do
+    mkdir "$d"/chrome
+done
 echo "Linking userChrome.css & userContent.css to $HOME/.mozilla/firefox/*.default-release/chrome"
 ln -sf $HOME/.config/firefox/userChrome.css to $HOME/.mozilla/firefox/*.default-release/chrome
 ln -sf $HOME/.config/firefox/userContent.css to $HOME/.mozilla/firefox/*.default-release/chrome
-echo "set 'about:config?filter=toolkit.legacyUserProfileCustomizations.stylesheets' to true for the styles to take effect"
-echo "and don't forget to load treestyletabs.css"
+config_option=toolkit.legacyUserProfileCustomizations.stylesheets
+config_value=true
+sed -i 's/user_pref("'config_option'",.*);/user_pref("'config_option'",'config_value');/' user.js
+grep -q config_option user.js || echo "user_pref(config_option,config_value);" >> user.js
+echo "don't forget to load treestyletabs.css"
 
 # https://brakertech.com/self-deleting-bash-script/
 currentscript=$0
