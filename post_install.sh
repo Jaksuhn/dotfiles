@@ -43,10 +43,8 @@ done
 echo "Linking userChrome.css & userContent.css to $HOME/.mozilla/firefox/*.default-release/chrome"
 sudo ln -sf $HOME/.config/firefox/userChrome.css to $HOME/.mozilla/firefox/*.default-release/chrome
 sudo ln -sf $HOME/.config/firefox/userContent.css to $HOME/.mozilla/firefox/*.default-release/chrome
-config_option=toolkit.legacyUserProfileCustomizations.stylesheets
-config_value=true
-sed -i 's/user_pref("'config_option'",.*);/user_pref("'config_option'",'config_value');/' user.js
-grep -q config_option user.js || echo "user_pref(config_option,config_value);" >> user.js
+echo "enabling legacyUserProfileCustomizations.stylesheets for userChrome"
+echo 'user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);' >> ~/.mozilla/firefox/*.default-release/prefs.js
 echo "don't forget to load treestyletabs.css"
 
 # https://brakertech.com/self-deleting-bash-script/
