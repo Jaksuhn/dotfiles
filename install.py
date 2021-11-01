@@ -169,6 +169,8 @@ def install_on(mountpoint):
         installation.arch_chroot(f"chown -R {user}:{user} /home/{user}/paru")
         installation.arch_chroot(r"npm install -g tldr")
 
+        archinstall.log("Don't forget to run post_install.sh after rebooting!")
+
 if archinstall.arguments["harddrive"]:
     archinstall.arguments["harddrive"].keep_partitions = False
 
