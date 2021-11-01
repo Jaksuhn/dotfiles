@@ -42,7 +42,6 @@ for d in ~/.mozilla/firefox/*.default-release/ ; do
 done
 echo "Linking userChrome.css & userContent.css to $HOME/.mozilla/firefox/*.default-release/chrome"
 sudo ln -sf $HOME/.config/firefox/userChrome.css to $HOME/.mozilla/firefox/*.default-release/chrome
-sudo ln -sf $HOME/.config/firefox/userContent.css to $HOME/.mozilla/firefox/*.default-release/chrome
 echo "enabling legacyUserProfileCustomizations.stylesheets for userChrome"
 echo 'user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);' >> ~/.mozilla/firefox/*.default-release/prefs.js
 echo "don't forget to load tst_config.json"
