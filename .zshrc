@@ -1,5 +1,5 @@
 # More of a note for myself, but if this file can't be sourced citing "command not found: ^M"
-# or "parse error near xxx", it's (probably due to the script being in DOS format). Use the
+# or "parse error near xxx", it's (probably) due to the script being in DOS format. Use the
 # "dos2unix" package to fix, e.g. "dos2unix -f .zshrc"
 
 # Personal Zsh configuration file. It is strongly recommended to keep all

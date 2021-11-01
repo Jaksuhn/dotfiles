@@ -36,7 +36,7 @@ firefox & disown
 pkill -f firefox
 # https://unix.stackexchange.com/questions/374852/create-file-using-wildcard-in-absolute-path
 for d in /root/.mozilla/firefox/*.default-release/ ; do
-    mkdir "$d"/chrome
+    mkdir "$d"chrome
 done
 echo "Linking userChrome.css & userContent.css to $HOME/.mozilla/firefox/*.default-release/chrome"
 ln -sf $HOME/.config/firefox/userChrome.css to $HOME/.mozilla/firefox/*.default-release/chrome
@@ -58,3 +58,10 @@ function finish {
 }
 
 trap finish EXIT
+
+
+### TODO
+# Fix auto-firefox chrome
+# change chrome to stealthfox https://github.com/vipintom/stealthFox/tree/master/stealthFox
+# add latex
+# figure out auto tst setup
