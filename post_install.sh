@@ -45,7 +45,7 @@ sudo ln -sf $HOME/.config/firefox/userChrome.css to $HOME/.mozilla/firefox/*.def
 sudo ln -sf $HOME/.config/firefox/userContent.css to $HOME/.mozilla/firefox/*.default-release/chrome
 echo "enabling legacyUserProfileCustomizations.stylesheets for userChrome"
 echo 'user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);' >> ~/.mozilla/firefox/*.default-release/prefs.js
-echo "don't forget to load treestyletabs.css"
+echo "don't forget to load tst_config.json"
 
 # https://brakertech.com/self-deleting-bash-script/
 currentscript=$0
@@ -61,7 +61,6 @@ trap finish EXIT
 
 
 ### TODO
-# Fix auto-firefox chrome
-# change chrome to stealthfox https://github.com/vipintom/stealthFox/tree/master/stealthFox
+# fix sudo needing a password during firefox setup
 # add latex
 # figure out auto tst setup

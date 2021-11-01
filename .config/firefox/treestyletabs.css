@@ -1,129 +1,95 @@
-/* TreeStyleTab.css */
-
-/* Hide border on tab bar, force its state to 'scroll', adjust margin-left for width of scrollbar. */
-#tabbar {
-    border: 0;
-    scrollbar-width: none;
-        z-index: 9999 !important;
-}
-/* Remove space before child tabs when sidebar collapsed. */
-/* (I'd prefer for them to be at -1px, but I don't know how to target child tabs specifically.) */
-#tabbar:not(:hover) .tab tab-item-substance {
-    margin-left: 0;
+#all-tabs {
+    border: none !important;
 }
 
-/* Hide .twisty and adjust margins so favicons have 7px on left. */
-.tab tab-item-substance .twisty {
-    visibility: hidden;
-    margin-left: -12px;
-}
-
-/* Push tab labels slightly to the right so they're completely hidden in collapsed state, but still look fine while expanded. */
-.tab tab-item-substance .label {
-    margin-left: 7px;
-}
-
-/* Hide close buttons on tabs. */
-.tab tab-item-substance .closebox {
-    visibility: collapse;
-}
-
-/* Hide sound playing/muted button. */
-.sound-button {
-    display: none !important;
-}
-
-/* Hide 'new tab' button. */
-.newtab-button {
-    display: none;
+tab-item tab-favicon {
+    left: 7px;
+  	order: -4
 }
 
 
 
-/* ##### THEME ############################################ */
-@keyframes pulse {
-    0% {
-        width: 0px;
-        height: 0px;
-        opacity: 1;
-    }
-    100% {
-        width: 350px;
-        height: 350px;
-        opacity: 0;
-        top: calc(50% - 175px);
-        left: calc(50% - 175px);
-    }
+tab-item .label {
+    padding-bottom: 2px;
+    margin-left: 11px;
+    order: -3;
+}
+
+tab-item .twisty {
+    display : none !important;
 }
 
 
 
-#tabbar {
-    border-right: 1px solid #1d1d1d;
-    box-shadow: none !important;
-    background-color: #383838;
+.sound-button:after {
+    margin-top: 2px;
+}
+
+.counter {
+    color: #ffffff !important;
+    background: #992f8d!important;
+    border-radius: 10px;
+    margin: 2px 2px 0px 0px;
+    padding: 0 8px;
+    padding-bottom: 2px;
+    order: -2 !important;
+}
+
+.counter:before,
+.counter:after {
+    content: "";
+}
+
+tab-item.discarded .label-content {
+  color: #1E2021;
+}
+
+tab-item.discarded tab-favicon {
+  opacity: 0.5 !important;
+
 }
 
 
-
-.tab tab-item-substance {
-    background-color: transparent;
-    border-color: #292929;
-    box-shadow: none !important;
-}
-.tab .label tab-item-substance {
-    color: rgba(207,207,207,0.75) !important;
-}
-.tab:hover tab-item-substance {
-    background-color: #404040 !important;
-}
-.tab:hover tab-item-substance .label {
-    color: rgba(207,207,207,1) !important;
+#tabbar tab-item tab-item-substance:not(:hover) tab-closebox {
+  display: none;
 }
 
 
-
-/* pending / unloaded tabs */
-.tab.discarded tab-item-substance {
-    background-color: #1d1d1d;
-}
-.tab.discarded tab-item-substance .label {
-    color: rgba(207,207,207,0.25) !important;
-}
-.tab.discarded:hover tab-item-substance {
-    background-color: #292929 !important;
+:root.left tab-item tab-favicon {
+    transform: scale(120%);
+    margin-right: 5px;
 }
 
-
-
-/* active tab */
-.tab.active tab-item-substance  {
-    background-color: #8fa876;
+tab-item:not([data-level="0"]) {
+    border-left: solid 3px #6c68b7 !important;
 }
-.tab.active tab-item-substance  .label {
-    font-weight: bold;
-    color: rgba(207,207,207,1) !important;
+tab-item:not([data-level="0"]) tab-favicon {
+    margin-left : -2px !important;
 }
-.tab.active:hover tab-item-substance {
-    background-color: #8fa876 !important;
+tab-item[data-level="1"] {
+    border-left: solid 3px #c94f6d !important;
 }
 
-
-
-/* Adjust style for tab that has sound playing. */
-.tab.sound-playing tab-item-substance .favicon::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    border-radius: 50%;
-    background: #FFFFFF;
-    animation: pulse 2s ease-out 0s infinite;
-    z-index: -1;
-    opacity: 0;
+tab-item[data-level="2"] {
+    border-left: solid 3px #dbc074 !important;
 }
 
-/* Adjust style for tab that is muted. */
-.tab.muted tab-item-substance {
-    opacity: 0.5;
+tab-item[data-level="3"] {
+    border-left: solid 3px #5cb887 !important;
+}
+
+tab-item.pinned {
+    margin-left: 5px !important;
+    padding: 0px !important;
+}
+
+tab-item.pinned tab-favicon {
+    margin-left: -7px !important;
+    padding: 0px !important;
+}
+
+#tabbar.overflow { scrollbar-width: none; }
+
+:root.sidebar #background {
+  background: #1E2021;
 }
