@@ -31,7 +31,8 @@ gnome-extensions enable material-shell@papyelgringo
 
 ### firefox setup
 # the .mozilla directory is not created until firefox is launched for the first time
-firefox --headless
+# don't think it's possible to disown firefox --headless to prevent it holding up terminal
+firefox & disown
 pkill -f firefox
 # https://unix.stackexchange.com/questions/374852/create-file-using-wildcard-in-absolute-path
 for d in /root/.mozilla/firefox/*.default-release/ ; do
