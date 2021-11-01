@@ -68,11 +68,6 @@ dependencies_aur = [
 
 bspwm_packages = ["bspwm", "sxhkd", "xdo", "rxvt-unicode", "lightdm-gtk-greeter", "lightdm"]
 
-if archinstall.arguments.get("help", None):
-    archinstall.log(" - Optional disk encryption via --!encryption-password=<password>")
-    archinstall.log(" - Optional filesystem type via --filesystem=<fs type>")
-    archinstall.log(" - Optional systemd network via --network")
-
 # user provided arguments
 archinstall.arguments["harddrive"] = archinstall.select_disk(archinstall.all_disks())
 hostname = archinstall.generic_select(["desktop", "laptop"], "Select hostname (default: desktop):") or "desktop"
