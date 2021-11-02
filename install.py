@@ -66,6 +66,8 @@ dependencies_aur = [
     "zsh-theme-powerlevel10k-git",
 ]
 
+# TODO: check if that pl10k is redundant
+
 bspwm_packages = ["bspwm", "sxhkd", "xdo", "rxvt-unicode", "lightdm-gtk-greeter", "lightdm"]
 
 # user provided arguments
