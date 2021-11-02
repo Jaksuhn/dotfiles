@@ -71,6 +71,5 @@ trap finish EXIT
 
 
 ### TODO
-# fix sudo needing a password during firefox setup
 # add latex
 # figure out auto tst setup
