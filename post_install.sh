@@ -39,12 +39,11 @@ pkill -f firefox
 # https://unix.stackexchange.com/questions/374852/create-file-using-wildcard-in-absolute-path
 for d in ~/.mozilla/firefox/*.default-release/ ; do
     sudo mkdir "$d"chrome
+    echo "turning on toolkit.legacyUserProfileCustomizations.stylesheets"
+    echo 'user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);' >> "$d"prefs.js
 done
-echo "Linking userChrome.css & userContent.css to $HOME/.mozilla/firefox/*.default-release/chrome"
+echo "linking userChrome.css & userContent.css to $HOME/.mozilla/firefox/*.default-release/chrome"
 sudo ln -sf $HOME/.config/firefox/userChrome.css to $HOME/.mozilla/firefox/*.default-release/chrome
-echo "enabling legacyUserProfileCustomizations.stylesheets for userChrome"
-echo 'user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);' >> ~/.mozilla/firefox/*.default-release/prefs.js
-echo "don't forget to load tst_config.json"
 
 # https://brakertech.com/self-deleting-bash-script/
 currentscript=$0
