@@ -1,3 +1,8 @@
+# temporary sudo privilges so that password is asked in the beginning and not during
+sudo tee /etc/sudoers.d/$USER <<END
+$USER ALL=NOPASSWD: /usr/bin/ln, /usr/bin/mkdir, /bin/rm
+END
+
 ### vscode extensions
 extensions=(
     danielpinto8zz6.c-cpp-compile-run
@@ -23,6 +28,7 @@ extensions=(
 )
 
 for ext in "${extensions[@]}"; do
+    # ideally find a way to supress the depreciation warnings
     code --install-extension "$ext"
 done
 
@@ -31,28 +37,31 @@ gnome-extensions enable material-shell@papyelgringo
 
 ### firefox setup
 # the .mozilla directory is not created until firefox is launched for the first time
-# don't think it's possible to disown firefox --headless to prevent it holding up terminal
-echo "Launching firefox to generate .mozilla directory"
+# don't think it's possible to disown firefox --headless so a popup is required
+printf "\n\nlaunching firefox to generate .mozilla directory\n"
 firefox & disown
 sleep 5s
 pkill -f firefox
 # https://unix.stackexchange.com/questions/374852/create-file-using-wildcard-in-absolute-path
 for d in ~/.mozilla/firefox/*.default-release/ ; do
     sudo mkdir "$d"chrome
-    echo "turning on toolkit.legacyUserProfileCustomizations.stylesheets"
+    # required for userChrome to work
     echo 'user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);' >> "$d"prefs.js
 done
-echo "linking userChrome.css & userContent.css to $HOME/.mozilla/firefox/*.default-release/chrome"
+printf "\n\nlinking userChrome.css & userContent.css to $HOME/.mozilla/firefox/*.default-release/chrome\n"
 sudo ln -sf $HOME/.config/firefox/userChrome.css to $HOME/.mozilla/firefox/*.default-release/chrome
 
-echo "sign in to firefox"
+printf "\n\nsign in to firefox\n"
 firefox --new-window https://accounts.firefox.com/signin &
+
+# remove temp sudo privileges
+sudo /bin/rm /etc/sudoers.d/$USER
+sudo -k
 
 # https://brakertech.com/self-deleting-bash-script/
 currentscript=$0
 
 function finish {
-    echo "shredding ${currentscript} and install.py";
     shred -u ${currentscript};
     shred -u install.py;
     shred -u README.md
