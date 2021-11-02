@@ -60,6 +60,8 @@ dependencies_aur = [
     "betterlockscreen",
     "code-marketplace",
     "discord_arch_electron",
+    "noto-fonts",
+    "noto-fonts-emoji",
     "polybar",
     "ttf-ms-fonts",
     "yadm-git",
