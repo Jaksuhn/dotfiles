@@ -45,6 +45,9 @@ done
 echo "linking userChrome.css & userContent.css to $HOME/.mozilla/firefox/*.default-release/chrome"
 sudo ln -sf $HOME/.config/firefox/userChrome.css to $HOME/.mozilla/firefox/*.default-release/chrome
 
+echo "sign in to firefox"
+firefox --new-window https://accounts.firefox.com/signin &
+
 # https://brakertech.com/self-deleting-bash-script/
 currentscript=$0
 
