@@ -35,14 +35,6 @@ pdf() {
 transfer() {
     curl -F"file=@"${@}"" https://ttm.sh;
 }
-# url encode
-function urlencode {
-	python -c "import sys; from urllib.parse import quote_plus; print(quote_plus(sys.stdin.read()))"
-}
-# url decode
-function urldecode {
-	python -c "import sys; from urllib.parse import unquote; print(unquote(sys.stdin.read()), end='')"
-}
 # get weather; takes in location
 weather() {
     curl wttr.in/"$@";
