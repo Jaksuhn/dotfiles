@@ -63,6 +63,7 @@ dependencies_aur = [
     "polybar",
     "ttf-ms-fonts",
     "yadm-git",
+    "zsh-theme-powerlevel10k-git",
 ]
 
 bspwm_packages = ["bspwm", "sxhkd", "xdo", "rxvt-unicode", "lightdm-gtk-greeter", "lightdm"]
