@@ -68,8 +68,3 @@ function finish {
 }
 
 trap finish EXIT
-
-
-### TODO
-# add latex
-# figure out auto tst setup
