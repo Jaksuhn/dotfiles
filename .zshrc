@@ -114,4 +114,4 @@ setopt no_auto_menu  # require an extra TAB press to open the completion menu
 
 # Startup operations
 eval $(thefuck --alias)
-neofetch
+neofetch --kitty --source ~/.config/neofetch/doge.png

@@ -16,3 +16,5 @@ make gnome show hidden files by default
 sign into firefox via terminal
 
 auto discord/telegram signin?
+
+make neofetch rotate through ascii/images
