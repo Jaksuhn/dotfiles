@@ -30,7 +30,6 @@ dependencies = [
     "mupdf",
     "neofetch",
     "nnn",
-    "npm",
     "p7zip",
     "rofi",
     "rust",
@@ -170,7 +169,6 @@ def install_on(mountpoint):
         installation.arch_chroot(r"sed -i 's/\(%wheel ALL=(ALL) NOPASSWD: ALL\)/# \1/' /etc/sudoers")
 
         installation.arch_chroot(f"chown -R {user}:{user} /home/{user}/paru")
-        installation.arch_chroot(r"npm install -g tldr")
 
         archinstall.log("Don't forget to run post_install.sh after rebooting!")
 
