@@ -18,3 +18,5 @@ sign into firefox via terminal
 auto discord/telegram signin?
 
 make neofetch rotate through ascii/images
+
+have post_install.sh run on first (and only) boot
