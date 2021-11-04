@@ -111,3 +111,5 @@ misc:
 - add telegram's theme
 - make neofetch rotate through ascii/images
 - have post_install.sh run on first (and only) boot
+- [dual github accounts setup](https://stackoverflow.com/questions/62625513/can-i-log-in-two-different-github-account-in-vscode)
+- setup [ptSh](https://github.com/jszczerbinsky/ptSh)
