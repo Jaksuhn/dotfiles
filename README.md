@@ -4,9 +4,9 @@
 These are my dotfiles, built with the express purpose of being able to go from a blank machine to *exactly* how I've had it with little-to-no user intervention required. I mess around with other window managers, so the installer will ask what profile to use. Other profiles are a very WIP feature atm (in terms of getting them setup to how I've had them). Some sort of work, some add nothing.
 
 
-## PACKAGE LIST:
+## package list:
 
-### Terminal
+### terminal
 
 [bash-completion](https://github.com/scop/bash-completion);
 [git](https://git-scm.com/);
@@ -23,13 +23,13 @@ These are my dotfiles, built with the express purpose of being able to go from a
 [zsh](https://www.zsh.org/);
 [zsh-theme-powerlevel10k-git](https://github.com/romkatv/powerlevel10k)
 
-### Stupid terminal shit
+### stupid terminal shit
 
 [neofetch](https://github.com/dylanaraps/neofetch) (system info);
 [shell-color-scripts](https://gitlab.com/dwt1/shell-color-scripts);
 [sl](http://www.tkl.iis.u-tokyo.ac.jp/~toyoda/index_e.html) (when you misspell *ls*)
 
-### Utilities
+### utilities
 
 [baobab](https://wiki.gnome.org/Apps/DiskUsageAnalyzer) (disk usage);
 [bluez & bluez-utils](https://github.com/bluez/bluez) (bluetooth);
@@ -41,7 +41,7 @@ These are my dotfiles, built with the express purpose of being able to go from a
 [simplescreenrecorder](https://www.maartenbaert.be/simplescreenrecorder/);
 [yadm-git](https://github.com/TheLocehiliosan/yadm) (dotfile manager)
 
-### Applications
+### applications
 
 [code](https://github.com/microsoft/vscode);
 [discord_arch_electron](https://discordapp.com/);
@@ -52,12 +52,12 @@ These are my dotfiles, built with the express purpose of being able to go from a
 [telegram-desktop](https://desktop.telegram.org/);
 [vlc](https://www.videolan.org/vlc/)
 
-### Misc.
+### misc.
 
 [betterlockscreen](https://github.com/pavanjadhaw/betterlockscreen);
 [code-marketplace](https://marketplace.visualstudio.com/vscode)
 
-### Fonts
+### fonts
 
 noto-fonts;
 noto-fonts-emoji;
@@ -78,6 +78,7 @@ noto-fonts-emoji;
 ## TODO:
 
 Config:
+
     - latex environment
     - neofetch
     - git
