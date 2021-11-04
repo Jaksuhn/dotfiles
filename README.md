@@ -76,24 +76,38 @@ noto-fonts-emoji;
 [ttf-roboto](https://material.google.com/style/typography.html);
 [ttf-roboto-mono](https://fonts.google.com/specimen/Roboto+Mono)
 
+
+## WORKING:
+
+- full arch installation
+- 99% automatic firefox setup
+- kitty themed and configured
+- zsh and plugins configured
+- vscode settings, configs, extensions, theme
+- gnome material shell
+
 ## TODO:
 
-Config:
+config:
 
-    - latex environment
-    - neofetch
-    - git
-    - lockscreen
-    - yadm
+- latex environment
+- neofetch
+- git
+- lockscreen
+- yadm
 
-dos2unix the .zshrc file
+profiles:
 
-make gnome show hidden files by default
+- kde
+- bspwm
+- i3 (not even started)
 
-sign into firefox via terminal
+misc:
 
-auto discord/telegram signin?
-
-make neofetch rotate through ascii/images
-
-have post_install.sh run on first (and only) boot
+- dos2unix the .zshrc file
+- make gnome show hidden files by default
+- sign into firefox via terminal
+- auto discord/telegram signin?
+- add telegram's theme
+- make neofetch rotate through ascii/images
+- have post_install.sh run on first (and only) boot
