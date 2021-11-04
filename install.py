@@ -63,6 +63,7 @@ dependencies_aur = [
     "discord_arch_electron",
     "noto-fonts",
     "noto-fonts-emoji",
+    "pokemon-colorscripts-git",
     "polybar",
     "shell-color-scripts",
     "ttf-ms-fonts",

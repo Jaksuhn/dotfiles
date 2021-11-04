@@ -26,6 +26,7 @@ These are my dotfiles, built with the express purpose of being able to go from a
 ### stupid terminal shit
 
 [neofetch](https://github.com/dylanaraps/neofetch) (system info);
+[pokemon-colorscripts-git](https://gitlab.com/phoneybadger/pokemon-colorscripts);
 [shell-color-scripts](https://gitlab.com/dwt1/shell-color-scripts);
 [sl](http://www.tkl.iis.u-tokyo.ac.jp/~toyoda/index_e.html) (when you misspell *ls*)
 
