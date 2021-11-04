@@ -32,6 +32,7 @@ These are my dotfiles, built with the express purpose of being able to go from a
 [bluez & bluez-utils](https://github.com/bluez/bluez) (bluetooth),
 [curl](https://curl.se/),
 [firejail](https://github.com/netblue30/firejail) (sandboxing)
+[flameshot](https://github.com/flameshot-org/flameshot) (screenshots)
 [rofi](https://github.com/DaveDavenport/rofi) (launcher)
 [simplescreenrecorder](https://www.maartenbaert.be/simplescreenrecorder/)
 

@@ -22,6 +22,7 @@ dependencies = [
     "docker",
     "firefox",
     "firejail",
+    "flameshot",
     "git",
     "github-cli",
     "kitty",
