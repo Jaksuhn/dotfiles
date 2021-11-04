@@ -35,6 +35,7 @@ dependencies = [
     "rofi",
     "rust",
     "simplescreenrecorder",
+    "sl",
     "telegram-desktop",
     "thefuck",
     "tldr",

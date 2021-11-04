@@ -24,7 +24,8 @@ These are my dotfiles, built with the express purpose of being able to go from a
 
 ### Stupid terminal shit
 
-[neofetch](https://github.com/dylanaraps/neofetch) (system info)
+[neofetch](https://github.com/dylanaraps/neofetch) (system info),
+[sl](http://www.tkl.iis.u-tokyo.ac.jp/~toyoda/index_e.html) (when you misspell *ls*)
 
 ### Utilities
 
