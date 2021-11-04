@@ -59,8 +59,8 @@ These are my dotfiles, built with the express purpose of being able to go from a
 
 ### Fonts
 
-[noto-fonts]();
-[noto-fonts-emoji]();
+noto-fonts;
+noto-fonts-emoji;
 [ttf-anonymous-pro](https://www.marksimonson.com/fonts/view/anonymous-pro);
 [ttf-bitstream-vera](https://www-old.gnome.org/fonts/);
 [ttf-fira-code](https://github.com/tonsky/FiraCode);
