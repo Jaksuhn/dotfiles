@@ -64,6 +64,7 @@ dependencies_aur = [
     "noto-fonts",
     "noto-fonts-emoji",
     "polybar",
+    "shell-color-scripts",
     "ttf-ms-fonts",
     "yadm-git",
     "zsh-theme-powerlevel10k-git",
