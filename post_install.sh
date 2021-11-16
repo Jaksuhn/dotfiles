@@ -34,6 +34,8 @@ done
 
 ### material shell
 gnome-extensions enable material-shell@papyelgringo
+# this may not enable if gnome was recently updated. Version checking is (probably) why
+gsettings set org.gnome.shell disable-extension-version-validation "true"
 
 ### firefox setup
 # the .mozilla directory is not created until firefox is launched for the first time
