@@ -3,6 +3,11 @@
 
 These are my dotfiles, built with the express purpose of being able to go from a blank machine to *exactly* how I've had it with little-to-no user intervention required. I mess around with other window managers, so the installer will ask what profile to use. Other profiles are a very WIP feature atm (in terms of getting them setup to how I've had them). Some sort of work, some add nothing.
 
+## setup
+
+get the latest [arch ISO](https://archlinux.org/download/)
+boot it up and run `python <(curl -sL https://raw.github.com/jaksuhn/dotfiles/main/install.py)`
+
 
 ## package list:
 
