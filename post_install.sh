@@ -49,6 +49,7 @@ for d in ~/.mozilla/firefox/*.default-release/ ; do
     sudo mkdir "$d"chrome
     # required for userChrome to work
     echo 'user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);' >> "$d"prefs.js
+    echo 'user_pref("browser.startup.homepage", "https://www.youtube.com/feed/subscriptions");' >> "$d"prefs.js
 done
 printf "\n\nlinking userChrome.css & userContent.css to $HOME/.mozilla/firefox/*.default-release/chrome\n"
 sudo ln -sf $HOME/.config/firefox/userChrome.css to $HOME/.mozilla/firefox/*.default-release/chrome
