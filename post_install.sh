@@ -49,6 +49,7 @@ for d in ~/.mozilla/firefox/*.default-release/ ; do
     sudo mkdir "$d"chrome
     # required for userChrome to work
     echo 'user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);' >> "$d"prefs.js
+    # misc preferences
     echo 'user_pref("browser.startup.homepage", "https://www.youtube.com/feed/subscriptions");' >> "$d"prefs.js
     echo 'user_pref("browser.newtabpage.enabled", false);' >> "$d"prefs.js
 done
