@@ -25,6 +25,7 @@ dependencies = [
     "flameshot",
     "git",
     "github-cli",
+    "jq",
     "kitty",
     "man-db",
     "micro",
@@ -176,6 +177,7 @@ def install_on(mountpoint):
         installation.arch_chroot(f"chown -R {user}:{user} /home/{user}/paru")
 
         archinstall.log("Don't forget to run post_install.sh after rebooting!")
+
 
 if archinstall.arguments["harddrive"]:
     archinstall.arguments["harddrive"].keep_partitions = False

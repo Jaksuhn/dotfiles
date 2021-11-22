@@ -16,6 +16,7 @@ boot it up and run `python <(curl -sL https://raw.github.com/jaksuhn/dotfiles/ma
 [bash-completion](https://github.com/scop/bash-completion);
 [git](https://git-scm.com/);
 [github-cli](https://github.com/cli/cli);
+[jq](https://stedolan.github.io/jq/) (CLI JSON parser);
 [kitty](https://github.com/kovidgoyal/kitty) (terminal emulator);
 [man-db](https://www.nongnu.org/man-db/);
 [micro](https://micro-editor.github.io/) (txt editor);
