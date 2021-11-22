@@ -4,7 +4,7 @@ $USER ALL=NOPASSWD: /usr/bin/ln, /usr/bin/mkdir, /bin/rm
 END
 
 ### vscode extensions
-extensions=(
+vscode_extensions=(
     danielpinto8zz6.c-cpp-compile-run
     formulahendry.code-runner
     github.copilot
@@ -27,7 +27,7 @@ extensions=(
     wwm.better-align
 )
 
-for ext in "${extensions[@]}"; do
+for ext in "${vscode_extensions[@]}"; do
     # ideally find a way to supress the depreciation warnings
     code --install-extension "$ext"
 done
@@ -47,6 +47,7 @@ pkill -f firefox
 # https://unix.stackexchange.com/questions/374852/create-file-using-wildcard-in-absolute-path
 for d in ~/.mozilla/firefox/*.default-release/ ; do
     sudo mkdir "$d"chrome
+    sudo mkdir "$d"extensions
     # required for userChrome to work
     echo 'user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);' >> "$d"prefs.js
     # misc preferences
@@ -55,6 +56,40 @@ for d in ~/.mozilla/firefox/*.default-release/ ; do
 done
 printf "\n\nlinking userChrome.css & userContent.css to $HOME/.mozilla/firefox/*.default-release/chrome\n"
 sudo ln -sf $HOME/.config/firefox/userChrome.css to $HOME/.mozilla/firefox/*.default-release/chrome
+
+echo "adding extensions"
+
+# I assume these don't change. This will break if they do. I do not have a way to fetch them automatically.
+# The "Addon-icon-image" element on the addon page has the number at the end of the url
+# .../xxx-yy.png, where the number is xxx
+firefox_extension_ids=(
+    607454
+    5890
+    229918
+    2590937
+    642100
+    735894
+    2613823
+    387429
+    855413
+    485620
+    812095
+    954390
+    445852
+    14392
+)
+
+mkdir tmp_ext_dir && cd tmp_ext_dir
+upstream="https://addons.mozilla.org/firefox/downloads/latest"
+for ext_id in "${firefox_extension_ids[@]}"; do
+    wget -O ext.xpi "${upstream}/${ext_id}/addon-${ext_id}-latest.xpi"
+    unzip -p -o ext.xpi manifest.json manifest.json
+    jq '.browser_specific_settings.gecko.id' manifest.json | xargs -I{} rename ext.xpi {}.xpi *
+done
+
+shred -u manifest.json
+mv -v ~/tmp_ext_dir/* ~/.mozilla/firefox/*.default-release/extensions/
+rm -rf ~/tmp_ext_dir
 
 printf "\n\nsign in to firefox\n"
 firefox --new-window https://accounts.firefox.com/signin &
