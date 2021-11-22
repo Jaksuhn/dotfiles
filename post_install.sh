@@ -3,7 +3,12 @@ sudo tee /etc/sudoers.d/$USER <<END
 $USER ALL=NOPASSWD: /usr/bin/ln, /usr/bin/mkdir, /bin/rm
 END
 
-### vscode extensions
+################################################
+#  __   __  ___    ___    ___     __| |   ___
+#  \ \ / / / __|  / __|  / _ \   / _` |  / _ \
+#   \ V /  \__ \ | (__  | (_) | | (_| | |  __/
+#    \_/   |___/  \___|  \___/   \__,_|  \___|
+################################################
 vscode_extensions=(
     danielpinto8zz6.c-cpp-compile-run
     formulahendry.code-runner
@@ -32,12 +37,22 @@ for ext in "${vscode_extensions[@]}"; do
     code --install-extension "$ext"
 done
 
-### material shell
+###########################################################################################
+#   _ __ ___     __ _  | |_    ___   _ __  (_)   __ _  | |    ___  | |__     ___  | | | |
+#  | '_ ` _ \   / _` | | __|  / _ \ | '__| | |  / _` | | |   / __| | '_ \   / _ \ | | | |
+#  | | | | | | | (_| | | |_  |  __/ | |    | | | (_| | | |   \__ \ | | | | |  __/ | | | |
+#  |_| |_| |_|  \__,_|  \__|  \___| |_|    |_|  \__,_| |_|   |___/ |_| |_|  \___| |_| |_|
+###########################################################################################
 gnome-extensions enable material-shell@papyelgringo
 # this may not enable if gnome was recently updated. Version checking is (probably) why
 gsettings set org.gnome.shell disable-extension-version-validation "true"
 
-### firefox setup
+#################################################
+#   / _| (_)  _ __    ___   / _|   ___   __  __
+#  | |_  | | | '__|  / _ \ | |_   / _ \  \ \/ /
+#  |  _| | | | |    |  __/ |  _| | (_) |  >  <
+#  |_|   |_| |_|     \___| |_|    \___/  /_/\_\
+#################################################
 # the .mozilla directory is not created until firefox is launched for the first time
 # don't think it's possible to disown firefox --headless so a popup is required
 printf "\n\nlaunching firefox to generate .mozilla directory\n"
@@ -94,6 +109,12 @@ rm -rf ~/tmp_ext_dir
 printf "\n\nsign in to firefox\n"
 firefox --new-window https://accounts.firefox.com/signin &
 
+#################################
+#   _ __ ___   (_)  ___    ___
+#  | '_ ` _ \  | | / __|  / __|
+#  | | | | | | | | \__ \ | (__
+#  |_| |_| |_| |_| |___/  \___|
+#################################
 # remove temp sudo privileges
 sudo /bin/rm /etc/sudoers.d/$USER
 sudo -k
