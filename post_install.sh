@@ -107,7 +107,7 @@ for ext_id in "${firefox_extension_ids[@]}"; do
 done
 
 shred -u manifest.json
-mv -v ~/tmp_ext_dir/* ~/.mozilla/firefox/*.default-release/extensions/
+sudo mv -v ~/tmp_ext_dir/* ~/.mozilla/firefox/*.default-release/extensions/
 rm -rf ~/tmp_ext_dir
 
 printf "\n\nsign in to firefox\n"
