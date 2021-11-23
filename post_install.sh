@@ -44,7 +44,7 @@ done
 #  |_| |_| |_|  \__,_|  \__|  \___| |_|    |_|  \__,_| |_|   |___/ |_| |_|  \___| |_| |_|
 ###########################################################################################
 gnome-extensions enable material-shell@papyelgringo
-# this may not enable if gnome was recently updated. Version checking is (probably) why
+# this is because it may not enable if gnome was recently updated. Version checking is (probably) why
 gsettings set org.gnome.shell disable-extension-version-validation "true"
 
 #################################################
@@ -138,6 +138,7 @@ firefox --new-window https://accounts.firefox.com/signin &
 sudo /bin/rm /etc/sudoers.d/$USER
 sudo -k
 
+# install cheat.sh
 PATH_DIR="$HOME/bin"
 mkdir -p "$PATH_DIR"
 curl https://cht.sh/:cht.sh > "$PATH_DIR/cht.sh"
