@@ -17,6 +17,7 @@ import the various extension configs (uBlock, TST, SkipRedirect, Imagus)
 ### terminal
 
 [bash-completion](https://github.com/scop/bash-completion);
+[cheat.sh](https://cheat.sh/) (manual aggregator);
 [git](https://git-scm.com/);
 [github-cli](https://github.com/cli/cli);
 [jq](https://stedolan.github.io/jq/) (CLI JSON parser);
