@@ -83,6 +83,8 @@ root_password = archinstall.get_password("Root password (default: root):") or "r
 user = input(f"Username (default: {DEFAULT_USER}): ") or DEFAULT_USER
 user_password = archinstall.get_password(f"Password (default: {user}):") or user
 
+# the git sections are entirely from phisch
+# https://github.com/phisch/dotfiles
 while github_access_token := input("Github Access Token (default: none): "):
     response = requests.post(url="https://api.github.com/", headers={"Authorization": f"token {github_access_token}"})
     if response.status_code == 401 or "admin:public_key" not in response.headers.get("X-OAuth-Scopes"):
