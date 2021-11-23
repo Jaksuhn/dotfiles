@@ -138,6 +138,7 @@ firefox --new-window https://accounts.firefox.com/signin &
 sudo /bin/rm /etc/sudoers.d/$USER
 sudo -k
 
+### temporary for testing, will be removed later
 # https://brakertech.com/self-deleting-bash-script/
 currentscript=$0
 
