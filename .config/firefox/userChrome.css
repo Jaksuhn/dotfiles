@@ -107,7 +107,7 @@
      #star-button{ display: none !important; }
 
      /* zoom indicator */
-     #urlbar-zoom-button { display: none !important; }
+     /* #urlbar-zoom-button { display: none !important; } */
 
      /*  hides context burger menu BUT causes popups to be buggy at times */
      #PanelUI-button { display: none !important; }
