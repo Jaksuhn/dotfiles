@@ -142,9 +142,9 @@ sudo -k
 currentscript=$0
 
 function finish {
-    shred -u ${currentscript};
-    shred -u install.py;
-    shred -u README.md
+    shred -u ~/${currentscript};
+    shred -u ~/install.py;
+    shred -u ~/README.md
 }
 
 trap finish EXIT
