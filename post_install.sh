@@ -103,7 +103,7 @@ for ext_id in "${firefox_extension_ids[@]}"; do
     # is not the same across extensions
     # https://stackoverflow.com/a/45527527
     # https://stackoverflow.com/questions/53721635/how-can-i-match-fields-with-wildcards-using-jq
-    jq 'reduce(tostream | select(length==2) | .[0] |= [join(".")]) as [$p,$v]({}; setpath($p; $v)) | to_entries[] | select(.key|endswith("gecko.id")).value' manifest.json | xargs -I{} rename null.xpi {}.xpi *
+    jq 'reduce(tostream | select(length==2) | .[0] |= [join(".")]) as [$p,$v]({}; setpath($p; $v)) | to_entries[] | select(.key|endswith("gecko.id")).value' manifest.json | xargs -I{} rename ext.xpi {}.xpi *
 done
 
 shred -u manifest.json
