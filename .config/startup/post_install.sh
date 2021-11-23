@@ -144,14 +144,10 @@ mkdir -p "$PATH_DIR"
 curl https://cht.sh/:cht.sh > "$PATH_DIR/cht.sh"
 chmod +x "$PATH_DIR/cht.sh"
 
-### temporary for testing, will be removed later
-# https://brakertech.com/self-deleting-bash-script/
-currentscript=$0
-
+# prevent script from running again (involuntarily)
 function finish {
-    shred -u ~/${currentscript};
-    shred -u ~/install.py;
-    shred -u ~/README.md
+    systemctl disable firstboot.service
+    rm -rf /etc/systemd/system/firstboot.service
 }
 
 trap finish EXIT

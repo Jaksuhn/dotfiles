@@ -96,6 +96,7 @@ noto-fonts-emoji;
 ## WORKING:
 
 - full arch installation
+- auto post-installation configuration
 - 99% automatic firefox setup (userChrome, extension installation)
 - kitty themed and configured
 - zsh and plugins configured
@@ -125,6 +126,5 @@ misc:
 - auto discord/telegram signin?
 - add telegram's theme
 - make neofetch rotate through ascii/images
-- have post_install.sh run on first (and only) boot
 - [dual github accounts setup](https://stackoverflow.com/questions/62625513/can-i-log-in-two-different-github-account-in-vscode)
 - setup [ptSh](https://github.com/jszczerbinsky/ptSh)

@@ -1,0 +1,7 @@
+[Unit]
+Description=Post installation configuration run on first boot
+[Service]
+Type=simple
+ExecStart=/firstboot.sh
+[Install]
+WantedBy=multi-user.target

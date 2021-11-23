@@ -85,6 +85,7 @@ profile = input(f"Profile (default: {_PROFILE}): ") or _PROFILE
 root_password = archinstall.get_password("Root password (default: root):") or "root"
 user = input(f"Username (default: {DEFAULT_USER}): ") or DEFAULT_USER
 user_password = archinstall.get_password(f"Password (default: {user}):") or user
+run_post_config = input(f"Run post_install.sh on first boot? (default: [t]rue): ").lower() not in ["false", "f"] or True
 
 # the git sections are entirely from phisch
 # https://github.com/phisch/dotfiles
@@ -180,7 +181,9 @@ def install_on(mountpoint):
 
         installation.arch_chroot(f"chown -R {user}:{user} /home/{user}/paru")
 
-        archinstall.log("Don't forget to run post_install.sh after rebooting!")
+        if run_post_config:
+            installation.arch_chroot(f"cp ~/.config/startup/firstboot.service /etc/systemd/system/")
+            installation.enable_service("firstboot")
 
 
 if archinstall.arguments["harddrive"]:
