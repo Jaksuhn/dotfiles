@@ -39,7 +39,6 @@ dependencies = [
     "sl",
     "telegram-desktop",
     "thefuck",
-    "tldr",
     "tree",
     "ttf-anonymous-pro",
     "ttf-bitstream-vera",

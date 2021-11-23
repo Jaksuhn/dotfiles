@@ -27,7 +27,6 @@ import the various extension configs (uBlock, TST, SkipRedirect, Imagus)
 [nnn](https://github.com/jarun/nnn) (cli file manager);
 [p7zip](https://github.com/jinfeihan57/p7zip);
 [thefuck](https://github.com/nvbn/thefuck) (fuck);
-[tldr](https://archlinux.org/packages/community/any/tldr/) (better *man*);
 [tree](http://mama.indstate.edu/users/ice/tree/) (directory tree);
 [wget](https://www.gnu.org/software/wget/wget.html);
 [zsh](https://www.zsh.org/);
