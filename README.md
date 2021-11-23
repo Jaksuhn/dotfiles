@@ -64,6 +64,8 @@ import the various extension configs (uBlock, TST, SkipRedirect, Imagus)
 
 ### languages
 
+[jdk-openjdk](https://openjdk.java.net/);
+[jre-openjdk](https://openjdk.java.net/);
 [rust](https://www.rust-lang.org/);
 
 ### misc.
