@@ -98,8 +98,12 @@ mkdir tmp_ext_dir && cd tmp_ext_dir
 upstream="https://addons.mozilla.org/firefox/downloads/latest"
 for ext_id in "${firefox_extension_ids[@]}"; do
     wget -O ext.xpi "${upstream}/${ext_id}/addon-${ext_id}-latest.xpi"
-    unzip -p -o ext.xpi manifest.json manifest.json
-    jq '.browser_specific_settings.gecko.id' manifest.json | xargs -I{} rename ext.xpi {}.xpi *
+    unzip -p -o ext.xpi manifest.json > manifest.json
+    # essentially flattens the json then looks for a key ending with "gecko.id", because the path *to* gecko.id
+    # is not the same across extensions
+    # https://stackoverflow.com/a/45527527
+    # https://stackoverflow.com/questions/53721635/how-can-i-match-fields-with-wildcards-using-jq
+    jq 'reduce(tostream | select(length==2) | .[0] |= [join(".")]) as [$p,$v]({}; setpath($p; $v)) | to_entries[] | select(.key|endswith("gecko.id")).value' manifest.json | xargs -I{} rename null.xpi {}.xpi *
 done
 
 shred -u manifest.json
