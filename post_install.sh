@@ -138,6 +138,11 @@ firefox --new-window https://accounts.firefox.com/signin &
 sudo /bin/rm /etc/sudoers.d/$USER
 sudo -k
 
+PATH_DIR="$HOME/bin"
+mkdir -p "$PATH_DIR"
+curl https://cht.sh/:cht.sh > "$PATH_DIR/cht.sh"
+chmod +x "$PATH_DIR/cht.sh"
+
 ### temporary for testing, will be removed later
 # https://brakertech.com/self-deleting-bash-script/
 currentscript=$0
