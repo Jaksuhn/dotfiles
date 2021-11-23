@@ -138,7 +138,7 @@ def install_on(mountpoint):
         installation.user_set_pw("root", str(root_password))
         installation.arch_chroot(r"sed -i 's/# \(%wheel ALL=(ALL) ALL\)/\1/' /etc/sudoers")
 
-        installation.enable_service("systemd-timesyncd", "docker", "bluetooth")
+        installation.enable_service("systemd-timesyncd", "docker", "bluetooth", "fstrim.timer")
         installation.arch_chroot(r"sed -i 's/[#]*\(AutoEnable=\)\(true\|false\)/\1true/' /etc/bluetooth/main.conf")
 
         installation.arch_chroot(
