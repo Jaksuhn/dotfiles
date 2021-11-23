@@ -94,6 +94,21 @@ firefox_extension_ids=(
     14392
 )
 
+# ublock-origin (607454)
+# tree-style-tab (5890)
+# https-everywhere (229918)
+# sponsorblock (2590937)
+# skip-redirect (642100)
+# bitwarden-password-manager (735894)
+# consent-o-matic (2613823)
+# reddit-enhancement-suite (387429)
+# darkreader (855413)
+# imagus (485620)
+# search-by-image-on-google (812095)
+# facebook-container (954390)
+# to-google-translate (445852)
+# the-camelizer-price-history-ch (14392)
+
 mkdir tmp_ext_dir && cd tmp_ext_dir
 upstream="https://addons.mozilla.org/firefox/downloads/latest"
 for ext_id in "${firefox_extension_ids[@]}"; do
