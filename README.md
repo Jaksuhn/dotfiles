@@ -47,6 +47,7 @@ import the various extension configs (uBlock, TST, SkipRedirect, Imagus)
 [firejail](https://github.com/netblue30/firejail) (sandboxing);
 [flameshot](https://github.com/flameshot-org/flameshot) (screenshots);
 [polybar](https://github.com/polybar/polybar) (taskbar);
+[qmk](https://github.com/qmk/qmk_cli) (mechanical keyboard configurator);
 [rofi](https://github.com/DaveDavenport/rofi) (launcher);
 [simplescreenrecorder](https://www.maartenbaert.be/simplescreenrecorder/);
 [yadm-git](https://github.com/TheLocehiliosan/yadm) (dotfile manager)

@@ -35,6 +35,7 @@ dependencies = [
     "neofetch",
     "nnn",
     "p7zip",
+    "qmk",
     "rofi",
     "rust",
     "simplescreenrecorder",
