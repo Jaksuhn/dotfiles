@@ -58,9 +58,13 @@ import the various extension configs (uBlock, TST, SkipRedirect, Imagus)
 [docker](https://www.docker.com/);
 [firefox](https://www.mozilla.org/firefox/);
 [mupdf](https://mupdf.com/);
-[rust](https://www.rust-lang.org/);
 [telegram-desktop](https://desktop.telegram.org/);
 [vlc](https://www.videolan.org/vlc/)
+
+
+### languages
+
+[rust](https://www.rust-lang.org/);
 
 ### misc.
 
@@ -89,12 +93,11 @@ noto-fonts-emoji;
 ## WORKING:
 
 - full arch installation
-- 99% automatic firefox setup
+- 99% automatic firefox setup (userChrome, extension installation)
 - kitty themed and configured
 - zsh and plugins configured
 - vscode settings, configs, extensions, theme
 - gnome material shell
-- firefox userChrome, extension installation
 
 ## TODO:
 
