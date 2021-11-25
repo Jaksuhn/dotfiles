@@ -159,7 +159,7 @@ def install_on(mountpoint):
                 )
 
         installation.arch_chroot(
-            f"su {user} -c 'cd $(mktemp -d) && git clone {'git@github.com:jaksuhn/dotfiles.git' if github_access_token else 'https://github.com/jaksuhn/dotfiles.git'} . && cp -rb . ~'"
+            f"su {user} -c 'cd $(mktemp -d) && git clone {'git@github.com:jaksuhn/dotfiles.git' if github_access_token else 'https://github.com/jaksuhn/dotfiles.git'} . {'&& cp ~/.config/startup/post_install.sh /etc/profile.d/' if run_post_config else ''} && cp -rb . ~'"
         )
         installation.arch_chroot(r"sed -i 's/#\(MAKEFLAGS=\).*/\1\"-j$(($(nproc)-2))\"/' /etc/makepkg.conf")
         installation.arch_chroot(r"sed -i 's/# \(%wheel ALL=(ALL) NOPASSWD: ALL\)/\1/' /etc/sudoers")
@@ -180,10 +180,6 @@ def install_on(mountpoint):
         installation.arch_chroot(r"sed -i 's/\(%wheel ALL=(ALL) NOPASSWD: ALL\)/# \1/' /etc/sudoers")
 
         installation.arch_chroot(f"chown -R {user}:{user} /home/{user}/paru")
-
-        if run_post_config:
-            installation.arch_chroot(f"cp ~/.config/startup/firstboot.service /etc/systemd/system/")
-            installation.enable_service("firstboot")
 
 
 if archinstall.arguments["harddrive"]:

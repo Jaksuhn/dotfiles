@@ -146,8 +146,7 @@ chmod +x "$PATH_DIR/cht.sh"
 
 # prevent script from running again (involuntarily)
 function finish {
-    systemctl disable firstboot.service
-    rm -rf /etc/systemd/system/firstboot.service
+    rm -rf $0
 }
 
 trap finish EXIT
