@@ -98,88 +98,84 @@ while github_access_token := input("Github Access Token (default: none): "):
 
 
 def install_on(mountpoint):
-    with archinstall.Installer(mountpoint) as installation:
+    with archinstall.Installer(mountpoint) as i:
         # Strap in the base system, add a boot loader and configure
         # some other minor details as specified by this profile and user.
         mirror_regions = {DOWNLOAD_REGION: archinstall.list_mirrors().get(DOWNLOAD_REGION)}
         archinstall.use_mirrors(mirror_regions)
 
-        installation.minimal_installation()
+        i.minimal_installation()
 
-        installation.set_hostname(hostname)
-        installation.set_mirrors(mirror_regions)
-        installation.add_bootloader()
+        i.set_hostname(hostname)
+        i.set_mirrors(mirror_regions)
+        i.add_bootloader()
 
         # enable networking
-        installation.copy_iso_network_config(enable_services=True)
+        i.copy_iso_network_config(enable_services=True)
 
-        installation.arch_chroot(r"sed -i '/\[multilib\]/,/Include/''s/^#//' /etc/pacman.conf")
-        installation.arch_chroot(r"sed -i 's/#\(Color\)/\1/' /etc/pacman.conf")
+        i.arch_chroot(r"sed -i '/\[multilib\]/,/Include/''s/^#//' /etc/pacman.conf")
+        i.arch_chroot(r"sed -i 's/#\(Color\)/\1/' /etc/pacman.conf")
 
-        installation.add_additional_packages(dependencies)
+        i.add_additional_packages(dependencies)
 
         # the profiles are tricky to customise from chroot. May remove and place in a post-install .sh file
         if profile == "bspwm":
-            installation.install_profile("xorg")
-            installation.add_additional_packages(bspwm_packages)
-            installation.enable_service("lightdm")
-            installation.arch_chroot(
+            i.install_profile("xorg")
+            i.add_additional_packages(bspwm_packages)
+            i.enable_service("lightdm")
+            i.arch_chroot(
                 f"su {user} -c 'mkdir ~/temp_configs && cd ~/temp_configs && git clone https://github.com/joni22u/dotfiles . && cp -rb . ~/.config && rm -rf ~/temp_configs'"
             )
         elif profile == "kde":
-            installation.install_profile(profile)
-            installation.arch_chroot("lookandfeeltool -a GruvboxPlasma")
+            i.install_profile(profile)
+            i.arch_chroot("lookandfeeltool -a GruvboxPlasma")
         elif profile == "gnome":
-            installation.install_profile(profile)
+            i.install_profile(profile)
             dependencies_aur.append("gnome-shell-extension-material-shell")
         else:
-            installation.install_profile(profile)
+            i.install_profile(profile)
 
         # create user, change login shell
-        installation.user_create(str(user), str(user_password))
-        installation.arch_chroot(f'chsh -s /usr/bin/zsh "{user}"')
+        i.user_create(str(user), str(user_password))
+        i.arch_chroot(f'chsh -s /usr/bin/zsh "{user}"')
 
-        installation.user_set_pw("root", str(root_password))
-        installation.arch_chroot(r"sed -i 's/# \(%wheel ALL=(ALL) ALL\)/\1/' /etc/sudoers")
+        # create root account, grant full sudoers access
+        i.user_set_pw("root", str(root_password))
+        i.arch_chroot(r"sed -i 's/# \(%wheel ALL=(ALL) ALL\)/\1/' /etc/sudoers")
 
-        installation.enable_service("systemd-timesyncd", "docker", "bluetooth", "fstrim.timer")
-        installation.arch_chroot(r"sed -i 's/[#]*\(AutoEnable=\)\(true\|false\)/\1true/' /etc/bluetooth/main.conf")
+        i.enable_service("systemd-timesyncd", "docker", "bluetooth", "fstrim.timer")
+        i.arch_chroot(r"sed -i 's/[#]*\(AutoEnable=\)\(true\|false\)/\1true/' /etc/bluetooth/main.conf")
 
-        installation.arch_chroot(
-            f'su {user} -c \'ssh-keygen -t ed25519 -C "{user}@{hostname}" -f ~/.ssh/id_ed25519 -N ""\''
-        )
-        installation.arch_chroot(f"su {user} -c 'ssh-keyscan github.com >> ~/.ssh/known_hosts'")
+        i.arch_chroot(f'su {user} -c \'ssh-keygen -t ed25519 -C "{user}@{hostname}" -f ~/.ssh/id_ed25519 -N ""\'')
+        i.arch_chroot(f"su {user} -c 'ssh-keyscan github.com >> ~/.ssh/known_hosts'")
 
         if github_access_token:
-            with open(f"{installation.target}/home/{user}/.ssh/id_ed25519.pub", "r") as key:
+            with open(f"{i.target}/home/{user}/.ssh/id_ed25519.pub", "r") as key:
                 requests.post(
                     url="https://api.github.com/user/keys",
                     json={"title": f"{user}@{hostname}", "key": f"{key.read().strip()}"},
                     headers={"Authorization": f"token {github_access_token}"},
                 )
 
-        installation.arch_chroot(
+        i.arch_chroot(
             f"su {user} -c 'cd $(mktemp -d) && git clone {'git@github.com:jaksuhn/dotfiles.git' if github_access_token else 'https://github.com/jaksuhn/dotfiles.git'} . {'&& cp ~/.config/startup/post_install.sh /etc/profile.d/' if run_post_config else ''} && cp -rb . ~'"
         )
-        installation.arch_chroot(r"sed -i 's/#\(MAKEFLAGS=\).*/\1\"-j$(($(nproc)-2))\"/' /etc/makepkg.conf")
-        installation.arch_chroot(r"sed -i 's/# \(%wheel ALL=(ALL) NOPASSWD: ALL\)/\1/' /etc/sudoers")
+        i.arch_chroot(r"sed -i 's/#\(MAKEFLAGS=\).*/\1\"-j$(($(nproc)-2))\"/' /etc/makepkg.conf")
+        i.arch_chroot(r"sed -i 's/# \(%wheel ALL=(ALL) NOPASSWD: ALL\)/\1/' /etc/sudoers")
 
         # install paru and aur packages
-        installation.log(
-            installation.arch_chroot(
+        i.log(
+            i.arch_chroot(
                 f"su {user} -c 'cd $(mktemp -d) && git clone https://aur.archlinux.org/paru-bin.git . && makepkg -sim --noconfirm'"
             ),
             level=logging.INFO,
         )
-        installation.log(
-            installation.arch_chroot(
-                f'su {user} -c "paru -Sy --nosudoloop --needed --noconfirm {" ".join(dependencies_aur)}"'
-            ),
+        i.log(
+            i.arch_chroot(f'su {user} -c "paru -Sy --nosudoloop --needed --noconfirm {" ".join(dependencies_aur)}"'),
             level=logging.INFO,
         )
-        installation.arch_chroot(r"sed -i 's/\(%wheel ALL=(ALL) NOPASSWD: ALL\)/# \1/' /etc/sudoers")
-
-        installation.arch_chroot(f"chown -R {user}:{user} /home/{user}/paru")
+        i.arch_chroot(r"sed -i 's/\(%wheel ALL=(ALL) NOPASSWD: ALL\)/# \1/' /etc/sudoers")
+        i.arch_chroot(f"chown -R {user}:{user} /home/{user}/paru")
 
 
 if archinstall.arguments["harddrive"]:
