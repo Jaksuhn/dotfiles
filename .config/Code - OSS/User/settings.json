@@ -98,4 +98,9 @@
     "explorer.confirmDelete": false,
     "git.confirmSync": false,
     "explorer.confirmDragAndDrop": false,
+    "python.pythonPath": "C:\\Users\\snow\\AppData\\Local\\Programs\\Python\\Python39\\python.exe",
+    "gitlens.codeLens.enabled": false,
+    "gitlens.currentLine.enabled": false,
+    "gitlens.hovers.currentLine.over": "line",
+    "gitlens.hovers.avatars": false,
 }
