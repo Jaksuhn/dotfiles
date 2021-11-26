@@ -85,7 +85,7 @@ profile = input(f"Profile (default: {_PROFILE}): ") or _PROFILE
 root_password = archinstall.get_password("Root password (default: root):") or "root"
 user = input(f"Username (default: {DEFAULT_USER}): ") or DEFAULT_USER
 user_password = archinstall.get_password(f"Password (default: {user}):") or user
-run_post_config = input("Run post_install.sh on first boot?\n[y]es, [n]o:") or "y"
+run_post_config = input("Run post_install.sh on first boot?\n[y]es, [n]o (default: yes):") or "y"
 
 run_post_config = True if run_post_config.strip(" ").lower() in ("y", "yes") else False
 
