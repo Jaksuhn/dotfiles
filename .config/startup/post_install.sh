@@ -11,6 +11,7 @@ END
 ################################################
 vscode_extensions=(
     danielpinto8zz6.c-cpp-compile-run
+    eamodio.gitlens
     formulahendry.code-runner
     github.copilot
     grapecity.gc-excelviewer
