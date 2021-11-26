@@ -145,6 +145,7 @@ def install_on(mountpoint):
         i.user_set_pw("root", str(root_password))
         i.arch_chroot(r"sed -i 's/# \(%wheel ALL=(ALL) ALL\)/\1/' /etc/sudoers")
 
+        # enable systemd services
         i.enable_service("systemd-timesyncd", "docker", "bluetooth", "fstrim.timer")
         i.arch_chroot(r"sed -i 's/[#]*\(AutoEnable=\)\(true\|false\)/\1true/' /etc/bluetooth/main.conf")
 
@@ -161,9 +162,14 @@ def install_on(mountpoint):
 
         # clone dotfiles, setup post-install config script service
         i.arch_chroot(
-            f"su {user} -c 'cd $(mktemp -d) && git clone {'git@github.com:jaksuhn/dotfiles.git' if github_access_token else 'https://github.com/jaksuhn/dotfiles.git'} . {'&& cp .config/startup/firstboot.service /etc/systemd/system/' if run_post_config else ''} && cp -rb . ~'"
+            f"su {user} -c 'cd $(mktemp -d) && git clone {'git@github.com:jaksuhn/dotfiles.git' if github_access_token else 'https://github.com/jaksuhn/dotfiles.git'} . && cp -rb . ~'"
         )
+
+        # enable post-install config
         if run_post_config:
+            i.arch_chroot(
+                "curl https://raw.github.com/jaksuhn/dotfiles/main/firstboot.service -o /etc/systemd/system/firstboot.service"
+            )
             i.enable_service("firstboot")
 
         i.arch_chroot(r"sed -i 's/#\(MAKEFLAGS=\).*/\1\"-j$(($(nproc)-2))\"/' /etc/makepkg.conf")
