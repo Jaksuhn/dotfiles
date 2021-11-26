@@ -6,9 +6,13 @@ These are my dotfiles, built with the express purpose of being able to go from a
 ## setup
 
 get the latest [arch ISO](https://archlinux.org/download/)
+
 boot it up and run `python <(curl -sL https://raw.github.com/jaksuhn/dotfiles/main/install.py)`
+
 run `post_install.sh`
+
 enable all firefox addons (`about:addons`)
+
 import the various extension configs (uBlock, TST, SkipRedirect, Imagus)
 
 
