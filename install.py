@@ -85,7 +85,7 @@ profile = input(f"Profile (default: {_PROFILE}): ") or _PROFILE
 root_password = archinstall.get_password("Root password (default: root):") or "root"
 user = input(f"Username (default: {DEFAULT_USER}): ") or DEFAULT_USER
 user_password = archinstall.get_password(f"Password (default: {user}):") or user
-run_post_config = archinstall.generic_select(["[y]es", "[n]o"], "Run post_install.sh on first boot?:") or "y"
+run_post_config = input("Run post_install.sh on first boot?\n[y]es, [n]o:") or "y"
 
 run_post_config = True if run_post_config[0].lower() == "y" else False
 
@@ -159,6 +159,7 @@ def install_on(mountpoint):
                     headers={"Authorization": f"token {github_access_token}"},
                 )
 
+        # clone dotfiles, setup post-install config script service
         i.arch_chroot(
             f"su {user} -c 'cd $(mktemp -d) && git clone {'git@github.com:jaksuhn/dotfiles.git' if github_access_token else 'https://github.com/jaksuhn/dotfiles.git'} . {'&& cp .config/startup/firstboot.service /etc/systemd/system/' if run_post_config else ''} && cp -rb . ~'"
         )
