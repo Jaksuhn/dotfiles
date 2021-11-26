@@ -87,7 +87,7 @@ user = input(f"Username (default: {DEFAULT_USER}): ") or DEFAULT_USER
 user_password = archinstall.get_password(f"Password (default: {user}):") or user
 run_post_config = input("Run post_install.sh on first boot?\n[y]es, [n]o:") or "y"
 
-run_post_config = True if run_post_config[0].lower() == "y" else False
+run_post_config = True if run_post_config.strip(" ").lower() in ("y", "yes") else False
 
 # the git sections are entirely from phisch
 # https://github.com/phisch/dotfiles
