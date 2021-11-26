@@ -1,3 +1,5 @@
+notify-send "post-install configuration" "started"
+
 # temporary sudo privilges so that password is asked in the beginning and not during
 sudo tee /etc/sudoers.d/$USER <<END
 $USER ALL=NOPASSWD: /usr/bin/ln, /usr/bin/mkdir, /bin/rm
@@ -145,9 +147,12 @@ mkdir -p "$PATH_DIR"
 curl https://cht.sh/:cht.sh > "$PATH_DIR/cht.sh"
 chmod +x "$PATH_DIR/cht.sh"
 
+notify-send "post-install configuration" "finished"
+
 # prevent script from running again (involuntarily)
 function finish {
-    rm -rf $0
+    systemctl disable firstboot.service
+    rm -rf /etc/systemd/system/firstboot.service
 }
 
 trap finish EXIT
