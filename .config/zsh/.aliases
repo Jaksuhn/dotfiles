@@ -6,6 +6,9 @@ alias neofetch="neofetch --kitty --source ~/.config/neofetch/doge.png"
 alias nnn='nnn -H'
 alias rec="simplescreenrecorder"
 
+# Git
+alias gc="git clone"
+
 # Quick Editing
 alias e-bashrc='micro ~/.bashrc'
 alias e-bspwmrc='micro ~/.config/bspwm/bspwmrc'
