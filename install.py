@@ -117,6 +117,7 @@ def install_on(mountpoint):
 
         i.arch_chroot(r"sed -i '/\[multilib\]/,/Include/''s/^#//' /etc/pacman.conf")
         i.arch_chroot(r"sed -i 's/#\(Color\)/\1/' /etc/pacman.conf")
+        i.arch_chroot(r"sed -i 's/# Parallel Downloads = [0-9]/Parallel Downloads = 10/g'")  # parallel downloads
 
         i.add_additional_packages(dependencies)
 
