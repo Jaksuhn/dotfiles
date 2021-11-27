@@ -160,15 +160,20 @@ def install_on(mountpoint):
                     headers={"Authorization": f"token {github_access_token}"},
                 )
 
-        # clone dotfiles, setup post-install config script service
+        # clone dotfiles
         i.arch_chroot(
             f"su {user} -c 'cd $(mktemp -d) && git clone {'git@github.com:jaksuhn/dotfiles.git' if github_access_token else 'https://github.com/jaksuhn/dotfiles.git'} . && cp -rb . ~'"
         )
 
+        # TODO: clean this up and copy the local copy instead of downloading a new
         # enable post-install config
         if run_post_config:
             i.arch_chroot(
-                "curl https://raw.github.com/jaksuhn/dotfiles/main/firstboot.service -o /etc/systemd/system/firstboot.service"
+                "curl -L https://raw.github.com/jaksuhn/dotfiles/main/.config/startup/firstboot.service -o /etc/systemd/system/firstboot.service && systemctl unmask firstboot"
+            )
+            # systemd won't have permission to run the original file in the user's home directory
+            i.arch_chroot(
+                "curl -L https://raw.github.com/jaksuhn/dotfiles/main/.config/startup/post_install.sh -o /usr/local/bin/post_install.sh"
             )
             i.enable_service("firstboot")
 

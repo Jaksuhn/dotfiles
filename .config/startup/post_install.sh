@@ -153,6 +153,7 @@ notify-send "post-install configuration" "finished"
 function finish {
     systemctl disable firstboot.service
     rm -rf /etc/systemd/system/firstboot.service
+    rm -rf /usr/local/bin/$0
 }
 
 trap finish EXIT
