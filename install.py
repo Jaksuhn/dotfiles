@@ -173,7 +173,7 @@ def install_on(mountpoint):
             )
             # systemd won't have permission to run the original file in the user's home directory
             i.arch_chroot(
-                "curl -L https://raw.github.com/jaksuhn/dotfiles/main/.config/startup/post_install.sh -o /usr/local/bin/post_install.sh"
+                "curl -L https://raw.github.com/jaksuhn/dotfiles/main/.config/startup/post_install.sh -o /usr/bin/post_install.sh"
             )
             i.enable_service("firstboot")
 

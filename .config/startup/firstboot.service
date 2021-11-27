@@ -2,6 +2,6 @@
 Description=Post-install configuration run on first boot
 [Service]
 Type=simple
-ExecStart=/usr/local/bin/post_install.sh
+ExecStart=/usr/bin/post_install.sh
 [Install]
 WantedBy=multi-user.target
