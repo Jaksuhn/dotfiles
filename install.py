@@ -115,9 +115,11 @@ def install_on(mountpoint):
         # enable networking
         i.copy_iso_network_config(enable_services=True)
 
-        i.arch_chroot(r"sed -i '/\[multilib\]/,/Include/''s/^#//' /etc/pacman.conf")
-        i.arch_chroot(r"sed -i 's/#\(Color\)/\1/' /etc/pacman.conf")
-        i.arch_chroot(r"sed -i 's/# Parallel Downloads = [0-9]/Parallel Downloads = 10/g'")  # parallel downloads
+        i.arch_chroot(r"sed -i '/\[multilib\]/,/Include/''s/^#//' /etc/pacman.conf")  # enable 32-bit apps
+        i.arch_chroot(r"sed -i 's/#\(Color\)/\1/' /etc/pacman.conf")  # enable coloured output
+        i.arch_chroot(
+            r"sed -i 's/# Parallel Downloads = [0-9]/Parallel Downloads = 10/g' /etc/pacman.conf"
+        )  # parallel downloads
 
         i.add_additional_packages(dependencies)
 
@@ -178,8 +180,9 @@ def install_on(mountpoint):
             )
             i.enable_service("firstboot")
 
+        # add more processors to the makepkg build system
         i.arch_chroot(r"sed -i 's/#\(MAKEFLAGS=\).*/\1\"-j$(($(nproc)-2))\"/' /etc/makepkg.conf")
-        i.arch_chroot(r"sed -i 's/# \(%wheel ALL=(ALL) NOPASSWD: ALL\)/\1/' /etc/sudoers")
+        i.arch_chroot(r"sed -i 's/# \(%wheel ALL=(ALL) NOPASSWD: ALL\)/\1/' /etc/sudoers")  # uncomment
 
         # install paru and aur packages
         i.log(
@@ -192,7 +195,7 @@ def install_on(mountpoint):
             i.arch_chroot(f'su {user} -c "paru -Sy --nosudoloop --needed --noconfirm {" ".join(dependencies_aur)}"'),
             level=logging.INFO,
         )
-        i.arch_chroot(r"sed -i 's/\(%wheel ALL=(ALL) NOPASSWD: ALL\)/# \1/' /etc/sudoers")
+        i.arch_chroot(r"sed -i 's/\(%wheel ALL=(ALL) NOPASSWD: ALL\)/# \1/' /etc/sudoers")  # comment
         i.arch_chroot(f"chown -R {user}:{user} /home/{user}/paru")
 
 
