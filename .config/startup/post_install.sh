@@ -57,7 +57,6 @@ gsettings set org.gnome.shell disable-extension-version-validation "true"
 #################################################
 # the .mozilla directory is not created until firefox is launched for the first time
 # don't think it's possible to disown firefox --headless so a popup is required
-printf "\n\nlaunching firefox to generate .mozilla directory\n"
 firefox & disown
 sleep 5s
 pkill -f firefox
@@ -71,10 +70,7 @@ for d in ~/.mozilla/firefox/*.default-release/ ; do
     echo 'user_pref("browser.startup.homepage", "https://www.youtube.com/feed/subscriptions");' >> "$d"prefs.js
     echo 'user_pref("browser.newtabpage.enabled", false);' >> "$d"prefs.js
 done
-printf "\n\nlinking userChrome.css & userContent.css to $HOME/.mozilla/firefox/*.default-release/chrome\n"
 sudo ln -sf $HOME/.config/firefox/userChrome.css to $HOME/.mozilla/firefox/*.default-release/chrome
-
-echo "adding extensions"
 
 # I assume these don't change. This will break if they do. I do not have a way to fetch them automatically.
 # The "Addon-icon-image" element on the addon page has the number at the end of the url
@@ -127,7 +123,6 @@ shred -u manifest.json
 sudo mv -v ~/tmp_ext_dir/* ~/.mozilla/firefox/*.default-release/extensions/
 rm -rf ~/tmp_ext_dir
 
-printf "\n\nsign in to firefox\n"
 firefox --new-window https://accounts.firefox.com/signin &
 
 #################################
