@@ -7,7 +7,7 @@ alias nnn='nnn -H'
 alias rec="simplescreenrecorder"
 
 # Git
-alias gc="git clone"
+alias gcl="git clone"
 
 # Quick Editing
 alias e-bashrc='micro ~/.bashrc'

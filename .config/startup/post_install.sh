@@ -1,9 +1,5 @@
 notify-send "post-install configuration" "running post_install.sh; don't do anything"
 
-sudo tee /etc/sudoers.d/$USER <<END
-$USER ALL=(ALL) NOPASSWD:ALL
-END
-
 ################################################
 #  __   __  ___    ___    ___     __| |   ___
 #  \ \ / / / __|  / __|  / _ \   / _` |  / _ \
