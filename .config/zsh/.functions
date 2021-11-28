@@ -24,11 +24,6 @@ function getip {
 	curl -s "$api"
 	echo # Newline.
 }
-mkcd ()
-{
-    mkdir -p -- "$1" &&
-      cd -P -- "$1"
-}
 pm() {
     sudo pacman "$@"
 }
