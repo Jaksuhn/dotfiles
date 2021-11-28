@@ -174,11 +174,13 @@ def install_on(mountpoint):
             i.arch_chroot(
                 "curl -L https://raw.github.com/jaksuhn/dotfiles/main/.config/startup/firstboot.service -o /etc/systemd/system/firstboot.service && systemctl unmask firstboot"
             )
+            # make systemd exec as user
+            i.arch_chroot(rf"sed -i '/^ExecStart=.*/i User={user}\nGroup={user}' /etc/systemd/system/firstboot.service")
             # systemd won't have permission to run the original file in the user's home directory
             i.arch_chroot(
                 "curl -L https://raw.github.com/jaksuhn/dotfiles/main/.config/startup/post_install.sh -o /usr/bin/post_install.sh"
             )
-            i.arch_chroot("chmod 777 /usr/bin/post_install.sh")
+            i.arch_chroot(f"chmod 777 /usr/bin/post_install.sh")
             i.enable_service("firstboot")
 
         # add more processors to the makepkg build system
