@@ -139,7 +139,7 @@ curl https://cht.sh/:cht.sh > "$PATH_DIR/cht.sh"
 chmod +x "$PATH_DIR/cht.sh"
 
 # remove temp sudo privileges and auto startup
-sed -i "/$USER ALL=(ALL) NOPASSWD:ALL/d" /etc/sudoers.d/$USER
+sudo sed -i "/$USER ALL=(ALL) NOPASSWD:ALL/d" /etc/sudoers.d/$USER
 sed -i '/# everything after this line will be removed automatically/,$d' ~/.zshrc
 
 notify-send "post-install configuration" "finished"
