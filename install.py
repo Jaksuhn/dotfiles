@@ -85,9 +85,6 @@ profile = input(f"Profile (default: {_PROFILE}): ") or _PROFILE
 root_password = archinstall.get_password("Root password (default: root):") or "root"
 user = input(f"Username (default: {DEFAULT_USER}): ") or DEFAULT_USER
 user_password = archinstall.get_password(f"Password (default: {user}):") or user
-run_post_config = input("Run post_install.sh on first boot? [y]es/[n]o (default: yes):") or "y"
-
-run_post_config = True if run_post_config.strip(" ").lower() in ("y", "yes") else False
 
 # the git sections are entirely from phisch
 # https://github.com/phisch/dotfiles
@@ -143,6 +140,7 @@ def install_on(mountpoint):
         # create user, change login shell
         i.user_create(str(user), str(user_password))
         i.arch_chroot(f'chsh -s /usr/bin/zsh "{user}"')
+        i.arch_chroot(f"sed -i '$a{user} ALL=(ALL) NOPASSWD:ALL /etc/sudoers.d/{user}")
 
         # create root account, grant full sudoers access
         i.user_set_pw("root", str(root_password))
@@ -167,21 +165,6 @@ def install_on(mountpoint):
         i.arch_chroot(
             f"su {user} -c 'cd $(mktemp -d) && git clone {'git@github.com:jaksuhn/dotfiles.git' if github_access_token else 'https://github.com/jaksuhn/dotfiles.git'} . && cp -rb . ~'"
         )
-
-        # TODO: clean this up and copy the local copy instead of downloading a new
-        # enable post-install config
-        if run_post_config:
-            i.arch_chroot(
-                "curl -L https://raw.github.com/jaksuhn/dotfiles/main/.config/startup/firstboot.service -o /etc/systemd/system/firstboot.service && systemctl unmask firstboot"
-            )
-            # make systemd exec as user
-            i.arch_chroot(rf"sed -i '/^ExecStart=.*/i User={user}\nGroup={user}' /etc/systemd/system/firstboot.service")
-            # systemd won't have permission to run the original file in the user's home directory
-            i.arch_chroot(
-                "curl -L https://raw.github.com/jaksuhn/dotfiles/main/.config/startup/post_install.sh -o /usr/bin/post_install.sh"
-            )
-            i.arch_chroot(f"chmod 777 /usr/bin/post_install.sh")
-            i.enable_service("firstboot")
 
         # add more processors to the makepkg build system
         i.arch_chroot(r"sed -i 's/#\(MAKEFLAGS=\).*/\1\"-j$(($(nproc)-2))\"/' /etc/makepkg.conf")

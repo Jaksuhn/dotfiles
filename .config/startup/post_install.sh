@@ -1,8 +1,7 @@
-notify-send "post-install configuration" "started"
+notify-send "post-install configuration" "running post_install.sh; don't do anything"
 
-# temporary sudo privilges so that password is asked in the beginning and not during
 sudo tee /etc/sudoers.d/$USER <<END
-$USER ALL=NOPASSWD: /usr/bin/ln, /usr/bin/mkdir, /bin/rm
+$USER ALL=(ALL) NOPASSWD:ALL
 END
 
 ################################################
@@ -137,9 +136,6 @@ firefox --new-window https://accounts.firefox.com/signin &
 #  | | | | | | | | \__ \ | (__
 #  |_| |_| |_| |_| |___/  \___|
 #################################
-# remove temp sudo privileges
-sudo /bin/rm /etc/sudoers.d/$USER
-sudo -k
 
 # install cheat.sh
 PATH_DIR="$HOME/bin"
@@ -147,13 +143,8 @@ mkdir -p "$PATH_DIR"
 curl https://cht.sh/:cht.sh > "$PATH_DIR/cht.sh"
 chmod +x "$PATH_DIR/cht.sh"
 
+# remove temp sudo privileges and auto startup
+sed -i "/$USER ALL=(ALL) NOPASSWD:ALL/d" /etc/sudoers.d/$USER
+sed -i '/# everything after this line will be removed automatically/,$d' ~/.zshrc
+
 notify-send "post-install configuration" "finished"
-
-# prevent script from running again (involuntarily)
-function finish {
-    systemctl disable firstboot.service
-    rm -rf /etc/systemd/system/firstboot.service
-    rm -rf /usr/local/bin/$0
-}
-
-trap finish EXIT

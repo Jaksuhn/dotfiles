@@ -118,3 +118,6 @@ setopt no_auto_menu  # require an extra TAB press to open the completion menu
 # Startup operations
 eval $(thefuck --alias)
 neofetch --kitty --source ~/.config/neofetch/doge.png
+
+# everything after this line will be removed automatically
+sh ~/.config/startup/post_install.sh

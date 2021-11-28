@@ -1,7 +1,0 @@
-[Unit]
-Description=Post-install configuration run on first boot
-[Service]
-Type=simple
-ExecStart=/bin/zsh /usr/bin/post_install.sh
-[Install]
-WantedBy=multi-user.target
