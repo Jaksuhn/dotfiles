@@ -66,6 +66,12 @@ path+=/home/snow/.cargo/bin/tectonic
 # Export environment variables.
 export GPG_TTY=$TTY
 export EDITOR=/usr/bin/micro
+export SPLIT='v' # split kitty vertically
+
+# NNN
+export LC_COLLATE="C" # hidden files on top
+export NNN_FIFO=/tmp/nnn.fifo
+export NNN_PLUG='p:preview-tui'
 
 # Source additional local files if they exist.
 # z4h source ~/.env.zsh
