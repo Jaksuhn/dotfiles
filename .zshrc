@@ -121,6 +121,9 @@ alias ls="${aliases[ls]:-ls} -A"
 setopt glob_dots     # no special treatment for file names with a leading dot
 setopt no_auto_menu  # require an extra TAB press to open the completion menu
 
+# Miscellaneous
+fpath=(~/.config/zsh/ $fpath)
+
 # Startup operations
 eval $(thefuck --alias)
 neofetch --kitty --source ~/.config/neofetch/doge.png
