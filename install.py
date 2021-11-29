@@ -184,6 +184,11 @@ def install_on(mountpoint):
         i.arch_chroot(r"sed -i 's/\(%wheel ALL=(ALL) NOPASSWD: ALL\)/# \1/' /etc/sudoers")  # comment
         i.arch_chroot(f"chown -R {user}:{user} /home/{user}/paru")
 
+        # fetch nnn plugins
+        i.arch_chroot(
+            f"su {user} -c 'curl -Ls https://raw.githubusercontent.com/jarun/nnn/master/plugins/getplugs | sh'"
+        )
+
 
 if archinstall.arguments["harddrive"]:
     archinstall.arguments["harddrive"].keep_partitions = False
