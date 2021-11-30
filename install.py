@@ -239,14 +239,27 @@ def install_on(mountpoint):
         #     level=logging.INFO,
         # )
         # failure to write to destination but also works? wrong directory
+        # i.log(
+        #     i.arch_chroot(
+        #         f"""
+        #         su {user} -c "
+        #             curl https://cht.sh/:cht.sh | sudo -S tee /usr/local/bin/cht.sh < {user_password};
+        #             chmod +x /usr/local/bin/cht.sh;
+        #             curl https://cheat.sh/:zsh > ~/.config/zsh/_cht;
+        #             echo "fifth tried";
+        #         "
+        #         """
+        #     ),
+        #     level=logging.INFO,
+        # )
         i.log(
             i.arch_chroot(
                 f"""
                 su {user} -c "
-                    curl https://cht.sh/:cht.sh | sudo -S tee /usr/local/bin/cht.sh < {user_password};
+                    curl https://cht.sh/:cht.sh -o /usr/local/bin/cht.sh;
                     chmod +x /usr/local/bin/cht.sh;
                     curl https://cheat.sh/:zsh > ~/.config/zsh/_cht;
-                    echo "fifth tried";
+                    echo "o_param";
                 "
                 """
             ),
