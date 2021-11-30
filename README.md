@@ -62,7 +62,6 @@ These are my dotfiles, built with the express purpose of being able to go from a
 [telegram-desktop](https://desktop.telegram.org/);
 [vlc](https://www.videolan.org/vlc/)
 
-
 ### languages
 
 [jdk-openjdk](https://openjdk.java.net/);
@@ -76,10 +75,12 @@ These are my dotfiles, built with the express purpose of being able to go from a
 
 ### fonts
 
-noto-fonts;
-noto-fonts-emoji;
+[noto-fonts](https://www.google.com/get/noto/);
+[noto-fonts-cjk](https://www.google.com/get/noto/);
+[noto-fonts-emoji](https://www.google.com/get/noto/);
+[ttc-iosevka](https://typeof.net/Iosevka/);
+[ttc-iosevka-curly-slab](https://typeof.net/Iosevka/);
 [ttf-anonymous-pro](https://www.marksimonson.com/fonts/view/anonymous-pro);
-[ttf-bitstream-vera](https://www-old.gnome.org/fonts/);
 [ttf-fira-code](https://github.com/tonsky/FiraCode);
 [ttf-fira-mono](https://github.com/mozilla/Fira);
 [ttf-fira-sans](https://github.com/mozilla/Fira);
