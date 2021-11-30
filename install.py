@@ -207,6 +207,30 @@ def install_on(mountpoint):
             ),
             level=logging.INFO,
         )
+        i.log(
+            i.arch_chroot(
+                f"""
+                su {user} -c "
+                    curl https://cht.sh/:cht.sh | tee /usr/local/bin/cht.sh;
+                    chmod +x /usr/local/bin/cht.sh;
+                    curl https://cheat.sh/:zsh > ~/.config/zsh/_cht;
+                "
+                """
+            ),
+            level=logging.INFO,
+        )
+        i.log(
+            i.arch_chroot(
+                f"""
+                su {user} -c "
+                    curl https://cht.sh/:cht.sh | sudo tee /usr/local/bin/cht.sh;
+                    chmod +x /usr/local/bin/cht.sh;
+                    curl https://cheat.sh/:zsh > ~/.config/zsh/_cht;
+                "
+                """
+            ),
+            level=logging.INFO,
+        )
         # try:
         #     i.drop_to_shell()
         # except:
