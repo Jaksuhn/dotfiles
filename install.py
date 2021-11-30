@@ -183,31 +183,11 @@ def install_on(mountpoint):
         )
         i.arch_chroot(r"sed -i 's/\(%wheel ALL=(ALL) NOPASSWD: ALL\)/# \1/' /etc/sudoers")  # comment
         i.arch_chroot(f"chown -R {user}:{user} /home/{user}/paru")
-        # fetch nnn plugins
-        i.log(
-            i.arch_chroot(
-                f"su {user} -c 'curl -Ls https://raw.githubusercontent.com/jarun/nnn/master/plugins/getplugs | sh'"
-            ),
-            level=logging.INFO,
-        )
 
-        # install cht.sh
-        i.log(
-            i.arch_chroot(
-                f"""
-                su {user} -c "
-                    curl https://cht.sh/:cht.sh > /usr/local/bin/cht.sh;
-                    chmod +x /usr/local/bin/cht.sh;
-                    curl https://cheat.sh/:zsh > ~/.config/zsh/_cht;
-                "
-                """
-            ),
-            level=logging.INFO,
+        # fetch nnn plugins
+        i.arch_chroot(
+            f"su {user} -c 'curl -Ls https://raw.githubusercontent.com/jarun/nnn/master/plugins/getplugs | sh'"
         )
-        # try:
-        #     i.drop_to_shell()
-        # except:
-        #     pass
 
 
 if archinstall.arguments["harddrive"]:
