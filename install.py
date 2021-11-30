@@ -189,11 +189,6 @@ def install_on(mountpoint):
             f"su {user} -c 'curl -Ls https://raw.githubusercontent.com/jarun/nnn/master/plugins/getplugs | sh'"
         )
 
-        # install cht.sh
-        i.arch_chroot("curl https://cht.sh/:cht.sh > /usr/local/bin/cht.sh")
-        i.arch_chroot("chmod +x /usr/local/bin/cht.sh")
-        i.arch_chroot(f"su {user} -c 'curl https://cheat.sh/:zsh > ~/.config/zsh/_cht'")
-
 
 if archinstall.arguments["harddrive"]:
     archinstall.arguments["harddrive"].keep_partitions = False
