@@ -39,7 +39,6 @@ dependencies = [
     "noto-fonts-emoji",
     "p7zip",
     "qmk",
-    "rofi",
     "rust",
     "simplescreenrecorder",
     "sl",

@@ -47,7 +47,6 @@ These are my dotfiles, built with the express purpose of being able to go from a
 [firejail](https://github.com/netblue30/firejail) (sandboxing);
 [flameshot](https://github.com/flameshot-org/flameshot) (screenshots);
 [qmk](https://github.com/qmk/qmk_cli) (mechanical keyboard configurator);
-[rofi](https://github.com/DaveDavenport/rofi) (launcher);
 [simplescreenrecorder](https://www.maartenbaert.be/simplescreenrecorder/);
 [yadm-git](https://github.com/TheLocehiliosan/yadm) (dotfile manager)
 
