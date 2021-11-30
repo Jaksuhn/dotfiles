@@ -196,6 +196,7 @@ def install_on(mountpoint):
         # i.arch_chroot("curl https://cht.sh/:cht.sh > /usr/local/bin/cht.sh")
         # i.arch_chroot("chmod +x /usr/local/bin/cht.sh")
         # i.arch_chroot("echo 'first tried'")
+        # permission denied
         # i.log(
         #     i.arch_chroot(
         #         f"""
@@ -203,13 +204,13 @@ def install_on(mountpoint):
         #             curl https://cht.sh/:cht.sh > /usr/local/bin/cht.sh;
         #             chmod +x /usr/local/bin/cht.sh;
         #             curl https://cheat.sh/:zsh > ~/.config/zsh/_cht;
-        #             echo "second tried";
+        #             echo "second";
         #         "
         #         """
         #     ),
         #     level=logging.INFO,
         # )
-        # works?
+        # doesn't NOT fail; writes to wrong directory
         # i.log(
         #     i.arch_chroot(
         #         f"""
@@ -217,12 +218,13 @@ def install_on(mountpoint):
         #             curl https://cht.sh/:cht.sh | tee /usr/local/bin/cht.sh;
         #             chmod +x /usr/local/bin/cht.sh;
         #             curl https://cheat.sh/:zsh > ~/.config/zsh/_cht;
-        #             echo "third tried";
+        #             echo "third";
         #         "
         #         """
         #     ),
         #     level=logging.INFO,
         # )
+        # password is required
         # i.log(
         #     i.arch_chroot(
         #         f"""
@@ -230,12 +232,13 @@ def install_on(mountpoint):
         #             curl https://cht.sh/:cht.sh | sudo tee /usr/local/bin/cht.sh;
         #             chmod +x /usr/local/bin/cht.sh;
         #             curl https://cheat.sh/:zsh > ~/.config/zsh/_cht;
-        #             echo "fourth tried";
+        #             echo "fourth";
         #         "
         #         """
         #     ),
         #     level=logging.INFO,
         # )
+        # failure to write to destination but also works? wrong directory
         i.log(
             i.arch_chroot(
                 f"""
