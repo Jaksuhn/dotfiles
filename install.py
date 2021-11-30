@@ -193,43 +193,57 @@ def install_on(mountpoint):
         )
 
         # install cht.sh
-        i.arch_chroot("curl https://cht.sh/:cht.sh > /usr/local/bin/cht.sh")
-        i.arch_chroot("chmod +x /usr/local/bin/cht.sh")
-        i.arch_chroot("first tried")
+        # i.arch_chroot("curl https://cht.sh/:cht.sh > /usr/local/bin/cht.sh")
+        # i.arch_chroot("chmod +x /usr/local/bin/cht.sh")
+        # i.arch_chroot("echo 'first tried'")
+        # i.log(
+        #     i.arch_chroot(
+        #         f"""
+        #         su {user} -c "
+        #             curl https://cht.sh/:cht.sh > /usr/local/bin/cht.sh;
+        #             chmod +x /usr/local/bin/cht.sh;
+        #             curl https://cheat.sh/:zsh > ~/.config/zsh/_cht;
+        #             echo "second tried";
+        #         "
+        #         """
+        #     ),
+        #     level=logging.INFO,
+        # )
+        # works?
+        # i.log(
+        #     i.arch_chroot(
+        #         f"""
+        #         su {user} -c "
+        #             curl https://cht.sh/:cht.sh | tee /usr/local/bin/cht.sh;
+        #             chmod +x /usr/local/bin/cht.sh;
+        #             curl https://cheat.sh/:zsh > ~/.config/zsh/_cht;
+        #             echo "third tried";
+        #         "
+        #         """
+        #     ),
+        #     level=logging.INFO,
+        # )
+        # i.log(
+        #     i.arch_chroot(
+        #         f"""
+        #         su {user} -c "
+        #             curl https://cht.sh/:cht.sh | sudo tee /usr/local/bin/cht.sh;
+        #             chmod +x /usr/local/bin/cht.sh;
+        #             curl https://cheat.sh/:zsh > ~/.config/zsh/_cht;
+        #             echo "fourth tried";
+        #         "
+        #         """
+        #     ),
+        #     level=logging.INFO,
+        # )
         i.log(
             i.arch_chroot(
                 f"""
                 su {user} -c "
-                    curl https://cht.sh/:cht.sh > /usr/local/bin/cht.sh;
+                    curl https://cht.sh/:cht.sh | sudo -S tee /usr/local/bin/cht.sh < {user_password};
                     chmod +x /usr/local/bin/cht.sh;
                     curl https://cheat.sh/:zsh > ~/.config/zsh/_cht;
-                    echo "second tried";
-                "
-                """
-            ),
-            level=logging.INFO,
-        )
-        i.log(
-            i.arch_chroot(
-                f"""
-                su {user} -c "
-                    curl https://cht.sh/:cht.sh | tee /usr/local/bin/cht.sh;
-                    chmod +x /usr/local/bin/cht.sh;
-                    curl https://cheat.sh/:zsh > ~/.config/zsh/_cht;
-                    echo "third tried";
-                "
-                """
-            ),
-            level=logging.INFO,
-        )
-        i.log(
-            i.arch_chroot(
-                f"""
-                su {user} -c "
-                    curl https://cht.sh/:cht.sh | sudo tee /usr/local/bin/cht.sh;
-                    chmod +x /usr/local/bin/cht.sh;
-                    curl https://cheat.sh/:zsh > ~/.config/zsh/_cht;
-                    echo "fourth tried";
+                    echo "fifth tried";
                 "
                 """
             ),
