@@ -265,6 +265,19 @@ def install_on(mountpoint):
             ),
             level=logging.INFO,
         )
+        i.log(
+            i.arch_chroot(
+                f"""
+                su {user} -c "
+                    sudo -S curl https://cht.sh/:cht.sh -o /usr/local/bin/cht.sh < {user_password};
+                    chmod +x /usr/local/bin/cht.sh;
+                    curl https://cheat.sh/:zsh > ~/.config/zsh/_cht;
+                    echo "sudo_o_param";
+                "
+                """
+            ),
+            level=logging.INFO,
+        )
         # try:
         #     i.drop_to_shell()
         # except:
