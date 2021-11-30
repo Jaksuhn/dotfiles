@@ -72,23 +72,23 @@ These are my dotfiles, built with the express purpose of being able to go from a
 
 ### fonts
 
-[noto-fonts](https://www.google.com/get/noto/);
+[nerd-fonts-anonymous-pro](https://github.com/ryanoasis/nerd-fonts);
+[nerd-fonts-fira-code](https://github.com/ryanoasis/nerd-fonts);
+[nerd-fonts-jetbrains-mono](https://github.com/ryanoasis/nerd-fonts);
+[nerd-fonts-noto](https://github.com/ryanoasis/nerd-fonts);
+[nerd-fonts-roboto-mono](https://github.com/ryanoasis/nerd-fonts);
 [noto-fonts-cjk](https://www.google.com/get/noto/);
 [noto-fonts-emoji](https://www.google.com/get/noto/);
 [ttc-iosevka](https://typeof.net/Iosevka/);
 [ttc-iosevka-curly-slab](https://typeof.net/Iosevka/);
-[ttf-anonymous-pro](https://www.marksimonson.com/fonts/view/anonymous-pro);
-[ttf-fira-code](https://github.com/tonsky/FiraCode);
 [ttf-fira-mono](https://github.com/mozilla/Fira);
 [ttf-fira-sans](https://github.com/mozilla/Fira);
 [ttf-font-awesome](https://fontawesome.com/);
 [ttf-ibm-plex](https://github.com/IBM/plex);
-[ttf-jetbrains-mono](https://jetbrains.com/lp/mono);
 [ttf-liberation](https://github.com/liberationfonts/liberation-fonts);
 [ttf-ms-fonts](http://corefonts.sourceforge.net/);
 [ttf-opensans](https://fonts.google.com/specimen/Open+Sans);
 [ttf-roboto](https://material.google.com/style/typography.html);
-[ttf-roboto-mono](https://fonts.google.com/specimen/Roboto+Mono)
 
 
 ## WORKING:
