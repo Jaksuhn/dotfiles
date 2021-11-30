@@ -70,7 +70,6 @@ These are my dotfiles, built with the express purpose of being able to go from a
 
 ### misc.
 
-[betterlockscreen](https://github.com/pavanjadhaw/betterlockscreen);
 [code-marketplace](https://marketplace.visualstudio.com/vscode)
 
 ### fonts
