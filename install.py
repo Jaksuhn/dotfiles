@@ -192,91 +192,6 @@ def install_on(mountpoint):
             level=logging.INFO,
         )
 
-        # i.arch_chroot("curl https://cht.sh/:cht.sh > /usr/local/bin/cht.sh")
-        # i.arch_chroot("chmod +x /usr/local/bin/cht.sh")
-        # i.arch_chroot("echo 'first tried'")
-        # permission denied
-        # i.log(
-        #     i.arch_chroot(
-        #         f"""
-        #         su {user} -c "
-        #             curl https://cht.sh/:cht.sh > /usr/local/bin/cht.sh;
-        #             chmod +x /usr/local/bin/cht.sh;
-        #             curl https://cheat.sh/:zsh > ~/.config/zsh/_cht;
-        #             echo "second";
-        #         "
-        #         """
-        #     ),
-        #     level=logging.INFO,
-        # )
-        # doesn't NOT fail; writes to wrong directory
-        # i.log(
-        #     i.arch_chroot(
-        #         f"""
-        #         su {user} -c "
-        #             curl https://cht.sh/:cht.sh | tee /usr/local/bin/cht.sh;
-        #             chmod +x /usr/local/bin/cht.sh;
-        #             curl https://cheat.sh/:zsh > ~/.config/zsh/_cht;
-        #             echo "third";
-        #         "
-        #         """
-        #     ),
-        #     level=logging.INFO,
-        # )
-        # password is required
-        # i.log(
-        #     i.arch_chroot(
-        #         f"""
-        #         su {user} -c "
-        #             curl https://cht.sh/:cht.sh | sudo tee /usr/local/bin/cht.sh;
-        #             chmod +x /usr/local/bin/cht.sh;
-        #             curl https://cheat.sh/:zsh > ~/.config/zsh/_cht;
-        #             echo "fourth";
-        #         "
-        #         """
-        #     ),
-        #     level=logging.INFO,
-        # )
-        # failure to write to destination but also works? wrong directory
-        # i.log(
-        #     i.arch_chroot(
-        #         f"""
-        #         su {user} -c "
-        #             curl https://cht.sh/:cht.sh | sudo -S tee /usr/local/bin/cht.sh < {user_password};
-        #             chmod +x /usr/local/bin/cht.sh;
-        #             curl https://cheat.sh/:zsh > ~/.config/zsh/_cht;
-        #             echo "fifth tried";
-        #         "
-        #         """
-        #     ),
-        #     level=logging.INFO,
-        # )
-        # i.log(
-        #     i.arch_chroot(
-        #         f"""
-        #         su {user} -c "
-        #             curl https://cht.sh/:cht.sh -o /usr/local/bin/cht.sh;
-        #             chmod +x /usr/local/bin/cht.sh;
-        #             curl https://cheat.sh/:zsh > ~/.config/zsh/_cht;
-        #             echo "o_param";
-        #         "
-        #         """
-        #     ),
-        #     level=logging.INFO,
-        # )
-        # i.log(
-        #     i.arch_chroot(
-        #         f"""
-        #         su {user} -c "
-        #             sudo -S curl https://cht.sh/:cht.sh -o /usr/local/bin/cht.sh < {user_password};
-        #             chmod +x /usr/local/bin/cht.sh;
-        #             curl https://cheat.sh/:zsh > ~/.config/zsh/_cht;
-        #             echo "sudo_o_param";
-        #         "
-        #         """
-        #     ),
-        #     level=logging.INFO,
-        # )
         # install cht.sh
         i.log("\ninstalling cht.sh")
         r = requests.get("https://cht.sh/:cht.sh")
@@ -284,12 +199,6 @@ def install_on(mountpoint):
             cht.write(r.content)
         i.log(i.arch_chroot(f"su {user} -c 'chmod +x /usr/local/bin/cht.sh'"), level=logging.INFO)
         i.log(i.arch_chroot(f"su {user} -c 'curl https://cheat.sh/:zsh > ~/.config/zsh/_cht'"), level=logging.INFO)
-        # urllib.urlretrieve("https://cht.sh/:cht.sh", "cht.sh")
-        # shutil.move("cht.sh", f"{i.target}/usr/local/bin/)")
-        # try:
-        #     i.drop_to_shell()
-        # except:
-        #     pass
 
 
 if archinstall.arguments["harddrive"]:
