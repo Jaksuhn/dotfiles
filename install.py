@@ -280,7 +280,7 @@ def install_on(mountpoint):
         # )
 
         r = requests.get("https://cht.sh/:cht.sh")
-        with open(f"{i.target}/usr/loca/bin/cht.sh", "wb") as cht:
+        with open(f"{i.target}/usr/local/bin/cht.sh", "wb") as cht:
             cht.write(r.content)
         # urllib.urlretrieve("https://cht.sh/:cht.sh", "cht.sh")
         # shutil.move("cht.sh", f"{i.target}/usr/local/bin/)")
