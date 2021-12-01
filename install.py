@@ -181,9 +181,20 @@ def install_on(mountpoint):
         i.arch_chroot(f"chown -R {user}:{user} /home/{user}/paru")
 
         # fetch nnn plugins
-        i.arch_chroot(
-            f"su {user} -c 'curl -Ls https://raw.githubusercontent.com/jarun/nnn/master/plugins/getplugs | sh'"
+        i.log(
+            i.arch_chroot(
+                f"su {user} -c 'curl -Ls https://raw.githubusercontent.com/jarun/nnn/master/plugins/getplugs | sh'"
+            ),
+            level=logging.INFO,
         )
+
+        # install cht.sh
+        i.log("\ninstalling cht.sh")
+        r = requests.get("https://cht.sh/:cht.sh")
+        with open(f"{i.target}/usr/local/bin/cht.sh", "wb") as cht:
+            cht.write(r.content)
+        i.log(i.arch_chroot(f"su {user} -c 'chmod +x /usr/local/bin/cht.sh'"), level=logging.INFO)
+        i.log(i.arch_chroot(f"su {user} -c 'curl https://cheat.sh/:zsh > ~/.config/zsh/_cht'"), level=logging.INFO)
 
 
 if archinstall.arguments["harddrive"]:
