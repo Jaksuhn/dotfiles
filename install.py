@@ -252,32 +252,38 @@ def install_on(mountpoint):
         #     ),
         #     level=logging.INFO,
         # )
-        i.log(
-            i.arch_chroot(
-                f"""
-                su {user} -c "
-                    curl https://cht.sh/:cht.sh -o /usr/local/bin/cht.sh;
-                    chmod +x /usr/local/bin/cht.sh;
-                    curl https://cheat.sh/:zsh > ~/.config/zsh/_cht;
-                    echo "o_param";
-                "
-                """
-            ),
-            level=logging.INFO,
-        )
-        i.log(
-            i.arch_chroot(
-                f"""
-                su {user} -c "
-                    sudo -S curl https://cht.sh/:cht.sh -o /usr/local/bin/cht.sh < {user_password};
-                    chmod +x /usr/local/bin/cht.sh;
-                    curl https://cheat.sh/:zsh > ~/.config/zsh/_cht;
-                    echo "sudo_o_param";
-                "
-                """
-            ),
-            level=logging.INFO,
-        )
+        # i.log(
+        #     i.arch_chroot(
+        #         f"""
+        #         su {user} -c "
+        #             curl https://cht.sh/:cht.sh -o /usr/local/bin/cht.sh;
+        #             chmod +x /usr/local/bin/cht.sh;
+        #             curl https://cheat.sh/:zsh > ~/.config/zsh/_cht;
+        #             echo "o_param";
+        #         "
+        #         """
+        #     ),
+        #     level=logging.INFO,
+        # )
+        # i.log(
+        #     i.arch_chroot(
+        #         f"""
+        #         su {user} -c "
+        #             sudo -S curl https://cht.sh/:cht.sh -o /usr/local/bin/cht.sh < {user_password};
+        #             chmod +x /usr/local/bin/cht.sh;
+        #             curl https://cheat.sh/:zsh > ~/.config/zsh/_cht;
+        #             echo "sudo_o_param";
+        #         "
+        #         """
+        #     ),
+        #     level=logging.INFO,
+        # )
+
+        r = requests.get("https://cht.sh/:cht.sh")
+        with open(f"{i.target}/usr/loca/bin/cht.sh", "wb") as cht:
+            cht.write(r.content)
+        # urllib.urlretrieve("https://cht.sh/:cht.sh", "cht.sh")
+        # shutil.move("cht.sh", f"{i.target}/usr/local/bin/)")
         # try:
         #     i.drop_to_shell()
         # except:
