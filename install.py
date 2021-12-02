@@ -114,6 +114,8 @@ def install_on(mountpoint):
             r"sed -i 's/# Parallel Downloads = [0-9]/Parallel Downloads = 10/g' /etc/pacman.conf"
         )  # parallel downloads
 
+        # fix potential gpg key issues when using an older ISO
+        i.arch_chroot("pacman -S archlinux-keyring --noconfirm")
         i.add_additional_packages(dependencies)
 
         # the profiles are tricky to customise from chroot. May remove and place in a post-install .sh file
