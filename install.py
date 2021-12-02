@@ -135,8 +135,8 @@ def install_on(mountpoint):
 
         # create user, change login shell
         i.user_create(str(user), str(user_password))
-        i.arch_chroot(f'chsh -s /usr/bin/zsh "{user}"')
-        i.arch_chroot(f"sed -i '$a{user} ALL=(ALL) NOPASSWD:ALL /etc/sudoers.d/{user}'")
+        i.log(i.arch_chroot(f'chsh -s /usr/bin/zsh "{user}"'), level=logging.INFO)
+        i.log(i.arch_chroot(rf"sed -i '$a{user} ALL=(ALL) NOPASSWD:ALL /etc/sudoers.d/{user}'"), level=logging.INFO)
 
         # create root account, grant full sudoers access
         i.user_set_pw("root", str(root_password))
