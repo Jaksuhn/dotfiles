@@ -41,6 +41,7 @@ dependencies = [
     "rust",
     "simplescreenrecorder",
     "sl",
+    "syncthing",
     "telegram-desktop",
     "thefuck",
     "tree",

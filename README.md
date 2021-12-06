@@ -48,6 +48,7 @@ These are my dotfiles, built with the express purpose of being able to go from a
 [flameshot](https://github.com/flameshot-org/flameshot) (screenshots);
 [qmk](https://github.com/qmk/qmk_cli) (mechanical keyboard configurator);
 [simplescreenrecorder](https://www.maartenbaert.be/simplescreenrecorder/);
+[syncthing](https://syncthing.net/);
 [yadm-git](https://github.com/TheLocehiliosan/yadm) (dotfile manager)
 
 ### applications
