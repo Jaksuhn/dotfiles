@@ -116,6 +116,7 @@ profiles:
 - kde
 - bspwm
 - i3 (not even started)
+- sway
 
 misc:
 
