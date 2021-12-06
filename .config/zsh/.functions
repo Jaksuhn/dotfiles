@@ -35,6 +35,10 @@ pdf() {
 transfer() {
     curl -F"file=@"${@}"" https://ttm.sh;
 }
+# transfer files via syncthing
+ltransfer() {
+	cp "$@" ~/Sync;
+}
 # get weather; takes in location
 weather() {
     curl wttr.in/"$@";
