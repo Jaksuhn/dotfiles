@@ -2,7 +2,7 @@ alias archive='ua'
 alias colours='for i in {0..255}; do print -Pn "%K{$i}  %k%F{$i}${(l:3::0:)i}%f " ${${(M)$((i%6)):#3}:+$'\n'}; done'
 alias cheat='cht.sh'
 alias ls='ls -a'
-alias neofetch="neofetch --kitty --source ~/.config/neofetch/doge.png"
+alias neofetch="neofetch --kitty --size 25% --source ~/.config/neofetch/doge.png"
 alias nnn='nnn -H'
 alias rec="simplescreenrecorder"
 
