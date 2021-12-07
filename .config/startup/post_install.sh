@@ -122,7 +122,7 @@ shred -u manifest.json
 sudo mv -v ~/tmp_ext_dir/* ~/.mozilla/firefox/*.default-release/extensions/
 rm -rf ~/tmp_ext_dir
 
-firefox -new-tab -url https://accounts.firefox.com/signin -new-tab -url about:addons &
+firefox -new-tab -url about:addons -new-tab -url https://accounts.firefox.com/signin &
 
 #################################
 #   _ __ ___   (_)  ___    ___
