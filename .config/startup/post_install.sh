@@ -8,6 +8,7 @@ notify-send "post-install configuration" "running post_install.sh; don't do anyt
 ################################################
 vscode_extensions=(
     danielpinto8zz6.c-cpp-compile-run
+    davidanson.vscode-markdownlint
     eamodio.gitlens
     formulahendry.code-runner
     github.copilot
@@ -22,12 +23,14 @@ vscode_extensions=(
     rubymaniac.vscode-paste-and-indent
     sainnhe.gruvbox-material
     tyriar.sort-lines
+    usernamehw.errorlens
     visualstudioexptteam.vscode
     vscjava.vscode-java-debug
     vscjava.vscode-java-dependency
     vscjava.vscode-java-pack
     vscjava.vscode-java-test
     wwm.better-align
+    yzhang.markdown-all-in-one
 )
 
 for ext in "${vscode_extensions[@]}"; do
