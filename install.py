@@ -111,6 +111,7 @@ def install_on(mountpoint):
 
         i.arch_chroot(r"sed -i '/\[multilib\]/,/Include/''s/^#//' /etc/pacman.conf")  # enable 32-bit apps
         i.arch_chroot(r"sed -i 's/#\(Color\)/\1/' /etc/pacman.conf")  # enable coloured output
+        i.arch_chroot(r"sed -i '/VerbosePkgLists/s/^#//' /etc/pacman.conf")  # enable detailed output
         i.arch_chroot(
             r"sed -i 's/# Parallel Downloads = [0-9]/Parallel Downloads = 10/g' /etc/pacman.conf"
         )  # parallel downloads
