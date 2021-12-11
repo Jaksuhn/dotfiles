@@ -192,6 +192,14 @@ def install_on(mountpoint):
             level=logging.INFO,
         )
 
+        # adding material icons
+        i.log("\ninstalling material icons")
+        i.log(
+            i.arch_chroot(
+                "wget -O /usr/local/share/fonts/materialicons.ttf https://github.com/Templarian/MaterialDesign-Font/raw/master/MaterialDesignIconsDesktop.ttf"
+            )
+        )
+
         # install cht.sh
         i.log("\ninstalling cht.sh")
         r = requests.get("https://cht.sh/:cht.sh")
