@@ -89,6 +89,8 @@ firefox_extension_ids=(
     954390
     445852
     14392
+    839767
+    521554
 )
 
 # ublock-origin (607454)
@@ -105,6 +107,8 @@ firefox_extension_ids=(
 # facebook-container (954390)
 # to-google-translate (445852)
 # the-camelizer-price-history-ch (14392)
+# clearURLs (839767)
+# decentraleyes (521554)
 
 mkdir tmp_ext_dir && cd tmp_ext_dir
 upstream="https://addons.mozilla.org/firefox/downloads/latest"
