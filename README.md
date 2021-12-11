@@ -73,6 +73,7 @@ These are my dotfiles, built with the express purpose of being able to go from a
 
 ### fonts
 
+[material-design-icons](https://github.com/Templarian/MaterialDesign-Font/);
 [nerd-fonts-anonymous-pro](https://github.com/ryanoasis/nerd-fonts);
 [nerd-fonts-fira-code](https://github.com/ryanoasis/nerd-fonts);
 [nerd-fonts-jetbrains-mono](https://github.com/ryanoasis/nerd-fonts);
