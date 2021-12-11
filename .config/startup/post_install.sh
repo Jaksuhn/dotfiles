@@ -135,12 +135,6 @@ firefox -new-tab -url about:addons -new-tab -url https://accounts.firefox.com/si
 #  |_| |_| |_| |_| |___/  \___|
 #################################
 
-# install cheat.sh
-PATH_DIR="$HOME/bin"
-mkdir -p "$PATH_DIR"
-curl https://cht.sh/:cht.sh > "$PATH_DIR/cht.sh"
-chmod +x "$PATH_DIR/cht.sh"
-
 # remove temp sudo privileges and auto startup
 # sudo sed -i "/$USER ALL=(ALL) NOPASSWD:ALL/d" /etc/sudoers.d/$USER
 sed -i '/# everything after this line will be removed automatically/,$d' ~/.zshrc
