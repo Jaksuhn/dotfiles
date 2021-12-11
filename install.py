@@ -194,6 +194,7 @@ def install_on(mountpoint):
 
         # adding material icons
         i.log("\ninstalling material icons")
+        i.log(i.arch_chroot("mkdir -p /usr/local/share/fonts/"))
         i.log(
             i.arch_chroot(
                 "wget -O /usr/local/share/fonts/materialicons.ttf https://github.com/Templarian/MaterialDesign-Font/raw/master/MaterialDesignIconsDesktop.ttf"
