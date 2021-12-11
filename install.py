@@ -134,6 +134,12 @@ def install_on(mountpoint):
         elif profile == "gnome":
             i.install_profile(profile)
             dependencies_aur.append("gnome-shell-extension-material-shell")
+            # remove 'bloat'
+            i.log(
+                i.arch_chroot(
+                    "pacman -Rns gnome-software gnome-weather gnome-contacts gnome-calendar gnome-boxes epiphany gnome-books gedit gnome-music simple-scan gnome-maps gnome-photos totem gnome-clocks gnome-calculator eog sushi evince file-roller gnome-screenshot gnome-characters gnome-backgrounds"
+                )
+            )
         else:
             i.install_profile(profile)
 
