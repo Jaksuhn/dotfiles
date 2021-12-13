@@ -203,7 +203,7 @@ def install_on(mountpoint):
         i.log(i.arch_chroot("mkdir -p /usr/local/share/fonts/"))
         i.log(
             i.arch_chroot(
-                "wget -O /usr/local/share/fonts/materialicons.ttf https://github.com/Templarian/MaterialDesign-Font/raw/master/MaterialDesignIconsDesktop.ttf"
+                "wget -O /usr/local/share/fonts/material-design-icons.ttf https://github.com/Templarian/MaterialDesign-Font/raw/master/MaterialDesignIconsDesktop.ttf"
             )
         )
 
