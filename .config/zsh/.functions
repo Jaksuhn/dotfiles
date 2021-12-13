@@ -31,6 +31,10 @@ pm() {
 pdf() {
     firejail mupdf "$@"
 }
+# rebuild aur packages that use python; pass the version you're rebuilding
+pyrebuild() {
+	pacman -Qoq /usr/lib/python"$@" | pacman -Qmq - | paru -S --rebuild -
+}
 # upload files
 transfer() {
     curl -F"file=@"${@}"" https://ttm.sh;
