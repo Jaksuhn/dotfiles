@@ -40,6 +40,6 @@ ltransfer() {
 	cp "$@" ~/Sync;
 }
 # get weather; takes in location
-weather() {
+get_weather() {
     curl wttr.in/"$@";
 }
