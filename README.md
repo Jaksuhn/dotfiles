@@ -16,6 +16,7 @@ These are my dotfiles, built with the express purpose of being able to go from a
 
 ### terminal
 
+[7-zip](https://www.7-zip.org/);
 [bash-completion](https://github.com/scop/bash-completion);
 [cheat.sh](https://cheat.sh/) (manual aggregator);
 [git](https://git-scm.com/);
@@ -25,7 +26,6 @@ These are my dotfiles, built with the express purpose of being able to go from a
 [man-db](https://www.nongnu.org/man-db/);
 [micro](https://micro-editor.github.io/) (txt editor);
 [nnn](https://github.com/jarun/nnn) (cli file manager);
-[p7zip](https://github.com/jinfeihan57/p7zip);
 [thefuck](https://github.com/nvbn/thefuck) (fuck);
 [tree](http://mama.indstate.edu/users/ice/tree/) (directory tree);
 [wget](https://www.gnu.org/software/wget/wget.html);

@@ -36,7 +36,6 @@ dependencies = [
     "nnn",
     "noto-fonts-cjk",
     "noto-fonts-emoji",
-    "p7zip",
     "qmk",
     "rust",
     "simplescreenrecorder",
@@ -58,6 +57,7 @@ dependencies = [
 ]
 
 dependencies_aur = [
+    "7-zip",
     "code-marketplace",
     "discord_arch_electron",
     "nerd-fonts-anonymous-pro",
