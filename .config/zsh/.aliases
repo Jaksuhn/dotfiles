@@ -24,7 +24,7 @@ alias s-zsh="source ~/.zshrc"
 
 # Weather
 alias weather="curl -s wttr.in/ | sed -n '1,7p'"
-alias w="weather"
+alias wtr="weather"
 alias weathertoday="curl -s wttr.in | sed -n '1,17p'"
 alias wtoday="weathertoday"
 alias wtd="weathertoday"
