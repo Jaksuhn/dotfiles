@@ -29,7 +29,7 @@ hex() {
 	echo "$@" | hexdump -C
 }
 pm() {
-    sudo pacman "$@"
+    sudo pacman -S "$@"
 }
 # open pdf
 pdf() {
