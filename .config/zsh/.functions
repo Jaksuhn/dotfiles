@@ -24,6 +24,10 @@ function getip {
 	curl -s "$api"
 	echo # Newline.
 }
+# get hex value of symbol
+hex() {
+	echo "$@" | hexdump -C
+}
 pm() {
     sudo pacman "$@"
 }
