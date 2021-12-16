@@ -133,7 +133,7 @@ def install_on(mountpoint):
             i.install_profile("xorg")
             i.add_additional_packages(bspwm_packages)
             i.enable_service("lightdm")
-            i.arch_chroot(f"su {user} -c 'picom --config ~/.config/bspwm/picom.conf")
+            i.arch_chroot(f"su {user} -c 'picom --config ~/.config/bspwm/picom.conf'")
         elif profile == "kde":
             i.install_profile(profile)
             i.arch_chroot("lookandfeeltool -a GruvboxPlasma")
