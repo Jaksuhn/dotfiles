@@ -1,108 +1,90 @@
-#---------------------------------------#
-#	 WM Indepentent Hotkeys		#
-#---------------------------------------#
-
-# terminal emulator
-super + Return
-	alacritty
-
-# launch file manager
-super + shift + Return
-	nemo
-
-# launch browser
-super + shift + w
-	librewolf
-
-# emoticons thing
-super + e
-	$HOME/Scripts/Dmenu/Emoticons/emoticons.sh
-
-# rofi power menu
-super + shift + e
-	$HOME/.config/i3/scripts/rofi-power-menu
-
-# lock screen
 #
-#	betterlockscreen -l dimblur
+# wm independent hotkeys
+#
 
-# take screenshot
-ctrl + shift + d
-	flameshot gui -p $HOME/Pictures
-#	maim -s | xclip -selection clipboard -t image/png
-
-# launch discord
-super + shift + m
-	discord-canary
-
-# launch calculator
-super + shift + c
-	galculator
-
-# launch password manager
-super + shift + p
-	spotify
-
-# program launcher
-super + d
-	$HOME/Scripts/Dmenu/Run/dmenu_run.sh
-
-# make sxhkd reload its configuration files:
+# reloads sxhkd configuration:
 super + Escape
-	pkill -USR1 -x sxhkd && bspc wm -r
+    pkill -USR1 -x sxhkd
 
-#---------------------------------------#
-#	     BSPWM Hotkeys		#
-#---------------------------------------#
+# Launch Terminal
+super + Return
+    kitty
 
-# volume
+# # terminal emulator (no tmux)
+# super + shift + Return
+# 	alacritty -t "Terminal"
 
-XF86AudioMute
-	pulsemixer --mute
+# # terminal emulator (new tmux session)
+# super + alt + Return
+# 	alacritty -t "Terminal" -e "tmux"
 
-XF86AudioMute
-	pulsemixer --unmute
+# j4 dmenu
+alt + F1
+    j4-dmenu
 
+# Launch Menus
+super + {x,n,d}
+    {powermenu,def-nmdmenu,def-dmenu}
 
-XF86AudioRaiseVolume
-	pulsemixer --change-volume 5 && pulsemixer --unmute
-#	amixer -D pulse sset Master 5%+ && pulsemixer --unmute
-XF86AudioLowerVolume
-	pulsemixer --change-volume -5
-#	amixer -D pulse sset Master 5%- && pulsemixer --unmute
+# Lock Screen
+ctrl + alt + l
+    lock
 
-XF86AudioRaiseVolume + shift
-	pulsemixer --change-volume 1
-#	amixer -D pulse sset Master 1%+ && pulsemixer --unmute
-XF86AudioLowerVolume + shift
-	pulsemixer --change-volume -1
-#	amixer -D pulse sset Master 1%- && pulsemixer --unmute
+# custom dmenu scripts
+# alt + {e,l}
+#{edit-configs, quick-links}
+alt + e
+    edit-configs
 
-# brightness
-XF86MonBrightnessUp
-	brightnessctl set 25+
-XF86MonBrightnessDown + shift
-	brightnessctl set 25-
+# Launch Applications
+super + shift + {f,c,d,s,t}
+    {firefox,code,discord,spotify,telegram}
 
-XF86MonBrightnessUp + shift
-	brightnessctl set 7+
-XF86MonBrightnessDown + shift
-	brightnessctl set 7-
+# Volume controls
+XF86Audio{RaiseVolume,LowerVolume,Mute}
+    volume{ --inc, --dec, --toggle}
 
-# display settings
-# not found out yet
+# Brightness controls
+XF86MonBrightness{Up,Down}
+    brightness{ --inc, --dec}
+
+# screenshot
+Print
+    takeshot --now
+
+# screenshot in 5 seconds
+alt + Print
+    takeshot --in5
+
+# screenshot in 10 seconds
+shift + Print
+    takeshot --in10
+
+# screenshot active window
+ctrl + Print
+    takeshot --win
+
+# screenshot selected area
+ctrl + alt + Print
+    takeshot --area
+
+#
+#
+# BSPWM HOTKEYS
+#
+#
 
 # quit/restart bspwm
-super + alt + {q,r}
-	bspc {quit,wm -r}
+ctrl + shift + {q,r}
+    bspc {quit,wm -r}
 
 # close and kill
-ctrl + {_,shift + }q
-	bspc node -{c,k}
+super + q
+    bspc node -c
 
 # alternate between the tiled and monocle layout
-super + p
-	bspc desktop -l next
+super + space
+	bspc node -t "~"{floating,tiled}
 
 # send the newest marked node to the newest preselected node
 super + y
@@ -112,25 +94,29 @@ super + y
 super + g
 	bspc node -s biggest.window
 
-#---------------------------------------#
-#	     States/Flags		#
-#---------------------------------------#
+#
+# state/flags
+#
 
 # set the window state
-super + {t,shift + t,s,f}
+super + {t,ctrl + t,s,f}
 	bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
-
-# switching between floating and tiled
-super + space
-	bash -c "bspc node -t ~floating"
 
 # set the node flags
 super + ctrl + {m,x,y,z}
 	bspc node -g {marked,locked,sticky,private}
 
-#---------------------------------------#
-#	      Focus/Swap		#
-#---------------------------------------#
+# Send the window to another edge of the screen
+super + {_,shift + }{Left,Down,Up,Right}
+    bspc node -{f,s} {west,south,north,east}
+
+# Change focus to next window, including floating window
+alt + {_,shift + }Tab
+    bspc node -f {next.local,prev.local}
+
+#
+# focus/swap
+#
 
 # focus the node in the given direction
 super + {_,shift + }{h,j,k,l}
@@ -162,9 +148,9 @@ super + {o,i}
 super + {_,shift + }{1-9,0}
 	bspc {desktop -f,node -d} '^{1-9,10}'
 
-#---------------------------------------#
-#	       Preselect		#
-#---------------------------------------#
+#
+# preselect
+#
 
 # preselect the direction
 super + ctrl + {h,j,k,l}
@@ -182,9 +168,17 @@ super + ctrl + space
 super + ctrl + shift + space
 	bspc query -N -d | xargs -I id -n 1 bspc node id -p cancel
 
-#---------------------------------------#
-#	       Move/Resize		#
-#---------------------------------------#
+#
+# move/resize
+#
+
+# Expanding windows
+super + control {Left,Right,Up,Down}
+    bspc node -z {left -20 0,right 20 0,top 0 -20,bottom 0 20}
+
+# Shrinking windows
+super + alt + {Left,Right,Up,Down}
+    bspc node -z {left 20 0,right -20 0,top 0 20,bottom 0 -20}
 
 # expand a window by moving one of its side outward
 super + alt + {h,j,k,l}
