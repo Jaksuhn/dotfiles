@@ -127,9 +127,9 @@ def install_on(mountpoint):
                 "rxvt-unicode",
                 "lightdm-gtk-greeter",
                 "lightdm",
-                "polybar",
                 "picom",
             ]
+            dependencies_aur.append("polybar")
             i.install_profile("xorg")
             i.add_additional_packages(bspwm_packages)
             i.enable_service("lightdm")
