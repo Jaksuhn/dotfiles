@@ -10,7 +10,7 @@ ENCODING = "UTF-8"
 TIMEZONE = "US/Eastern"
 DOWNLOAD_REGION = "United States"
 DEFAULT_USER = "snow"
-_PROFILE = "gnome"
+_PROFILE = "bspwm"
 
 dependencies = [
     "bash-completion",
