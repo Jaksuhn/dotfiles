@@ -73,8 +73,6 @@ dependencies_aur = [
 
 # TODO: check if that pl10k is redundant
 
-bspwm_packages = ["bspwm", "sxhkd", "xdo", "rxvt-unicode", "lightdm-gtk-greeter", "lightdm", "polybar"]
-
 # user provided arguments
 archinstall.arguments["harddrive"] = archinstall.select_disk(archinstall.all_disks())
 hostname = archinstall.generic_select(["desktop", "laptop"], "Select hostname (default: desktop):") or "desktop"
@@ -122,12 +120,20 @@ def install_on(mountpoint):
 
         # the profiles are tricky to customise from chroot. May remove and place in a post-install .sh file
         if profile == "bspwm":
+            bspwm_packages = [
+                "bspwm",
+                "sxhkd",
+                "xdo",
+                "rxvt-unicode",
+                "lightdm-gtk-greeter",
+                "lightdm",
+                "polybar",
+                "picom",
+            ]
             i.install_profile("xorg")
             i.add_additional_packages(bspwm_packages)
             i.enable_service("lightdm")
-            i.arch_chroot(
-                f"su {user} -c 'mkdir ~/temp_configs && cd ~/temp_configs && git clone https://github.com/joni22u/dotfiles . && cp -rb . ~/.config && rm -rf ~/temp_configs'"
-            )
+            i.arch_chroot(f"su {user} -c 'picom --config ~/.config/bspwm/picom.conf")
         elif profile == "kde":
             i.install_profile(profile)
             i.arch_chroot("lookandfeeltool -a GruvboxPlasma")
@@ -169,7 +175,7 @@ def install_on(mountpoint):
 
         # clone dotfiles
         i.arch_chroot(
-            f"su {user} -c 'cd $(mktemp -d) && git clone {'git@github.com:jaksuhn/dotfiles.git' if github_access_token else 'https://github.com/jaksuhn/dotfiles.git'} . && cp -rb . ~'"
+            f"su {user} -c 'cd $(mktemp -d) && git clone -b bspwm {'git@github.com:jaksuhn/dotfiles.git' if github_access_token else 'https://github.com/jaksuhn/dotfiles.git'} . && cp -rb . ~'"
         )
 
         # add more processors to the makepkg build system
