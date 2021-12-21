@@ -129,3 +129,4 @@ misc:
 - make neofetch rotate through ascii/images
 - [dual github accounts setup](https://stackoverflow.com/questions/62625513/can-i-log-in-two-different-github-account-in-vscode)
 - setup [ptSh](https://github.com/jszczerbinsky/ptSh)
+- setup [rofimoji](https://github.com/fdw/rofimoji) or something similar for material/FA icons
