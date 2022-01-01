@@ -12,6 +12,10 @@ alias rec="simplescreenrecorder"
 # Git
 alias gaf="git add --force"
 
+# Python
+alias venvon="source venv/bin/activate"
+alias venvoff="deactivate"
+
 # Quick Sourcing
 alias s-zsh="source ~/.zshrc"
 

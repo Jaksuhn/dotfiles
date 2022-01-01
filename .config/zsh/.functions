@@ -53,6 +53,33 @@ pm() {
 pdf() {
     firejail mupdf "$@"
 }
+# Create virtual environment
+pymake ()
+{
+    python -m venv "${HOME}"/.venv/"$1"
+}
+# Delete virtual environment
+pydel ()
+{
+    echo "WARNING: You will permanently delete the Python virtual environment $1. Are you sure? (Y/N)"
+    read -r user_input
+    if [â ${user_input} = 'y' ]; then
+        rm  "${HOME}"/.venv/"$1" -r
+    fi
+}
+# Activate virtual environment
+pyon ()
+{
+    source "${HOME}"/.venv/"$1"/bin/activate
+}
+# Check list of virtual environments
+pyls ()
+{
+    echo "List of Python virtual environments:"
+    echo ${blue} > /dev/null
+    ls "${HOME}"/.venv
+    echo ${reset} > /dev/null
+}
 # rebuild aur packages that use python; pass the version you're rebuilding
 pyrebuild() {
 	pacman -Qoq /usr/lib/python"$@" | pacman -Qmq - | paru -S --rebuild -
