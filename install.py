@@ -140,6 +140,8 @@ def install_on(mountpoint):
             #         "pacman -Rns gnome-software gnome-weather gnome-contacts gnome-calendar gnome-boxes epiphany gnome-books gedit gnome-music simple-scan gnome-maps gnome-photos totem gnome-clocks gnome-calculator eog sushi evince file-roller gnome-screenshot gnome-characters gnome-backgrounds"
             #     )
             # )
+        elif profile == "awesome":
+            i.arch_chroot("git clone https://github.com/Nooo37/bling.git ~/.config/awesome/modules/bling")
         else:
             i.install_profile(profile)
 
