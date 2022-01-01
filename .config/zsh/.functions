@@ -7,6 +7,24 @@ backup() {
 colour() {
     perl -e 'foreach $a(@ARGV){print "\e[48:2::".join(":",unpack("C*",pack("H*",$a)))."m \e[49m "};print "\n"' "$@"
 }
+# edit config files
+edit () {
+    case $1 in
+		"aliases")  	micro ~/.config/zsh/.aliases ;;
+		"bspwm")    	micro ~/.config/bspwm/bspwmrc && \
+						bspc wm -r ;;
+		"functions")	micro ~/.config/zsh/.functions ;;
+  		"kitty")    	micro ~/.config/kitty/kitty.conf ;;
+   		"neofetch") 	micro ~/.config/neofetch/config.conf ;;
+      	"picom")    	micro ~/.config/bspwm/picom.conf ;;
+   		"polybar")  	micro ~/.config/polybar/config && \
+                    	killall polybar && polybar mybar &;;
+      	"sxhkd")		micro ~/.config/sxhkd/sxhkdrc && \
+                    	pkill -USR1 -x sxhkd ;;
+        "zsh")			micro ~/.zshrc && \
+                		source ~/.zshrc ;;
+    esac
+}
 # get public ip
 function getip {
 	local api

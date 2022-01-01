@@ -12,13 +12,6 @@ alias rec="simplescreenrecorder"
 # Git
 alias gaf="git add --force"
 
-# Quick Editing
-alias e-bashrc='micro ~/.bashrc'
-alias e-bspwmrc='micro ~/.config/bspwm/bspwmrc'
-alias e-polybar='micro ~/.config/polybar/config.ini'
-alias e-sxhkdrc='micro ~/.config/sxhkd/sxhkdrc'
-alias e-zshrc='micro ~/.zshrc'
-
 # Quick Sourcing
 alias s-zsh="source ~/.zshrc"
 
