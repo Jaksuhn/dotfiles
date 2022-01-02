@@ -141,6 +141,7 @@ def install_on(mountpoint):
             #     )
             # )
         elif profile == "awesome":
+            i.install_profile(profile)
             i.arch_chroot("git clone https://github.com/Nooo37/bling.git ~/.config/awesome/modules/bling")
         else:
             i.install_profile(profile)
