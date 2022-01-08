@@ -144,6 +144,7 @@ def install_on(mountpoint):
         elif profile == "awesome":
             i.install_profile("xorg")
             i.add_additional_packages(awesome_packages)
+            i.enable_service("lightdm")
             # https://github.com/JavaCafe01/dotfiles/ (mostly)
             # https://gitlab.com/ihciM/dotfiles
         else:
