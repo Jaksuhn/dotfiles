@@ -67,7 +67,7 @@ local keys = gears.table.join(
                 local tag = client.focus.screen.tags[index]
                 if tag then client.focus:toggle_tag(tag) end
             end
-    end},
+    end}
 )
 
 return keys

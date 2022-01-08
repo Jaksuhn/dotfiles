@@ -63,5 +63,5 @@ return gears.table.join(
         {
             description = "decrease brightness",
             group = "media"
-        }),
+        })
 )

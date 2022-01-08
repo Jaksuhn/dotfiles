@@ -34,5 +34,5 @@ return gears.table.join(
         {
             description = "focus down",
             group = "client"
-        }),
+        })
 )

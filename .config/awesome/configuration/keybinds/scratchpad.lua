@@ -17,7 +17,7 @@ local keys = gears.table.join(
         {
             description = "open chats",
             group = "scratchpad"
-        }),
+        })
 )
 
 return keys

@@ -1,3 +1,4 @@
+local awful = require("awful")
 local gears = require("gears")
 
 -- Mouse Bindings
@@ -7,13 +8,13 @@ awful.mouse.append_global_mousebindings({
 })
 
 root.keys(gears.table.join(
-  require("configuration.keybinds.apps"),
-  require("configuration.keybinds.awesome"),
-  require("configuration.keybinds.client"),
-  require("configuration.keybinds.layout"),
-  require("configuration.keybinds.media"),
-  require("configuration.keybinds.scratchpad"),
-  require("configuration.keybinds.screen"),
-  require("configuration.keybinds.tabs"),
-  require("configuration.keybinds.tag"),
+  require("configuration.keys.apps"),
+  require("configuration.keys.awesome"),
+  require("configuration.keys.client"),
+  require("configuration.keys.layout"),
+  require("configuration.keys.media"),
+  require("configuration.keys.scratchpad"),
+  require("configuration.keys.screen"),
+  require("configuration.keys.tabs"),
+  require("configuration.keys.tag")
 ))
