@@ -146,7 +146,6 @@ def install_on(mountpoint):
             i.add_additional_packages(awesome_packages)
             # https://github.com/JavaCafe01/dotfiles/ (mostly)
             # https://gitlab.com/ihciM/dotfiles
-            i.arch_chroot("git clone https://github.com/Nooo37/bling.git ~/.config/awesome/modules/bling")
         else:
             i.install_profile(profile)
 

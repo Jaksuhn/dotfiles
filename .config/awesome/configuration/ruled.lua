@@ -1,68 +1,137 @@
-local awful = require "awful"
-local ruled = require "ruled"
-local naughty = require "naughty"
+local awful = require("awful")
+local beautiful = require("beautiful")
+local ruled = require("ruled")
 
 ruled.client.connect_signal("request::rules", function()
-  -- All clients will match this rule.
-  ruled.client.append_rule {
-    id = "global",
-    rule = {},
-    properties = {
-      focus = awful.client.focus.filter,
-      raise = true,
-      screen = awful.screen.preferred,
-      placement = awful.placement.no_overlap + awful.placement.no_offscreen,
-    },
-  }
 
-  -- Floating clients.
-  ruled.client.append_rule {
-    id = "floating",
-    rule_any = {
-      instance = { "copyq", "pinentry" },
-      class = {
-        "Sxiv",
-        "Tor Browser",
-        "Wpa_gui",
-      },
-      name = {
-        "Event Tester", -- xev.
-      },
-      role = {
-        "AlarmWindow", -- Thunderbird's calendar.
-        "ConfigManager", -- Thunderbird's about:config.
-        "pop-up", -- e.g. Google Chrome's (detached) Developer Tools.
-      },
-    },
-    properties = { floating = true, placement = awful.placement.centered },
-  }
+    -- Global
+    ruled.client.append_rule {
+        id = "global",
+        rule = {},
+        properties = {
+            focus = awful.client.focus.filter,
+            raise = true,
+            size_hints_honor = false,
+            screen = awful.screen.preferred,
+            placement = awful.placement.no_overlap+awful.placement.no_offscreen
+        }
+    }
 
-  -- Add titlebars to normal clients and dialogs
-  ruled.client.append_rule {
-    id = "titlebars",
-    rule_any = { type = { "normal", "dialog" } },
-    properties = { titlebars_enabled = true },
-  }
+    -- tasklist order
+    ruled.client.append_rule {
+        id = "tasklist_order",
+        rule = {},
+        properties = {},
+        callback = awful.client.setslave
+    }
+
+    -- Float em
+    ruled.client.append_rule {
+        id = "floating",
+        rule_any = {
+            class = {"Arandr", "Blueman-manager", "Sxiv", "fzfmenu"},
+            role = {
+                "pop-up" -- e.g. Google Chrome's (detached) Developer Tools.
+            },
+            name = {"Friends List", "Steam - News"},
+            instance = {"spad", "discord", "music"}
+        },
+        properties = {floating = true, placement = awful.placement.centered}
+    }
+
+    -- Borders
+    ruled.client.append_rule {
+        id = "borders",
+        rule_any = {type = {"normal", "dialog"}},
+        except_any = {
+            role = {"Popup"},
+            type = {"splash"},
+            name = {"^discord.com is sharing your screen.$"}
+        },
+        properties = {
+            border_width = beautiful.border_width,
+            border_color = beautiful.border_normal
+        }
+    }
+
+    -- Center Placement
+    ruled.client.append_rule {
+        id = "center_placement",
+        rule_any = {
+            type = {"dialog"},
+            class = {"Steam", "discord", "markdown_input", "scratchpad"},
+            instance = {"markdown_input", "scratchpad"},
+            role = {"GtkFileChooserDialog", "conversation"}
+        },
+        properties = {placement = awful.placement.center}
+    }
+
+    -- Titlebar rules
+    ruled.client.append_rule {
+        id = "titlebars",
+        rule_any = {type = {"normal", "dialog"}},
+        except_any = {
+            class = {"Steam", "zoom", "jetbrains-studio", "chat", "Org.gnome.Nautilus", "Firefox", "Google-chrome", "Brave-browser"},
+            type = {"splash"},
+            instance = {"onboard"},
+            name = {"^discord.com is sharing your screen.$"}
+        },
+        properties = {titlebars_enabled = false}
+    }
 end)
 
--- Notifications
-
-ruled.notification.connect_signal("request::rules", function()
-  -- All notifications will match this rule.
-  ruled.notification.append_rule {
-    rule = {},
-    properties = {
-      screen = awful.screen.preferred,
-      implicit_timeout = 5,
-    },
-  }
-end)
-
-naughty.connect_signal("request::display", function(n)
-  naughty.layout.box { notification = n }
-end)
-
--- Enable sloppy focus, so that focus follows mouse.
-client.connect_signal("mouse::enter", function(c)
-  c:activate { context = "mouse_enter", raise = false }
-end)
+ruled.client.append_rules {
+    {
+        rule = {instance = 'sun-awt-X11-XFramePeer', class = 'jetbrains-studio'},
+        properties = {titlebars_enabled = false, floating = false}
+    }, {
+        rule = {
+            instance = 'sun-awt-X11-XWindowPeer',
+            class = 'jetbrains-studio',
+            type = 'dialog'
+        },
+        properties = {
+            titlebars_enabled = false,
+            border_width = 0,
+            floating = true,
+            focus = true
+        }
+    }, {
+        rule = {
+            instance = 'sun-awt-X11-XFramePeer',
+            class = 'jetbrains-studio',
+            name = 'Android Virtual Device Manager'
+        },
+        properties = {
+            titlebars_enabled = true,
+            floating = true,
+            focus = true,
+            placement = awful.placement.centered
+        }
+    }, {
+        rule = {
+            instance = 'sun-awt-X11-XFramePeer',
+            class = 'jetbrains-studio',
+            name = 'Welcome to Android Studio'
+        },
+        properties = {
+            titlebars_enabled = false,
+            floating = true,
+            focus = true,
+            placement = awful.placement.centered
+        }
+    }, {
+        rule = {
+            instance = 'sun-awt-X11-XWindowPeer',
+            class = 'jetbrains-studio',
+            name = 'win0'
+        },
+        properties = {
+            titlebars_enabled = false,
+            floating = true,
+            focus = true,
+            border_width = 0,
+            placement = awful.placement.centered
+        }
+    }
+}
