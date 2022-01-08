@@ -69,9 +69,6 @@ awful.mouse.append_global_mousebindings({
     awful.button({}, 3, function() mymainmenu:toggle() end)
 })
 
--- Autostart programs
-require("autostart")
-
 -- Garbage Collector Settings
 collectgarbage("setpause", 110)
 collectgarbage("setstepmul", 1000)
