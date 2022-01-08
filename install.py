@@ -74,7 +74,7 @@ dependencies_aur = [
 # TODO: check if that pl10k is redundant
 
 bspwm_packages = ["bspwm", "sxhkd", "xdo", "rxvt-unicode", "lightdm-gtk-greeter", "lightdm", "polybar"]
-awesome_packages = ["awesome-git", "playerctl", "acpi", "pamixer", "brightnessctl", "lightdm-gtk-greeter", "lightdm"]
+awesome_packages = ["playerctl", "acpi", "pamixer", "brightnessctl", "lightdm-gtk-greeter", "lightdm"]
 
 # user provided arguments
 archinstall.arguments["harddrive"] = archinstall.select_disk(archinstall.all_disks())
@@ -144,6 +144,7 @@ def install_on(mountpoint):
         elif profile == "awesome":
             i.install_profile("xorg")
             i.add_additional_packages(awesome_packages)
+            dependencies_aur.append("awesome-git")
             i.enable_service("lightdm")
             # https://github.com/JavaCafe01/dotfiles/ (mostly)
             # https://gitlab.com/ihciM/dotfiles
