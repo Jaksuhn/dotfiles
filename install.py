@@ -74,6 +74,7 @@ dependencies_aur = [
 # TODO: check if that pl10k is redundant
 
 bspwm_packages = ["bspwm", "sxhkd", "xdo", "rxvt-unicode", "lightdm-gtk-greeter", "lightdm", "polybar"]
+awesome_packages = ["awesome-git", "playerctl", "acpi", "xorg-xbacklight"]
 
 # user provided arguments
 archinstall.arguments["harddrive"] = archinstall.select_disk(archinstall.all_disks())
@@ -141,7 +142,10 @@ def install_on(mountpoint):
             #     )
             # )
         elif profile == "awesome":
-            i.install_profile(profile)
+            i.install_profile("xorg")
+            i.add_additional_packages(awesome_packages)
+            # https://github.com/JavaCafe01/dotfiles/ (mostly)
+            # https://gitlab.com/ihciM/dotfiles
             i.arch_chroot("git clone https://github.com/Nooo37/bling.git ~/.config/awesome/modules/bling")
         else:
             i.install_profile(profile)
