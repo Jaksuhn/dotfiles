@@ -126,4 +126,4 @@ fpath=(~/.config/zsh/ $fpath)
 
 # Startup operations
 eval $(thefuck --alias)
-neofetch --kitty --size 25% --source ~/.config/neofetch/doge.png
+neofetch --kitty --source ~/.config/neofetch/doge.png --size 25%
