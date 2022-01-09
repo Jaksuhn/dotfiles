@@ -57,7 +57,7 @@ local awesomemenu = {
     {"Restart", awesome.restart}, {"Quit", function() awesome.quit() end}
 }
 
-local appmenu = {{"Wezterm", terminal}, {"Emacs", editor}}
+local appmenu = {{"kitty", terminal}, {"code", editor}}
 
 local mymainmenu = awful.menu({
     items = {
