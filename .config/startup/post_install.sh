@@ -1,5 +1,3 @@
-notify-send "post-install configuration" "running post_install.sh; don't do anything"
-
 ################################################
 #  __   __  ___    ___    ___     __| |   ___
 #  \ \ / / / __|  / __|  / _ \   / _` |  / _ \
@@ -138,5 +136,3 @@ firefox -new-tab -url about:addons -new-tab -url https://accounts.firefox.com/si
 # remove temp sudo privileges and auto startup
 # sudo sed -i "/$USER ALL=(ALL) NOPASSWD:ALL/d" /etc/sudoers.d/$USER
 sed -i '/# everything after this line will be removed automatically/,$d' ~/.zshrc
-
-notify-send "post-install configuration" "finished"
