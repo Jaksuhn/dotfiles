@@ -55,7 +55,6 @@ dependencies = [
     "unzip",
     "vlc",
     "wget",
-    "wpa_supplicant",
     "zsh",
 ]
 
