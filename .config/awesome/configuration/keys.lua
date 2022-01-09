@@ -136,7 +136,7 @@ awful.keyboard.append_global_keybindings({
     awful.key({modkey, "Control"}, "k",
               function() awful.screen.focus_relative(-1) end,
               {description = "focus the previous screen", group = "screen"}),
-    awful.key({modkey}, "Enter", function() awful.spawn(terminal) end,
+    awful.key({modkey}, "Return", function() awful.spawn(terminal) end,
               {description = "open a terminal", group = "launcher"}),
     awful.key({modkey}, "s",
               function() awesome.emit_signal("scratch::music") end,
