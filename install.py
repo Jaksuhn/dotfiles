@@ -34,7 +34,6 @@ dependencies = [
     "micro",
     "mupdf",
     "neofetch",
-    "networkmanager",
     "nnn",
     "noto-fonts-cjk",
     "noto-fonts-emoji",
@@ -56,6 +55,7 @@ dependencies = [
     "unzip",
     "vlc",
     "wget",
+    "wpa_supplicant",
     "zsh",
 ]
 

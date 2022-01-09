@@ -47,7 +47,6 @@ These are my dotfiles, built with the express purpose of being able to go from a
 [firejail](https://github.com/netblue30/firejail) (sandboxing);
 [flameshot](https://github.com/flameshot-org/flameshot) (screenshots);
 [iwd](https://git.kernel.org/cgit/network/wireless/iwd.git/);
-[networkmanager](https://networkmanager.dev/)
 [qmk](https://github.com/qmk/qmk_cli) (mechanical keyboard configurator);
 [simplescreenrecorder](https://www.maartenbaert.be/simplescreenrecorder/);
 [syncthing](https://syncthing.net/);
