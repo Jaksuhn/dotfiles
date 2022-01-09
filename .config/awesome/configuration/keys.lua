@@ -88,10 +88,10 @@ awful.keyboard.append_global_keybindings({
         description = "take a selection with pads",
         group = "media"
     }), -- Brightness
-    awful.key({modkey}, "XF86MonBrightnessUp",
+    awful.key({}, "XF86MonBrightnessUp",
               function() awful.spawn("brightnessctl s +5%") end,
               {description = "increase brightness", group = "media"}),
-    awful.key({modkey}, "XF86MonBrightnessDown",
+    awful.key({}, "XF86MonBrightnessDown",
               function() awful.spawn("brightnessctl s 5%-") end,
               {description = "decrease brightness", group = "media"}),
 
@@ -135,7 +135,7 @@ awful.keyboard.append_global_keybindings({
     awful.key({modkey, "Control"}, "k",
               function() awful.screen.focus_relative(-1) end,
               {description = "focus the previous screen", group = "screen"}),
-    awful.key({modkey}, "t", function() awful.spawn(terminal) end,
+    awful.key({modkey}, "Enter", function() awful.spawn(terminal) end,
               {description = "open a terminal", group = "launcher"}),
     awful.key({modkey}, "s",
               function() awesome.emit_signal("scratch::music") end,
@@ -145,6 +145,8 @@ awful.keyboard.append_global_keybindings({
 
     awful.key({modkey}, "f", function() awful.spawn(filemanager) end,
               {description = "open file browser", group = "launcher"}),
+    awful.key({modkey}, "c", function() awful.spawn(editor) end,
+              {description = "open code", group = "launcher"}),
     awful.key({modkey}, "v",
               function() awesome.emit_signal("scratch::chat") end,
               {description = "open chats", group = "scratchpad"}),
