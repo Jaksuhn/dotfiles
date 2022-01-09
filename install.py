@@ -39,6 +39,7 @@ dependencies = [
     "nnn",
     "noto-fonts-cjk",
     "noto-fonts-emoji",
+    "pulseaudio",
     "qmk",
     "rust",
     "simplescreenrecorder",
