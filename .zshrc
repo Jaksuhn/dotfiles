@@ -127,6 +127,3 @@ fpath=(~/.config/zsh/ $fpath)
 # Startup operations
 eval $(thefuck --alias)
 neofetch --kitty --size 25% --source ~/.config/neofetch/doge.png
-
-# everything after this line will be removed automatically
-sh ~/.config/startup/post_install.sh
