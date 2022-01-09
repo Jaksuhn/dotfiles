@@ -46,9 +46,12 @@ These are my dotfiles, built with the express purpose of being able to go from a
 [curl](https://curl.se/);
 [firejail](https://github.com/netblue30/firejail) (sandboxing);
 [flameshot](https://github.com/flameshot-org/flameshot) (screenshots);
+[iwd](https://git.kernel.org/cgit/network/wireless/iwd.git/);
+[networkmanager](https://networkmanager.dev/)
 [qmk](https://github.com/qmk/qmk_cli) (mechanical keyboard configurator);
 [simplescreenrecorder](https://www.maartenbaert.be/simplescreenrecorder/);
 [syncthing](https://syncthing.net/);
+[unzip](http://infozip.sourceforge.net/UnZip.html);
 [yadm-git](https://github.com/TheLocehiliosan/yadm) (dotfile manager)
 
 ### applications
