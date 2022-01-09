@@ -10,7 +10,7 @@ ENCODING = "UTF-8"
 TIMEZONE = "US/Eastern"
 DOWNLOAD_REGION = "United States"
 DEFAULT_USER = "snow"
-_PROFILE = "gnome"
+_PROFILE = "awesome"
 
 dependencies = [
     "bash-completion",
@@ -74,6 +74,7 @@ dependencies_aur = [
 # TODO: check if that pl10k is redundant
 
 bspwm_packages = ["bspwm", "sxhkd", "xdo", "rxvt-unicode", "lightdm-gtk-greeter", "lightdm", "polybar"]
+awesome_packages = ["playerctl", "acpi", "pamixer", "brightnessctl", "lightdm-gtk-greeter", "lightdm"]
 
 # user provided arguments
 archinstall.arguments["harddrive"] = archinstall.select_disk(archinstall.all_disks())
@@ -140,6 +141,13 @@ def install_on(mountpoint):
             #         "pacman -Rns gnome-software gnome-weather gnome-contacts gnome-calendar gnome-boxes epiphany gnome-books gedit gnome-music simple-scan gnome-maps gnome-photos totem gnome-clocks gnome-calculator eog sushi evince file-roller gnome-screenshot gnome-characters gnome-backgrounds"
             #     )
             # )
+        elif profile == "awesome":
+            i.install_profile("xorg")
+            i.add_additional_packages(awesome_packages)
+            dependencies_aur.append("awesome-git")
+            i.enable_service("lightdm")
+            # https://github.com/JavaCafe01/dotfiles/ (mostly)
+            # https://gitlab.com/ihciM/dotfiles
         else:
             i.install_profile(profile)
 
@@ -169,7 +177,7 @@ def install_on(mountpoint):
 
         # clone dotfiles
         i.arch_chroot(
-            f"su {user} -c 'cd $(mktemp -d) && git clone -b testing {'git@github.com:jaksuhn/dotfiles.git' if github_access_token else 'https://github.com/jaksuhn/dotfiles.git'} . && cp -rb . ~'"
+            f"su {user} -c 'cd $(mktemp -d) && git clone -b awesome {'git@github.com:jaksuhn/dotfiles.git' if github_access_token else 'https://github.com/jaksuhn/dotfiles.git'} . && cp -rb . ~'"
         )
 
         # add more processors to the makepkg build system
