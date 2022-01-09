@@ -111,6 +111,7 @@ def install_on(mountpoint):
 
         # enable networking
         i.copy_iso_network_config(enable_services=True)
+        i.enable_service("iwd")
 
         i.arch_chroot(r"sed -i '/\[multilib\]/,/Include/''s/^#//' /etc/pacman.conf")  # enable 32-bit apps
         i.arch_chroot(r"sed -i 's/#\(Color\)/\1/' /etc/pacman.conf")  # enable coloured output
