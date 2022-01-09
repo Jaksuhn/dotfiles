@@ -77,17 +77,18 @@ awful.keyboard.append_global_keybindings({
               {description = "playerctl next", group = "media"}),
 
     -- Screen Shots/Vids
-    awful.key({}, "Print", function() require("ui.pop.shoot"):show() end,
-              {description = "take a screenshot", group = "media"}),
-    awful.key({modkey}, "Print",
-              function() awful.spawn.with_shell("shoot selnp") end, {
-        description = "take a selection with no pads",
-        group = "media"
-    }), awful.key({modkey, "Shift"}, "Print",
-                  function() awful.spawn.with_shell("shoot sel") end, {
-        description = "take a selection with pads",
-        group = "media"
-    }), -- Brightness
+    -- awful.key({}, "Print", function() require("ui.pop.shoot"):show() end,
+    --           {description = "take a screenshot", group = "media"}),
+    -- awful.key({modkey}, "Print",
+    --           function() awful.spawn.with_shell("shoot selnp") end, {
+    --     description = "take a selection with no pads",
+    --     group = "media"
+    -- }), awful.key({modkey, "Shift"}, "Print",
+    --               function() awful.spawn.with_shell("shoot sel") end, {
+    --     description = "take a selection with pads",
+    --     group = "media"
+    -- }),
+    -- Brightness
     awful.key({}, "XF86MonBrightnessUp",
               function() awful.spawn("brightnessctl s +5%") end,
               {description = "increase brightness", group = "media"}),
