@@ -35,6 +35,7 @@ dependencies = [
     "mupdf",
     "neofetch",
     "networkmanager",
+    "network-manager-applet",
     "nnn",
     "noto-fonts-cjk",
     "noto-fonts-emoji",
@@ -77,7 +78,7 @@ dependencies_aur = [
 # TODO: check if that pl10k is redundant
 
 bspwm_packages = ["bspwm", "sxhkd", "xdo", "rxvt-unicode", "lightdm-gtk-greeter", "lightdm", "polybar"]
-awesome_packages = ["playerctl", "acpi", "pamixer", "brightnessctl", "lightdm-gtk-greeter", "lightdm", "upower"]
+awesome_packages = ["playerctl", "acpi", "pamixer", "brightnessctl", "lightdm-gtk-greeter", "lightdm", "upower", "rofi"]
 
 # user provided arguments
 archinstall.arguments["harddrive"] = archinstall.select_disk(archinstall.all_disks())
