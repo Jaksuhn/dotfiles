@@ -164,7 +164,7 @@ def install_on(mountpoint):
         i.arch_chroot(r"sed -i 's/# \(%wheel ALL=(ALL) ALL\)/\1/' /etc/sudoers")
 
         # enable systemd services
-        i.enable_service("iwd", "systemd-timesyncd", "docker", "bluetooth", "fstrim.timer")
+        i.log(i.enable_service("iwd", "systemd-timesyncd", "docker", "bluetooth", "fstrim.timer"), level=logging.INFO)
         i.arch_chroot(r"sed -i 's/[#]*\(AutoEnable=\)\(true\|false\)/\1true/' /etc/bluetooth/main.conf")
 
         i.arch_chroot(f'su {user} -c \'ssh-keygen -t ed25519 -C "{user}@{hostname}" -f ~/.ssh/id_ed25519 -N ""\'')
