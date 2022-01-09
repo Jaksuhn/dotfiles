@@ -9,7 +9,6 @@ vscode_extensions=(
     davidanson.vscode-markdownlint
     eamodio.gitlens
     formulahendry.code-runner
-    github.copilot
     grapecity.gc-excelviewer
     konstantin.wrapselection
     ms-python.python
