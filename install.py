@@ -111,7 +111,6 @@ def install_on(mountpoint):
 
         # enable networking
         i.copy_iso_network_config(enable_services=True)
-        i.enable_service("iwd")
 
         i.arch_chroot(r"sed -i '/\[multilib\]/,/Include/''s/^#//' /etc/pacman.conf")  # enable 32-bit apps
         i.arch_chroot(r"sed -i 's/#\(Color\)/\1/' /etc/pacman.conf")  # enable coloured output
@@ -164,7 +163,7 @@ def install_on(mountpoint):
         i.arch_chroot(r"sed -i 's/# \(%wheel ALL=(ALL) ALL\)/\1/' /etc/sudoers")
 
         # enable systemd services
-        i.enable_service("systemd-timesyncd", "docker", "bluetooth", "fstrim.timer")
+        i.enable_service("iwd", "systemd-timesyncd", "docker", "bluetooth", "fstrim.timer")
         i.arch_chroot(r"sed -i 's/[#]*\(AutoEnable=\)\(true\|false\)/\1true/' /etc/bluetooth/main.conf")
 
         i.arch_chroot(f'su {user} -c \'ssh-keygen -t ed25519 -C "{user}@{hostname}" -f ~/.ssh/id_ed25519 -N ""\'')
