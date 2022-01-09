@@ -178,7 +178,7 @@ def install_on(mountpoint):
 
         # clone dotfiles
         i.arch_chroot(
-            f"su {user} -c 'cd $(mktemp -d) && git clone -b awesome {'git@github.com:jaksuhn/dotfiles.git' if github_access_token else 'https://github.com/jaksuhn/dotfiles.git'} . && cp -rb . ~'"
+            f"su {user} -c 'cd $(mktemp -d) && git clone -b testing {'git@github.com:jaksuhn/dotfiles.git' if github_access_token else 'https://github.com/jaksuhn/dotfiles.git'} . && cp -rb . ~'"
         )
         i.arch_chroot(f"rm -rf ~/.git")
 
