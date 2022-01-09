@@ -34,6 +34,7 @@ dependencies = [
     "micro",
     "mupdf",
     "neofetch",
+    "networkmanager",
     "nnn",
     "noto-fonts-cjk",
     "noto-fonts-emoji",
