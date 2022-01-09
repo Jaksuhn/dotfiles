@@ -51,6 +51,7 @@ dependencies = [
     "ttf-liberation",
     "ttf-opensans",
     "ttf-roboto",
+    "unzip",
     "vlc",
     "wget",
     "zsh",
