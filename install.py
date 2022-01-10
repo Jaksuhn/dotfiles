@@ -190,7 +190,7 @@ def install_on(mountpoint):
             ),
             level=logging.INFO,
         )
-        i.log(i.arch_chroot(f"rm -rf ~/.git"), level=logging.INFO)
+        i.log(i.arch_chroot(f"su {user} -c 'rm -rf ~/.git'"), level=logging.INFO)
 
         # add more processors to the makepkg build system
         i.arch_chroot(r"sed -i 's/#\(MAKEFLAGS=\).*/\1\"-j$(($(nproc)-2))\"/' /etc/makepkg.conf")
