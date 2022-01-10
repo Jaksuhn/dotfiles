@@ -81,7 +81,17 @@ dependencies_aur = [
 # TODO: check if that pl10k is redundant
 
 bspwm_packages = ["bspwm", "sxhkd", "xdo", "rxvt-unicode", "lightdm-gtk-greeter", "lightdm", "polybar"]
-awesome_packages = ["playerctl", "acpi", "pamixer", "brightnessctl", "lightdm-gtk-greeter", "lightdm", "upower", "rofi"]
+awesome_packages = [
+    "playerctl",
+    "acpi",
+    "pamixer",
+    "brightnessctl",
+    "lightdm-gtk-greeter",
+    "lightdm",
+    "upower",
+    "rofi",
+    "xinput",
+]
 
 # user provided arguments
 archinstall.arguments["harddrive"] = archinstall.select_disk(archinstall.all_disks())
@@ -197,6 +207,7 @@ def install_on(mountpoint):
             i.arch_chroot(f"su {user} -c 'yadm clone --branch {BRANCH} https://github.com/jaksuhn/dotfiles'"),
             level=logging.INFO,
         )
+        i.log(i.arch_chroot(f"su {user} -c 'chmod +x ~/.config/awesome/autostart.lua'"), level=logging.INFO)
 
         # add more processors to the makepkg build system
         i.arch_chroot(r"sed -i 's/#\(MAKEFLAGS=\).*/\1\"-j$(($(nproc)-2))\"/' /etc/makepkg.conf")

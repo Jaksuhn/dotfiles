@@ -44,7 +44,12 @@ screen.connect_signal("request::desktop_decoration", function(s)
 end)
 
 -- Autostart
--- require("autostart")
+awesome.connect_signal(
+    'startup',
+    function(args)
+        awful.util.spawn('bash -c "~/.config/startup/touchpad.sh"')
+    end
+)
 
 -- Import Daemons and Widgets
 require("signal")
