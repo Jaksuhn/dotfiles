@@ -207,7 +207,7 @@ def install_on(mountpoint):
             i.arch_chroot(f"su {user} -c 'yadm clone --branch {BRANCH} https://github.com/jaksuhn/dotfiles'"),
             level=logging.INFO,
         )
-        i.log(i.arch_chroot(f"su {user} -c 'chmod +x ~/.config/awesome/autostart.lua'"), level=logging.INFO)
+        i.log(i.arch_chroot(f"su {user} -c 'chmod +x ~/.config/startup/touchpad.sh'"), level=logging.INFO)
 
         # add more processors to the makepkg build system
         i.arch_chroot(r"sed -i 's/#\(MAKEFLAGS=\).*/\1\"-j$(($(nproc)-2))\"/' /etc/makepkg.conf")
