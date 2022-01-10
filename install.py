@@ -90,7 +90,7 @@ awesome_packages = [
     "lightdm",
     "upower",
     "rofi",
-    "xinput",
+    "xorg-xinput",
 ]
 
 # user provided arguments
