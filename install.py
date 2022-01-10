@@ -12,6 +12,8 @@ DOWNLOAD_REGION = "United States"
 DEFAULT_USER = "snow"
 _PROFILE = "awesome"
 
+BRANCH = "testing"
+
 dependencies = [
     "bash-completion",
     "baobab",
@@ -186,11 +188,15 @@ def install_on(mountpoint):
         # clone dotfiles
         i.log(
             i.arch_chroot(
-                f"su {user} -c 'cd $(mktemp -d) && git clone -b testing {'git@github.com:jaksuhn/dotfiles.git' if github_access_token else 'https://github.com/jaksuhn/dotfiles.git'} . && cp -rb . ~'"
+                f"su {user} -c 'cd $(mktemp -d) && git clone -b {BRANCH} {'git@github.com:jaksuhn/dotfiles.git' if github_access_token else 'https://github.com/jaksuhn/dotfiles.git'} . && cp -rb . ~'"
             ),
             level=logging.INFO,
         )
         i.log(i.arch_chroot(f"su {user} -c 'rm -rf ~/.git'"), level=logging.INFO)
+        i.log(
+            i.arch_chroot(f"su {user} -c 'yadm clone --branch {BRANCH} https://github.com/jaksuhn/dotfiles'"),
+            level=logging.INFO,
+        )
 
         # add more processors to the makepkg build system
         i.arch_chroot(r"sed -i 's/#\(MAKEFLAGS=\).*/\1\"-j$(($(nproc)-2))\"/' /etc/makepkg.conf")
