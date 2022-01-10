@@ -77,6 +77,7 @@ export NNN_PLUG='p:preview-tui'
 # z4h source ~/.env.zsh
 z4h source ~/.config/zsh/.aliases
 z4h source ~/.config/zsh/.functions
+z4h source ~/.config/startup/touchpad
 
 # Use additional Git repositories pulled in with `z4h install`.
 #

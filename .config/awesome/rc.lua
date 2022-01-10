@@ -44,7 +44,7 @@ screen.connect_signal("request::desktop_decoration", function(s)
 end)
 
 -- Autostart
-require("autostart")
+-- require("autostart")
 
 -- Import Daemons and Widgets
 require("signal")
