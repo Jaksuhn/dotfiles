@@ -48,6 +48,8 @@ awesome.connect_signal(
     'startup',
     function(args)
         awful.util.spawn('bash -c "~/.config/startup/touchpad.sh"')
+        awful.util.spawn('bash -c "feh --bg-fill ~/.config/startup/wallpapers/switch_sushi.png"')
+        awful.util.spawn('picom -b')
     end
 )
 
