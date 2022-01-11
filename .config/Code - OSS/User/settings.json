@@ -88,6 +88,7 @@
         "--line-length",
         "120"
     ],
+    "security.workspace.trust.enabled": false,
     "security.workspace.trust.untrustedFiles": "open",
     "notebook.cellToolbarLocation": {
         "default": "right",
