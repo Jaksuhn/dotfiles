@@ -29,3 +29,7 @@ alias wtd="weathertoday"
 alias weathertomorrow="curl -s wttr.in | sed -n '18,27p'"
 alias wtomorrow="weathertomorrow"
 alias wtmrw="weathertomorrow"
+
+# First time setups
+alias setup-vscode="sh ~/.config/startup/vscode_setup.sh"
+alias setup-firefox="sh ~/.config/startup/firefox_setup.sh"
