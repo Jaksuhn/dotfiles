@@ -228,6 +228,8 @@ def install_on(mountpoint):
             i.arch_chroot(f"su {user} -c 'yadm clone --branch {BRANCH} https://github.com/jaksuhn/dotfiles'"),
             level=logging.INFO,
         )
+        i.arch_chroot(f"su {user} -c 'git config --global user.name \"{user}\"'")
+        i.arch_chroot(f"su {user} -c 'git config --global user.email \"{user}@{hostname}\"'")
 
         i.arch_chroot(r"sed -i 's/\(%wheel ALL=(ALL) NOPASSWD: ALL\)/# \1/' /etc/sudoers")  # comment
         i.arch_chroot(f"chown -R {user}:{user} /home/{user}/paru")
