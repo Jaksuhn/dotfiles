@@ -91,6 +91,8 @@ awesome_packages = [
     "upower",
     "rofi",
     "xorg-xinput",
+    "picom",
+    "feh",
 ]
 
 # user provided arguments
