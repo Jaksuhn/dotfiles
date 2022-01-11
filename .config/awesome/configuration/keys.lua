@@ -151,7 +151,7 @@ awful.keyboard.append_global_keybindings({
     awful.key({modkey}, "v",
               function() awesome.emit_signal("scratch::chat") end,
               {description = "open chats", group = "scratchpad"}),
-    awful.key({modkey}, "w", function() awful.spawn.with_shell(browser) end,
+    awful.key({modkey}, "b", function() awful.spawn.with_shell(browser) end,
               {description = "open firefox", group = "launcher"}),
 
     awful.key({modkey}, "l", function() awful.tag.incmwfact(0.05) end,
