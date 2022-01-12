@@ -11,15 +11,15 @@ sleep 5s
 pkill -f firefox
 # https://unix.stackexchange.com/questions/374852/create-file-using-wildcard-in-absolute-path
 for d in ~/.mozilla/firefox/*.default-release/ ; do
-    sudo mkdir "$d"chrome
-    sudo mkdir "$d"extensions
+    mkdir "$d"chrome
+    mkdir "$d"extensions
     # required for userChrome to work
     echo 'user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);' >> "$d"prefs.js
     # misc preferences
     echo 'user_pref("browser.startup.homepage", "https://www.youtube.com/feed/subscriptions");' >> "$d"prefs.js
     echo 'user_pref("browser.newtabpage.enabled", false);' >> "$d"prefs.js
 done
-sudo ln -sf $HOME/.config/firefox/userChrome.css to $HOME/.mozilla/firefox/*.default-release/chrome
+ln -sf $HOME/.config/firefox/userChrome.css to $HOME/.mozilla/firefox/*.default-release/chrome
 
 # I assume these don't change. This will break if they do. I do not have a way to fetch them automatically.
 # The "Addon-icon-image" element on the addon page has the number at the end of the url
@@ -73,7 +73,7 @@ for ext_id in "${firefox_extension_ids[@]}"; do
 done
 
 shred -u manifest.json
-sudo mv -v ~/tmp_ext_dir/* ~/.mozilla/firefox/*.default-release/extensions/
+mv -v ~/tmp_ext_dir/* ~/.mozilla/firefox/*.default-release/extensions/
 rm -rf ~/tmp_ext_dir
 
 firefox -new-tab -url about:addons -new-tab -url https://accounts.firefox.com/signin &
