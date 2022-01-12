@@ -7,7 +7,7 @@ These are my dotfiles, built with the express purpose of being able to go from a
 
 1. get the latest [arch ISO](https://archlinux.org/download/)
 2. boot it up and run `python <(curl -sL https://raw.github.com/jaksuhn/dotfiles/main/install.py)`
-3. open kitty when you log in; `post_install.sh` will auto run
+3. open kitty when you log in; run any `setup_<app>.sh` files
 4. enable all firefox addons (`about:addons`)
 5. import the various extension configs (uBlock, TST, SkipRedirect, Imagus)
 
@@ -97,13 +97,9 @@ These are my dotfiles, built with the express purpose of being able to go from a
 
 ## WORKING:
 
-- full arch installation
-- auto post-installation configuration
-- 99% automatic firefox setup (userChrome, extension installation)
-- kitty themed and configured
-- zsh and plugins configured
-- vscode settings, configs, extensions, theme
-- gnome material shell
+- Profiles: GNOME, Awesome
+- Applications: kitty, zsh, vscode, firefox
+- yadm
 
 ## TODO:
 
@@ -113,18 +109,17 @@ config:
 - neofetch
 - git
 - lockscreen
-- yadm
 
-profiles:
+profiles to port:
 
 - kde
 - bspwm
-- i3 (not even started)
+- i3
 - sway
 
 misc:
 
-- make gnome show hidden files by default
+- make gnome (awesome too) show hidden files by default
 - sign into firefox via terminal
 - auto discord/telegram signin?
 - add telegram's theme
