@@ -93,6 +93,8 @@ awesome_packages = [
     "xorg-xinput",
     "picom",
     "feh",
+    "xfce4",
+    "gvfs",
 ]
 
 # user provided arguments
@@ -161,12 +163,20 @@ def install_on(mountpoint):
             #     )
             # )
         elif profile == "awesome":
+            # https://github.com/JavaCafe01/dotfiles/ (mostly)
+            # https://gitlab.com/ihciM/dotfiles
             i.install_profile("xorg")
             i.add_additional_packages(awesome_packages)
             dependencies_aur.append("awesome-git")
             i.enable_service("lightdm")
-            # https://github.com/JavaCafe01/dotfiles/ (mostly)
-            # https://gitlab.com/ihciM/dotfiles
+            # set awesome to run over xfce
+            i.arch_chroot(
+                "xfconf-query -c xfce4-session -p /sessions/Failsafe/Client0_Command -t string -sa xfsettingsd"
+            )
+            i.arch_chroot("xfconf-query -c xfce4-session -p /sessions/Failsafe/Client1_Command -t string -sa awesome")
+            i.arch_chroot('xfconf-query -c xsettings -p /Gtk/FontName -s "Roboto 10"')
+            i.arch_chroot('xfconf-query -c xsettings -p /Gtk/MonospaceFontName -s "JetBrainsMono Nerd Font 10"')
+            # look into https://github.com/vlfldr/rofi-wifi-menu or https://github.com/ericmurphyxyz/rofi-wifi-menu
         else:
             i.install_profile(profile)
 
