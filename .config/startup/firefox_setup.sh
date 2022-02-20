@@ -15,9 +15,12 @@ for d in ~/.mozilla/firefox/*.default-release/ ; do
     mkdir "$d"extensions
     # required for userChrome to work
     echo 'user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);' >> "$d"prefs.js
-    # misc preferences
+
     echo 'user_pref("browser.startup.homepage", "https://www.youtube.com/feed/subscriptions");' >> "$d"prefs.js
     echo 'user_pref("browser.newtabpage.enabled", false);' >> "$d"prefs.js
+    echo 'user_pref("dom.security.https_only_mode", true);' >> "$d"prefs.js
+    echo 'user_pref("dom.security.https_only_mode_ever_enabled", true);' >> "$d"prefs.js
+    echo 'user_pref("dom.security.https_only_mode_ever_enabled_pbm", true);' >> "$d"prefs.js
 done
 ln -sf $HOME/.config/firefox/userChrome.css to $HOME/.mozilla/firefox/*.default-release/chrome
 
@@ -27,7 +30,6 @@ ln -sf $HOME/.config/firefox/userChrome.css to $HOME/.mozilla/firefox/*.default-
 firefox_extension_ids=(
     607454
     5890
-    229918
     2590937
     642100
     735894
@@ -45,7 +47,6 @@ firefox_extension_ids=(
 
 # ublock-origin (607454)
 # tree-style-tab (5890)
-# https-everywhere (229918)
 # sponsorblock (2590937)
 # skip-redirect (642100)
 # bitwarden-password-manager (735894)
