@@ -33,3 +33,4 @@ alias wtmrw="weathertomorrow"
 # First time setups
 alias setup-vscode="sh ~/.config/startup/vscode_setup.sh"
 alias setup-firefox="sh ~/.config/startup/firefox_setup.sh"
+alias setup-gnome="sh ~/.config/startup/gnome_setup.sh"
