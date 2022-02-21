@@ -139,7 +139,7 @@ def install_on(mountpoint):
         )  # parallel downloads
 
         # fix potential gpg key issues when using an older ISO
-        i.arch_chroot("pacman -S archlinux-keyring --noconfirm")
+        i.log(i.arch_chroot("pacman -Sy archlinux-keyring --noconfirm && pacman -Su --noconfirm"), level=logging.INFO)
         i.log(i.add_additional_packages(dependencies), level=logging.INFO)
 
         # the profiles are tricky to customise from chroot. May remove and place in a post-install .sh file
