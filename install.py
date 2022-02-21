@@ -140,7 +140,7 @@ def install_on(mountpoint):
 
         # fix potential gpg key issues when using an older ISO
         i.arch_chroot("pacman -S archlinux-keyring --noconfirm")
-        i.add_additional_packages(dependencies)
+        i.log(i.add_additional_packages(dependencies), level=logging.INFO)
 
         # the profiles are tricky to customise from chroot. May remove and place in a post-install .sh file
         if profile == "bspwm":
