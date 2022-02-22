@@ -198,7 +198,7 @@ def install_on(mountpoint):
             )
             i.log(
                 i.arch_chroot(
-                    f"su {user} -c 'cd $(mktemp -d) && git clone https://github.com/vinceliuice/Qogir-icon-theme . && $SHELL install.sh && $SHELL /src/cursors/install.sh'"
+                    f"su {user} -c 'cd $(mktemp -d) && git clone https://github.com/vinceliuice/Qogir-icon-theme . && $SHELL install.sh && cd src/cursors && $SHELL install.sh'"
                 ),
                 level=logging.INFO,
             )
