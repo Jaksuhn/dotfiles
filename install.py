@@ -151,10 +151,7 @@ def install_on(mountpoint):
         # create user, change login shell
         i.user_create(str(user), str(user_password))
         i.log(i.arch_chroot(f'chsh -s /usr/bin/zsh "{user}"'), level=logging.INFO)
-        i.log(
-            i.arch_chroot(r"sed -i 's/# \(%wheel ALL=(ALL) NOPASSWD: ALL\)/\1/' /etc/sudoers"), level=logging.INFO
-        )  # uncomment line
-        i.log(i.arch_chroot(f"usermod -aG wheel {user}"), level=logging.INFO)
+        # i.log(i.arch_chroot(f"usermod -aG wheel {user}"), level=logging.INFO)
         i.log(i.arch_chroot(f"sed -i '/root ALL=(ALL:ALL) ALL/a{user} ALL=(ALL:ALL) ALL' /etc/sudoers"))
 
         # the profiles are tricky to customise from chroot. May remove and place in a post-install .sh file
@@ -231,9 +228,6 @@ def install_on(mountpoint):
         else:
             i.install_profile(profile)
 
-        # create root account, grant full sudoers access
-        # i.user_set_pw("root", str(root_password))
-
         # enable systemd services
         i.log(
             i.enable_service("iwd", "NetworkManager", "systemd-timesyncd", "docker", "bluetooth", "fstrim.timer"),
@@ -266,6 +260,7 @@ def install_on(mountpoint):
         i.arch_chroot(r"sed -i 's/#\(MAKEFLAGS=\).*/\1\"-j$(($(nproc)-2))\"/' /etc/makepkg.conf")
 
         # install paru and aur packages
+        i.arch_chroot(r"sed -i 's/# \(%wheel ALL=(ALL) NOPASSWD: ALL\)/\1/' /etc/sudoers")
         i.log(
             i.arch_chroot(
                 f"su {user} -c 'cd $(mktemp -d) && git clone https://aur.archlinux.org/paru-bin.git . && makepkg -sim --noconfirm'"
@@ -276,6 +271,7 @@ def install_on(mountpoint):
             i.arch_chroot(f'su {user} -c "paru -Sy --nosudoloop --needed --noconfirm {" ".join(dependencies_aur)}"'),
             level=logging.INFO,
         )
+        i.arch_chroot(r"sed -i 's/\(%wheel ALL=(ALL) NOPASSWD: ALL\)/# \1/' /etc/sudoers")
         i.log(i.arch_chroot(f"chown -R {user}:{user} /home/{user}/paru"), level=logging.INFO)
 
         # setup yadm
