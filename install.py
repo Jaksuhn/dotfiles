@@ -143,6 +143,14 @@ def install_on(mountpoint):
         i.log(i.arch_chroot("pacman -S archlinux-keyring --noconfirm"), level=logging.INFO)
         i.log(i.add_additional_packages(dependencies), level=logging.INFO)
 
+        # create user, change login shell
+        i.user_create(str(user), str(user_password))
+        i.log(i.arch_chroot(f'chsh -s /usr/bin/zsh "{user}"'), level=logging.INFO)
+        i.log(
+            i.arch_chroot(r"sed -i 's/# \(%wheel ALL=(ALL) NOPASSWD: ALL\)/\1/' /etc/sudoers"), level=logging.INFO
+        )  # uncomment
+        i.log(i.arch_chroot(f"usermod -aG wheel {user}"), level=logging.INFO)
+
         # the profiles are tricky to customise from chroot. May remove and place in a post-install .sh file
         if profile == "bspwm":
             i.install_profile("xorg")
@@ -182,13 +190,38 @@ def install_on(mountpoint):
             i.install_profile(profile)
             i.add_additional_packages(xfce4_packages)
             dependencies_aur.append("lightdm-webkit2-theme-glorious")
+            i.log(i.arch_chroot("git clone https://github.com/vinceliuice/Qogir-theme"), level=logging.INFO)
+            i.log(i.arch_chroot("cd ~/Qogir-theme && $SHELL install.sh"), level=logging.INFO)
+            i.log(i.arch_chroot("git clone https://github.com/vinceliuice/Qogir-icon-theme"), level=logging.INFO)
+            i.log(
+                i.arch_chroot(
+                    "cd ~/Qogir-icon-theme && $SHELL install.sh && cd ~/Qogir-icon-theme/src/cursors && $SHELL install.sh"
+                ),
+                level=logging.INFO,
+            )
+            i.log(i.arch_chroot("rm -rf ~/Qogir-theme && rm -rf ~/Qogir-icon-theme"), level=logging.INFO)
+            # Set default lightdm greeter to lightdm-webkit2-greeter
+            i.log(
+                i.arch_chroot(
+                    "sudo sed -i 's/^\(#?greeter\)-session\s*=\s*\(.*\)/greeter-session = lightdm-webkit2-greeter #\1/ #\2g' /etc/lightdm/lightdm.conf"
+                ),
+                level=logging.INFO,
+            )
+            # Set default lightdm-webkit2-greeter theme to Glorious
+            i.log(
+                i.arch_chroot(
+                    "sudo sed -i 's/^webkit_theme\s*=\s*\(.*\)/webkit_theme = glorious #\1/g' /etc/lightdm/lightdm-webkit2-greeter.conf"
+                ),
+                level=logging.INFO,
+            )
+            i.log(
+                i.arch_chroot(
+                    "sudo sed -i 's/^debug_mode\s*=\s*\(.*\)/debug_mode = true #\1/g' /etc/lightdm/lightdm-webkit2-greeter.conf"
+                ),
+                level=logging.INFO,
+            )
         else:
             i.install_profile(profile)
-
-        # create user, change login shell
-        i.user_create(str(user), str(user_password))
-        i.log(i.arch_chroot(f'chsh -s /usr/bin/zsh "{user}"'), level=logging.INFO)
-        i.log(i.arch_chroot(rf"sed -i '$a{user} ALL=(ALL) NOPASSWD:ALL /etc/sudoers.d/{user}'"), level=logging.INFO)
 
         # create root account, grant full sudoers access
         i.user_set_pw("root", str(root_password))
@@ -224,7 +257,6 @@ def install_on(mountpoint):
 
         # add more processors to the makepkg build system
         i.arch_chroot(r"sed -i 's/#\(MAKEFLAGS=\).*/\1\"-j$(($(nproc)-2))\"/' /etc/makepkg.conf")
-        i.arch_chroot(r"sed -i 's/# \(%wheel ALL=(ALL) NOPASSWD: ALL\)/\1/' /etc/sudoers")  # uncomment
 
         # install paru and aur packages
         i.log(
@@ -237,40 +269,7 @@ def install_on(mountpoint):
             i.arch_chroot(f'su {user} -c "paru -Sy --nosudoloop --needed --noconfirm {" ".join(dependencies_aur)}"'),
             level=logging.INFO,
         )
-
-        if profile == "xfce4":
-            i.log(
-                i.arch_chroot(
-                    f"su {user} -c 'git clone https://github.com/vinceliuice/Qogir-theme' && cd Qogir-theme && sh install.sh"
-                ),
-                level=logging.INFO,
-            )
-            i.log(
-                i.arch_chroot(
-                    f"su {user} -c 'git clone https://github.com/vinceliuice/Qogir-icon-theme && cd Qogir-icon-theme && sh install.sh && cd src/cursors && sh install.sh'"
-                ),
-                level=logging.INFO,
-            )
-            # Set default lightdm greeter to lightdm-webkit2-greeter
-            i.log(
-                i.arch_chroot(
-                    """sed -i 's/^\(#?greeter\)-session\s*=\s*\(.*\)/greeter-session = lightdm-webkit2-greeter #\1/ #\2g' /etc/lightdm/lightdm.conf"""
-                ),
-                level=logging.INFO,
-            )
-            # Set default lightdm-webkit2-greeter theme to Glorious
-            i.log(
-                i.arch_chroot(
-                    """sed -i 's/^webkit_theme\s*=\s*\(.*\)/webkit_theme = glorious #\1/g' /etc/lightdm/lightdm-webkit2-greeter.conf"""
-                ),
-                level=logging.INFO,
-            )
-            i.log(
-                i.arch_chroot(
-                    """sed -i 's/^debug_mode\s*=\s*\(.*\)/debug_mode = true #\1/g' /etc/lightdm/lightdm-webkit2-greeter.conf"""
-                ),
-                level=logging.INFO,
-            )
+        i.arch_chroot(f"chown -R {user}:{user} /home/{user}/paru")
 
         # setup yadm
         i.log(
@@ -279,9 +278,6 @@ def install_on(mountpoint):
         )
         i.arch_chroot(f"su {user} -c 'git config --global user.name \"{user}\"'")
         i.arch_chroot(f"su {user} -c 'git config --global user.email \"{user}@{hostname}\"'")
-
-        i.arch_chroot(r"sed -i 's/\(%wheel ALL=(ALL) NOPASSWD: ALL\)/# \1/' /etc/sudoers")  # comment
-        i.arch_chroot(f"chown -R {user}:{user} /home/{user}/paru")
 
         # fetch nnn plugins
         i.log(
