@@ -269,7 +269,7 @@ def install_on(mountpoint):
             i.arch_chroot(f'su {user} -c "paru -Sy --nosudoloop --needed --noconfirm {" ".join(dependencies_aur)}"'),
             level=logging.INFO,
         )
-        i.arch_chroot(f"chown -R {user}:{user} /home/{user}/paru")
+        i.log(i.arch_chroot(f"chown -R {user}:{user} /home/{user}/paru"), level=logging.INFO)
 
         # setup yadm
         i.log(
