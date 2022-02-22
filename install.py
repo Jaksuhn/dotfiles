@@ -10,7 +10,7 @@ ENCODING = "UTF-8"
 TIMEZONE = "US/Eastern"
 DOWNLOAD_REGION = "United States"
 DEFAULT_USER = "snow"
-_PROFILE = "awesome"
+_PROFILE = "xfce4"
 
 BRANCH = "testing"
 
@@ -96,6 +96,7 @@ awesome_packages = [
     "xfce4",
     "gvfs",
 ]
+xfce4_packages = ["gtk-engine-murrine", "gtk-engines", "lightdm-webkit2-greeter"]
 
 # user provided arguments
 archinstall.arguments["harddrive"] = archinstall.select_disk(archinstall.all_disks())
@@ -177,6 +178,27 @@ def install_on(mountpoint):
             i.arch_chroot('xfconf-query -c xsettings -p /Gtk/FontName -s "Roboto 10"')
             i.arch_chroot('xfconf-query -c xsettings -p /Gtk/MonospaceFontName -s "JetBrainsMono Nerd Font 10"')
             # look into https://github.com/vlfldr/rofi-wifi-menu or https://github.com/ericmurphyxyz/rofi-wifi-menu
+        elif profile == "xfce4":
+            i.install_profile(profile)
+            i.add_additional_packages(xfce4_packages)
+            dependencies_aur.append("lightdm-webkit2-theme-glorious")
+            i.arch_chroot(
+                f"su {user} -c 'git clone https://github.com/vinceliuice/Qogir-theme' && cd Qogir-theme && sh install.sh"
+            )
+            i.arch_chroot(
+                f"su {user} -c 'git clone https://github.com/vinceliuice/Qogir-icon-theme && cd Qogir-icon-theme && sh install.sh && cd src/cursors && sh install.sh'"
+            )
+            # Set default lightdm greeter to lightdm-webkit2-greeter
+            i.arch_chroot(
+                """sed -i 's/^\(#?greeter\)-session\s*=\s*\(.*\)/greeter-session = lightdm-webkit2-greeter #\1/ #\2g' /etc/lightdm/lightdm.conf"""
+            )
+            # Set default lightdm-webkit2-greeter theme to Glorious
+            i.arch_chroot(
+                """sed -i 's/^webkit_theme\s*=\s*\(.*\)/webkit_theme = glorious #\1/g' /etc/lightdm/lightdm-webkit2-greeter.conf"""
+            )
+            i.arch_chroot(
+                """sed -i 's/^debug_mode\s*=\s*\(.*\)/debug_mode = true #\1/g' /etc/lightdm/lightdm-webkit2-greeter.conf"""
+            )
         else:
             i.install_profile(profile)
 
