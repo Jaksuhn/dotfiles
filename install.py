@@ -143,13 +143,18 @@ def install_on(mountpoint):
         i.log(i.arch_chroot("pacman -S archlinux-keyring --noconfirm"), level=logging.INFO)
         i.log(i.add_additional_packages(dependencies), level=logging.INFO)
 
+        # create root account, grant root access
+        i.user_set_pw("root", str(root_password))
+        i.arch_chroot(r"sed -i 's/# \(%wheel ALL=(ALL) ALL\)/\1/' /etc/sudoers")
+
         # create user, change login shell
         i.user_create(str(user), str(user_password))
         i.log(i.arch_chroot(f'chsh -s /usr/bin/zsh "{user}"'), level=logging.INFO)
         i.log(
             i.arch_chroot(r"sed -i 's/# \(%wheel ALL=(ALL) NOPASSWD: ALL\)/\1/' /etc/sudoers"), level=logging.INFO
-        )  # uncomment
+        )  # uncomment line
         i.log(i.arch_chroot(f"usermod -aG wheel {user}"), level=logging.INFO)
+        i.log(i.arch_chroot(f"sed -i '/root ALL=(ALL:ALL) ALL/a{user} ALL=(ALL:ALL) ALL' /etc/sudoers"))
 
         # the profiles are tricky to customise from chroot. May remove and place in a post-install .sh file
         if profile == "bspwm":
@@ -226,8 +231,7 @@ def install_on(mountpoint):
             i.install_profile(profile)
 
         # create root account, grant full sudoers access
-        i.user_set_pw("root", str(root_password))
-        i.arch_chroot(r"sed -i 's/# \(%wheel ALL=(ALL) ALL\)/\1/' /etc/sudoers")
+        # i.user_set_pw("root", str(root_password))
 
         # enable systemd services
         i.log(
