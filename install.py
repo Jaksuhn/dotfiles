@@ -182,22 +182,37 @@ def install_on(mountpoint):
             i.install_profile(profile)
             i.add_additional_packages(xfce4_packages)
             dependencies_aur.append("lightdm-webkit2-theme-glorious")
-            i.arch_chroot(
-                f"su {user} -c 'git clone https://github.com/vinceliuice/Qogir-theme' && cd Qogir-theme && sh install.sh"
+            i.log(
+                i.arch_chroot(
+                    f"su {user} -c 'git clone https://github.com/vinceliuice/Qogir-theme' && cd Qogir-theme && sh install.sh"
+                ),
+                level=logging.INFO,
             )
-            i.arch_chroot(
-                f"su {user} -c 'git clone https://github.com/vinceliuice/Qogir-icon-theme && cd Qogir-icon-theme && sh install.sh && cd src/cursors && sh install.sh'"
+            i.log(
+                i.arch_chroot(
+                    f"su {user} -c 'git clone https://github.com/vinceliuice/Qogir-icon-theme && cd Qogir-icon-theme && sh install.sh && cd src/cursors && sh install.sh'"
+                ),
+                level=logging.INFO,
             )
             # Set default lightdm greeter to lightdm-webkit2-greeter
-            i.arch_chroot(
-                """sed -i 's/^\(#?greeter\)-session\s*=\s*\(.*\)/greeter-session = lightdm-webkit2-greeter #\1/ #\2g' /etc/lightdm/lightdm.conf"""
+            i.log(
+                i.arch_chroot(
+                    """sed -i 's/^\(#?greeter\)-session\s*=\s*\(.*\)/greeter-session = lightdm-webkit2-greeter #\1/ #\2g' /etc/lightdm/lightdm.conf"""
+                ),
+                level=logging.INFO,
             )
             # Set default lightdm-webkit2-greeter theme to Glorious
-            i.arch_chroot(
-                """sed -i 's/^webkit_theme\s*=\s*\(.*\)/webkit_theme = glorious #\1/g' /etc/lightdm/lightdm-webkit2-greeter.conf"""
+            i.log(
+                i.arch_chroot(
+                    """sed -i 's/^webkit_theme\s*=\s*\(.*\)/webkit_theme = glorious #\1/g' /etc/lightdm/lightdm-webkit2-greeter.conf"""
+                ),
+                level=logging.INFO,
             )
-            i.arch_chroot(
-                """sed -i 's/^debug_mode\s*=\s*\(.*\)/debug_mode = true #\1/g' /etc/lightdm/lightdm-webkit2-greeter.conf"""
+            i.log(
+                i.arch_chroot(
+                    """sed -i 's/^debug_mode\s*=\s*\(.*\)/debug_mode = true #\1/g' /etc/lightdm/lightdm-webkit2-greeter.conf"""
+                ),
+                level=logging.INFO,
             )
         else:
             i.install_profile(profile)
