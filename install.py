@@ -123,6 +123,9 @@ def install_on(mountpoint):
         mirror_regions = {DOWNLOAD_REGION: archinstall.list_mirrors().get(DOWNLOAD_REGION)}
         archinstall.use_mirrors(mirror_regions)
 
+        # fix potential gpg key issues when using an older ISO
+        i.log(i.arch_chroot("pacman -Sy && pacman -S archlinux-keyring --noconfirm"), level=logging.INFO)
+
         i.minimal_installation()
 
         i.set_hostname(hostname)
@@ -139,8 +142,6 @@ def install_on(mountpoint):
             r"sed -i 's/# Parallel Downloads = [0-9]/Parallel Downloads = 10/g' /etc/pacman.conf"
         )  # parallel downloads
 
-        # fix potential gpg key issues when using an older ISO
-        i.log(i.arch_chroot("pacman -S archlinux-keyring --noconfirm"), level=logging.INFO)
         i.log(i.add_additional_packages(dependencies), level=logging.INFO)
 
         # create root account, grant root access
