@@ -60,6 +60,7 @@ These are my dotfiles, built with the express purpose of being able to go from a
 [docker](https://www.docker.com/);
 [firefox](https://www.mozilla.org/firefox/);
 [mupdf](https://mupdf.com/);
+[onlyoffice](https://www.onlyoffice.com/);
 [telegram-desktop](https://desktop.telegram.org/);
 [vlc](https://www.videolan.org/vlc/)
 

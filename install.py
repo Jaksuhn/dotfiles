@@ -72,6 +72,7 @@ dependencies_aur = [
     "nerd-fonts-jetbrains-mono",
     "nerd-fonts-noto",
     "nerd-fonts-roboto-mono",
+    "onlyoffice-bin",
     "pokemon-colorscripts-git",
     "shell-color-scripts",
     "yadm-git",
