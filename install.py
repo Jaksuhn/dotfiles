@@ -236,9 +236,7 @@ with archinstall.Installer("/mnt") as i:
         )
         # Set default lightdm greeter to lightdm-webkit2-greeter
         i.log(
-            i.arch_chroot(
-                "sed -i 's/^\(#?greeter\)-session\s*=\s*\(.*\)/greeter-session = lightdm-webkit2-greeter #\1/ #\2g' /etc/lightdm/lightdm.conf"
-            ),
+            i.arch_chroot("sed -i 's/^#\(greeter-session=\).*/\1lightdm-webkit2-greeter/' /etc/lightdm/lightdm.conf"),
             level=logging.INFO,
         )
         # Set default lightdm-webkit2-greeter theme to Glorious
