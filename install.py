@@ -182,7 +182,6 @@ with archinstall.Installer("/mnt") as i:
     # create user, change login shell
     i.user_create(str(user), str(user_password))
     i.log(i.arch_chroot(f'chsh -s /usr/bin/zsh "{user}"'), level=logging.INFO)
-    # i.log(i.arch_chroot(f"usermod -aG wheel {user}"), level=logging.INFO)
     i.log(i.arch_chroot(f"sed -i '/root ALL=(ALL:ALL) ALL/a{user} ALL=(ALL:ALL) ALL' /etc/sudoers"))
 
     # the profiles are tricky to customise from chroot. May remove and place in a post-install .sh file
