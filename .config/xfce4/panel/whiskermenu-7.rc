@@ -1,5 +1,5 @@
 favorites=xfce4-web-browser.desktop,xfce4-mail-reader.desktop,xfce4-file-manager.desktop,xfce4-terminal-emulator.desktop
-recent=thunar.desktop,xfce-wm-settings.desktop
+recent=firefox.desktop,xfce-keyboard-settings.desktop,xfce4-web-browser.desktop,kitty.desktop,thunar.desktop,xfce-wm-settings.desktop
 button-icon=octopi-indicator
 button-single-row=true
 show-button-title=false
