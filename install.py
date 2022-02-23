@@ -289,7 +289,7 @@ with archinstall.Installer("/mnt") as i:
     i.arch_chroot(r"sed -i 's/#\(MAKEFLAGS=\).*/\1\"-j$(($(nproc)-2))\"/' /etc/makepkg.conf")
 
     # install paru and aur packages
-    i.arch_chroot(r"sed -i 's/# \(%wheel ALL=(ALL) NOPASSWD: ALL\)/\1/' /etc/sudoers")
+    i.arch_chroot(r"sed -i 's/# \(%wheel ALL=(ALL:ALL) NOPASSWD: ALL\)/\1/' /etc/sudoers")
     i.log(
         i.arch_chroot(
             f"su {user} -c 'cd $(mktemp -d) && git clone https://aur.archlinux.org/paru-bin.git . && makepkg -sim --noconfirm'"
@@ -300,7 +300,7 @@ with archinstall.Installer("/mnt") as i:
         i.arch_chroot(f'su {user} -c "paru -Sy --nosudoloop --needed --noconfirm {" ".join(dependencies_aur)}"'),
         level=logging.INFO,
     )
-    i.arch_chroot(r"sed -i 's/\(%wheel ALL=(ALL) NOPASSWD: ALL\)/# \1/' /etc/sudoers")
+    # i.arch_chroot(r"sed -i 's/\(%wheel ALL=(ALL:ALL) NOPASSWD: ALL\)/# \1/' /etc/sudoers")
     i.log(i.arch_chroot(f"chown -R {user}:{user} /home/{user}/paru"), level=logging.INFO)
 
     # setup yadm
