@@ -238,13 +238,10 @@ with archinstall.Installer("/mnt") as i:
         # Set default lightdm greeter to lightdm-webkit2-greeter
         # Cannot get sed -i 's/^#\(greeter-session=\).*/\1lightdm-webkit2-greeter/'
         # to work. I'll change this if I find a fix.
-        try:
-            with open("/etc/lightdm/lightdm.conf") as r:
-                data = re.sub(r"(^#greeter-session=.*)", "greeter-session=lightdm-webkit2-greeter", r.read())
-            with open("/etc/lightdm/lightdm.conf", "w") as w:
-                w.write(data)
-        except:
-            pass
+        with open("/etc/lightdm/lightdm.conf") as r:
+            data = re.sub(r"(^#greeter-session=.*)", "greeter-session=lightdm-webkit2-greeter", r.read())
+        with open("/etc/lightdm/lightdm.conf", "w") as w:
+            w.write(data)
         # Set default lightdm-webkit2-greeter theme to Glorious
         i.log(
             i.arch_chroot(
