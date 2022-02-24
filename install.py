@@ -3,6 +3,7 @@ import os
 import archinstall
 import requests
 import logging
+import re
 
 KEYMAP = "us"
 LOCALE = "en_US"
@@ -235,10 +236,12 @@ with archinstall.Installer("/mnt") as i:
             level=logging.INFO,
         )
         # Set default lightdm greeter to lightdm-webkit2-greeter
-        i.log(
-            i.arch_chroot("sed -i 's/^#\(greeter-session=\).*/\1lightdm-webkit2-greeter/' /etc/lightdm/lightdm.conf"),
-            level=logging.INFO,
-        )
+        # Cannot get sed -i 's/^#\(greeter-session=\).*/\1lightdm-webkit2-greeter/'
+        # to work. I'll change this if I find a fix.
+        with open("/etc/lightdm/lightdm.conf") as r:
+            data = re.sub(r"(^#greeter-session=.*)", "greeter-session=lightdm-webkit2-greeter", r.read())
+        with open("/etc/lightdm/lightdm.conf", "w") as w:
+            w.write(data)
         # Set default lightdm-webkit2-greeter theme to Glorious
         i.log(
             i.arch_chroot(
