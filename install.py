@@ -1,4 +1,5 @@
 import os
+from inspect import cleandoc
 
 import archinstall
 import requests
@@ -116,6 +117,21 @@ while github_access_token := input("Github Access Token (default: none): "):
         archinstall.log("Token invalid or doesn't have the 'admin:public_key' scope. Try again!", fg="red")
         continue
     break
+
+
+def write_hosts(i):
+    data = """\
+        127.0.0.1   localhost
+        ::1         localhost ip6-localhost ip6-loopback
+        ff00::0     ip6-localnet
+        ff00::0     ip6-mcastprefix
+        ff02::1     ip6-allnodes
+        ff02::2     ip6-allrouters
+        ff02::3     ip6-allhosts\
+    """
+    with open("/etc/hosts", "w") as w:
+        w.write(cleandoc(data))
+
 
 if archinstall.arguments["harddrive"]:
     archinstall.arguments["harddrive"].keep_partitions = False
@@ -314,6 +330,9 @@ with archinstall.Installer("/mnt") as i:
     )
     i.arch_chroot(f"su {user} -c 'git config --global user.name \"{user}\"'")
     i.arch_chroot(f"su {user} -c 'git config --global user.email \"{user}@{hostname}\"'")
+
+    # write hosts file. For some reason, (recently) this is needed for firefox
+    write_hosts(i)
 
     # fetch nnn plugins
     i.log(
