@@ -47,6 +47,7 @@ These are my dotfiles, built with the express purpose of being able to go from a
 [firejail](https://github.com/netblue30/firejail) (sandboxing);
 [flameshot](https://github.com/flameshot-org/flameshot) (screenshots);
 [iwd](https://git.kernel.org/cgit/network/wireless/iwd.git/);
+[ntfs-3g](https://github.com/tuxera/ntfs-3g) (allows mounting ntfs drives);
 [qmk](https://github.com/qmk/qmk_cli) (mechanical keyboard configurator);
 [simplescreenrecorder](https://www.maartenbaert.be/simplescreenrecorder/);
 [syncthing](https://syncthing.net/);
@@ -59,6 +60,7 @@ These are my dotfiles, built with the express purpose of being able to go from a
 [discord_arch_electron](https://discordapp.com/);
 [docker](https://www.docker.com/);
 [firefox](https://www.mozilla.org/firefox/);
+[mpv](https://github.com/mpv-player/mpv) (video player);
 [mupdf](https://mupdf.com/);
 [onlyoffice](https://www.onlyoffice.com/);
 [telegram-desktop](https://desktop.telegram.org/);
