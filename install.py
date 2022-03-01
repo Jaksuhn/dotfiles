@@ -99,7 +99,7 @@ awesome_packages = [
     "xfce4",
     "gvfs",
 ]
-xfce4_packages = ["gtk-engine-murrine", "gtk-engines", "lightdm-webkit2-greeter"]
+xfce4_packages = ["gtk-engine-murrine", "gtk-engines", "lightdm-webkit2-greeter", "gvfs"]
 
 # user provided arguments
 archinstall.arguments["harddrive"] = archinstall.select_disk(archinstall.all_disks())
