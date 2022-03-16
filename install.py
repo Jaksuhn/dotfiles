@@ -67,6 +67,7 @@ dependencies = [
 
 dependencies_aur = [
     "7-zip",
+    "cbonsai",
     "code-marketplace",
     "discord_arch_electron",
     "nerd-fonts-anonymous-pro",
@@ -75,6 +76,7 @@ dependencies_aur = [
     "nerd-fonts-noto",
     "nerd-fonts-roboto-mono",
     "onlyoffice-bin",
+    "pipes.sh",
     "pokemon-colorscripts-git",
     "shell-color-scripts",
     "yadm-git",

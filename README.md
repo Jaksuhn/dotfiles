@@ -34,7 +34,9 @@ These are my dotfiles, built with the express purpose of being able to go from a
 
 ### stupid terminal shit
 
+[cbonsai](https://gitlab.com/jallbrit/cbonsai) (screensaver);
 [neofetch](https://github.com/dylanaraps/neofetch) (system info);
+[pipes.sh](https://github.com/pipeseroni/pipes.sh) (screensaver);
 [pokemon-colorscripts-git](https://gitlab.com/phoneybadger/pokemon-colorscripts);
 [shell-color-scripts](https://gitlab.com/dwt1/shell-color-scripts);
 [sl](http://www.tkl.iis.u-tokyo.ac.jp/~toyoda/index_e.html) (when you misspell *ls*)
