@@ -83,7 +83,6 @@ dependencies_aur = [
 
 # TODO: check if that pl10k is redundant
 
-bspwm_packages = ["bspwm", "sxhkd", "xdo", "rxvt-unicode", "lightdm-gtk-greeter", "lightdm", "polybar"]
 awesome_packages = [
     "playerctl",
     "acpi",
@@ -323,17 +322,7 @@ with archinstall.Installer("/mnt") as i:
     i.log(i.arch_chroot(f'chsh -s /usr/bin/zsh "{user}"'), level=logging.INFO)
     i.log(i.arch_chroot(f"sed -i '/root ALL=(ALL:ALL) ALL/a{user} ALL=(ALL:ALL) ALL' /etc/sudoers"))
 
-    if profile == "bspwm":
-        i.install_profile("xorg")
-        i.add_additional_packages(bspwm_packages)
-        i.enable_service("lightdm")
-        i.arch_chroot(
-            f"su {user} -c 'mkdir ~/temp_configs && cd ~/temp_configs && git clone https://github.com/joni22u/dotfiles . && cp -rb . ~/.config && rm -rf ~/temp_configs'"
-        )
-    elif profile == "kde":
-        i.install_profile(profile)
-        i.arch_chroot("lookandfeeltool -a GruvboxPlasma")
-    elif profile == "gnome":
+    if profile == "gnome":
         i.install_profile(profile)
         dependencies_aur.append("gnome-shell-extension-material-shell")
         # remove 'bloat'
