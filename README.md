@@ -102,7 +102,7 @@ These are my dotfiles, built with the express purpose of being able to go from a
 
 ## WORKING:
 
-- Profiles: GNOME, Awesome
+- Profiles: GNOME, Awesome (mostly), XFCE
 - Applications: kitty, zsh, vscode, firefox
 - yadm
 
@@ -113,7 +113,6 @@ config:
 - latex environment
 - neofetch
 - git
-- lockscreen
 
 profiles to port:
 
