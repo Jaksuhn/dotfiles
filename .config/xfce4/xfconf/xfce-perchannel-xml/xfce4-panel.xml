@@ -41,10 +41,18 @@
         <value type="string" value="networkmanager applet"/>
       </property>
       <property name="icon-size" type="int" value="16"/>
+      <property name="known-items" type="array">
+        <value type="string" value="flameshot"/>
+        <value type="string" value="TelegramDesktop"/>
+        <value type="string" value="discord1"/>
+        <value type="string" value="steam"/>
+        <value type="string" value="vlc"/>
+      </property>
     </property>
     <property name="plugin-8" type="string" value="pulseaudio">
       <property name="enable-keyboard-shortcuts" type="bool" value="true"/>
       <property name="show-notifications" type="bool" value="true"/>
+      <property name="mpris-players" type="string" value="firefox.instance1056;firefox.instance1935;firefox.instance21322;firefox.instance5032;firefox.instance889;firefox.instance926;firefox.instance937;vlc"/>
     </property>
     <property name="plugin-9" type="string" value="power-manager-plugin"/>
     <property name="plugin-10" type="string" value="notification-plugin"/>

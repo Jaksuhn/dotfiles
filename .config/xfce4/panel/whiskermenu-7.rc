@@ -1,5 +1,5 @@
 favorites=xfce4-file-manager.desktop,xfce4-terminal-emulator.desktop
-recent=onlyoffice-desktopeditors.desktop,xfce-keyboard-settings.desktop,firefox.desktop,thunar.desktop,xfce-wm-settings.desktop
+recent=telegramdesktop.desktop,firefox.desktop,thunar.desktop,kitty.desktop,discord.desktop,nm-connection-editor.desktop,org.flameshot.Flameshot.desktop,xfce-keyboard-settings.desktop,xfce-wm-settings.desktop,Stardew Valley.desktop
 button-icon=octopi-indicator
 button-single-row=true
 show-button-title=false
