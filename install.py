@@ -23,7 +23,6 @@ dependencies = [
     "bluez-utils",
     "code",
     "curl",
-    "docker",
     "firefox",
     "firejail",
     "flameshot",
@@ -36,7 +35,6 @@ dependencies = [
     "kitty",
     "man-db",
     "micro",
-    "mpv",
     "mupdf",
     "neofetch",
     "networkmanager",
@@ -281,7 +279,7 @@ with archinstall.Installer("/mnt") as i:
 
     # enable systemd services
     i.log(
-        i.enable_service("iwd", "NetworkManager", "systemd-timesyncd", "docker", "bluetooth", "fstrim.timer"),
+        i.enable_service("iwd", "NetworkManager", "systemd-timesyncd", "bluetooth", "fstrim.timer"),
         level=logging.INFO,
     )
     i.arch_chroot(r"sed -i 's/[#]*\(AutoEnable=\)\(true\|false\)/\1true/' /etc/bluetooth/main.conf")
