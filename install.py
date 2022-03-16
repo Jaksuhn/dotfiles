@@ -334,6 +334,9 @@ with archinstall.Installer("/mnt") as i:
     # write hosts file. For some reason, (recently) this is needed for firefox
     write_hosts(i)
 
+    # add screenshot folder for flameshot
+    i.arch_chroot("mkdir -p ~/Screenshots")
+
     # fetch nnn plugins
     i.log(
         i.arch_chroot(
