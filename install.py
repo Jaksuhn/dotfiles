@@ -44,6 +44,7 @@ dependencies = [
     "noto-fonts-emoji",
     "ntfs-3g",
     "pulseaudio",
+    "python-pipx",
     "qmk",
     "rust",
     "simplescreenrecorder",
