@@ -376,6 +376,10 @@ with archinstall.Installer("/mnt") as i:
     get_nnn_plugs(i)
     get_material_icons(i)
     setup_cht(i)
+    i.log(
+        i.arch_chroot(f"su {user} -c 'pipx ensurepath'"),
+        level=logging.INFO,
+    )
 
     if input("Go into shell (y/n)?") == "y":
         try:
