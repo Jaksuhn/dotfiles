@@ -256,6 +256,15 @@ def setup_cht(i):
     i.log(i.arch_chroot(f"su {user} -c 'curl https://cheat.sh/:zsh > ~/.config/zsh/_cht'"), level=logging.INFO)
 
 
+def get_ytdlp(i):
+    i.log(
+        i.arch_chroot(
+            f"su {user} -c 'curl -L https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp -o /usr/local/bin/yt-dlp'"
+        )
+    )
+    i.log(i.arch_chroot(f"su {user} -c 'chmod a+rx /usr/local/bin/yt-dlp'"))
+
+
 if archinstall.arguments["harddrive"]:
     archinstall.arguments["harddrive"].keep_partitions = False
 
@@ -376,6 +385,8 @@ with archinstall.Installer("/mnt") as i:
     get_nnn_plugs(i)
     get_material_icons(i)
     setup_cht(i)
+    get_ytdlp(i)
+
     i.log(
         i.arch_chroot(f"su {user} -c 'pipx ensurepath'"),
         level=logging.INFO,
