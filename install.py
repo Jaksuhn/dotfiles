@@ -257,12 +257,11 @@ def setup_cht(i):
 
 
 def get_ytdlp(i):
-    i.log(
-        i.arch_chroot(
-            f"su {user} -c 'curl -L https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp -o /usr/local/bin/yt-dlp'"
-        )
-    )
-    i.log(i.arch_chroot(f"su {user} -c 'chmod a+rx /usr/local/bin/yt-dlp'"))
+    i.log("\ninstalling yt-dlp")
+    r = requests.get("https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp")
+    with open(f"{i.target}/usr/local/bin/yt-dlp", "wb") as ytdlp:
+        ytdlp.write(r.content)
+    i.log(i.arch_chroot(f"chmod a+rx /usr/local/bin/yt-dlp"))
 
 
 if archinstall.arguments["harddrive"]:
