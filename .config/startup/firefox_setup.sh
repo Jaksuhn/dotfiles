@@ -8,7 +8,7 @@
 # don't think it's possible to disown firefox --headless so a popup is required
 firefox & disown
 sleep 5s
-pkill -f firefox
+killall firefox
 # https://unix.stackexchange.com/questions/374852/create-file-using-wildcard-in-absolute-path
 for d in ~/.mozilla/firefox/*.default-release/ ; do
     mkdir "$d"chrome
