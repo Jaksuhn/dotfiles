@@ -431,18 +431,28 @@ window,
 }
 
 
+/* below is broken in linux: it makes the entire nav bar disappear if the window is >1000px
+I don't know why, I barely know CSS. It doesn't happen on windows and removing this seems
+to not mess with either system. */
+
+
 /* transition to oneline */
 
-@media (min-width: 1000px) {
-    /* move tabs bar over */
+
+/* move tabs bar over */
+
+
+/* move entire nav bar  */
+
+
+/* @media (min-width: 1000px) {
     #TabsToolbar {
         margin-left: var(--uc-urlbar-width) !important;
     }
-    /* move entire nav bar  */
     #nav-bar {
         margin: calc((var(--urlbar-min-height) * -1) - 8px) calc(100vw - var(--uc-urlbar-width)) 0 0 !important;
     }
-}
+} */
 
 
 /* end media query */
